@@ -1,0 +1,198 @@
+{
+  "filters": {
+    "fiscal_year": 2567,
+    "province": "เชียงใหม่",
+    "contract_dateend": null,
+    "other_filters": "all",
+    "format": "Excel compatible"
+  },
+  "expected_projects": 182452,
+  "expected_total_price": 29624327371.21,
+  "files": 19,
+  "total_data_rows": 184165,
+  "unique_project_ids": 182230,
+  "cross_file_overlaps": 222,
+  "missing_against_summary": 222,
+  "complete": false,
+  "parts": [
+    {
+      "file": "govspending_chiangmai_2567_part_01.xls",
+      "rows": 10604,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 12858101
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_02.xls",
+      "rows": 10377,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 17,
+      "bytes": 11612711
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_03.xls",
+      "rows": 10268,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 11242691
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_04.xls",
+      "rows": 10100,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10589077
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_05.xls",
+      "rows": 10057,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10379826
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_06.xls",
+      "rows": 10022,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 21,
+      "bytes": 10235460
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_07.xls",
+      "rows": 10035,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10172002
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_08.xls",
+      "rows": 10033,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 64,
+      "bytes": 10109236
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_09.xls",
+      "rows": 10028,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 1,
+      "bytes": 10039595
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_10.xls",
+      "rows": 10043,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10037409
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_11.xls",
+      "rows": 10013,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 13,
+      "bytes": 10004917
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_12.xls",
+      "rows": 10019,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 3,
+      "bytes": 9963187
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_13.xls",
+      "rows": 10029,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 38,
+      "bytes": 9999406
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_14.xls",
+      "rows": 10029,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 33,
+      "bytes": 9881332
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_15.xls",
+      "rows": 10025,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 2,
+      "bytes": 9884138
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_16.xls",
+      "rows": 10012,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 9796772
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_17.xls",
+      "rows": 10007,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 23,
+      "bytes": 9918940
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_18.xls",
+      "rows": 10012,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10168471
+    },
+    {
+      "file": "govspending_chiangmai_2567_part_19.xls",
+      "rows": 2452,
+      "unique_project_ids": 2452,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 7,
+      "bytes": 2545749
+    }
+  ],
+  "columns": [
+    "project_id",
+    "project_name",
+    "project_type_name",
+    "dept_name",
+    "dept_sub_name",
+    "purchase_method_name",
+    "purchase_method_group_name",
+    "announce_date",
+    "project_money",
+    "price_build",
+    "sum_price_agree",
+    "budget_year",
+    "transaction_date",
+    "province",
+    "district",
+    "subdistrict",
+    "project_status",
+    "project_location",
+    "winner_tin",
+    "winner_name",
+    "contract_no",
+    "contract_date",
+    "contract_finish_date",
+    "contract_price_agree",
+    "contract_status"
+  ]
+}
