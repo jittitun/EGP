@@ -1,0 +1,26 @@
+{
+  "province": "แม่ฮ่องสอน",
+  "year": 2569,
+  "contract_dateend": "2026-06-30",
+  "expected_projects": 18453,
+  "parts": [
+    {
+      "part": 1,
+      "offset": 0,
+      "rows": 10122,
+      "unique_project_ids": 10000,
+      "bytes": 10914406,
+      "file": "govspending_maehongson_2569_part_01.xls",
+      "sha256": "665c613e442a7b94523cb3c4af8d4772ad5e3b00601a8bf014e9da59d98e0f24"
+    },
+    {
+      "part": 2,
+      "offset": 10000,
+      "rows": 8481,
+      "unique_project_ids": 8453,
+      "bytes": 8652525,
+      "file": "govspending_maehongson_2569_part_02.xls",
+      "sha256": "e79e5da7e227b8a6c7d90573ee381ed688fba9686b62743454496a5d81d4cd79"
+    }
+  ]
+}
