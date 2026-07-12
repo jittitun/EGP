@@ -1,0 +1,71 @@
+{
+  "province": "เชียงราย",
+  "year": 2569,
+  "contract_dateend": "2026-06-30",
+  "expected_projects": 67017,
+  "parts": [
+    {
+      "part": 1,
+      "offset": 0,
+      "rows": 11233,
+      "unique_project_ids": 10000,
+      "bytes": 12692650,
+      "file": "govspending_chiangrai_2569_part_01.xls",
+      "sha256": "3a1b7e89a365ec223cf6ac99d50ae244d0e33d98a94318b8d4abcbde589b8d77"
+    },
+    {
+      "part": 2,
+      "offset": 10000,
+      "rows": 10452,
+      "unique_project_ids": 10000,
+      "bytes": 10890162,
+      "file": "govspending_chiangrai_2569_part_02.xls",
+      "sha256": "3a84956e149efa0eba28ec1611291082388d44df114702836ff42ffda04b83a1"
+    },
+    {
+      "part": 3,
+      "offset": 20000,
+      "rows": 10135,
+      "unique_project_ids": 10000,
+      "bytes": 10258946,
+      "file": "govspending_chiangrai_2569_part_03.xls",
+      "sha256": "e20bf543afc0850f82003438ed19031972fe4e7dd8962568c00b87b13f43644e"
+    },
+    {
+      "part": 4,
+      "offset": 30000,
+      "rows": 10085,
+      "unique_project_ids": 10000,
+      "bytes": 10158255,
+      "file": "govspending_chiangrai_2569_part_04.xls",
+      "sha256": "f295f2800d1f52959189e598d868650233bdd255f74fab927d8ef1763c3d8209"
+    },
+    {
+      "part": 5,
+      "offset": 40000,
+      "rows": 10057,
+      "unique_project_ids": 10000,
+      "bytes": 10171087,
+      "file": "govspending_chiangrai_2569_part_05.xls",
+      "sha256": "35b6e916c0ac355ada94cfed6da06f945201a3bf3f2d5b274c40345c73fd7eec"
+    },
+    {
+      "part": 6,
+      "offset": 50000,
+      "rows": 10033,
+      "unique_project_ids": 10000,
+      "bytes": 10015030,
+      "file": "govspending_chiangrai_2569_part_06.xls",
+      "sha256": "d11d52a773e25ff015843ef66bb2ebd5fd87a9c5f4cd7f9cc15ffcb687ef6cea"
+    },
+    {
+      "part": 7,
+      "offset": 60000,
+      "rows": 7035,
+      "unique_project_ids": 7017,
+      "bytes": 6901883,
+      "file": "govspending_chiangrai_2569_part_07.xls",
+      "sha256": "0773a323c261865dc9822b25157afb9717a41fa6a6926c7c7ff87c8df0533550"
+    }
+  ]
+}
