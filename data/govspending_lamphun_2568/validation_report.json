@@ -1,0 +1,78 @@
+{
+  "filters": {
+    "fiscal_year": 2568,
+    "province": "ลำพูน",
+    "contract_dateend": null,
+    "other_filters": "all",
+    "format": "Excel compatible"
+  },
+  "expected_projects": 36165,
+  "expected_total_price": 3994244420.18,
+  "files": 4,
+  "total_data_rows": 36458,
+  "unique_project_ids": 36164,
+  "cross_file_overlaps": 1,
+  "missing_against_summary": 1,
+  "complete": false,
+  "parts": [
+    {
+      "file": "govspending_lamphun_2568_part_01.xls",
+      "rows": 10172,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10832786
+    },
+    {
+      "file": "govspending_lamphun_2568_part_02.xls",
+      "rows": 10078,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10036929
+    },
+    {
+      "file": "govspending_lamphun_2568_part_03.xls",
+      "rows": 10018,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 1,
+      "bytes": 9980154
+    },
+    {
+      "file": "govspending_lamphun_2568_part_04.xls",
+      "rows": 6190,
+      "unique_project_ids": 6165,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 6270267
+    }
+  ],
+  "columns": [
+    "project_id",
+    "project_name",
+    "project_type_name",
+    "dept_name",
+    "dept_sub_name",
+    "purchase_method_name",
+    "purchase_method_group_name",
+    "announce_date",
+    "project_money",
+    "price_build",
+    "sum_price_agree",
+    "budget_year",
+    "transaction_date",
+    "province",
+    "district",
+    "subdistrict",
+    "project_status",
+    "project_location",
+    "winner_tin",
+    "winner_name",
+    "contract_no",
+    "contract_date",
+    "contract_finish_date",
+    "contract_price_agree",
+    "contract_status"
+  ]
+}
