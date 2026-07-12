@@ -1,0 +1,150 @@
+{
+  "filters": {
+    "fiscal_year": 2567,
+    "province": "เชียงราย",
+    "contract_dateend": null,
+    "other_filters": "all",
+    "format": "Excel compatible"
+  },
+  "expected_projects": 121663,
+  "expected_total_price": 18071471967.94,
+  "files": 13,
+  "total_data_rows": 125003,
+  "unique_project_ids": 121474,
+  "cross_file_overlaps": 189,
+  "missing_against_summary": 189,
+  "complete": false,
+  "parts": [
+    {
+      "file": "govspending_chiangrai_2567_part_01.xls",
+      "rows": 11864,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 13511920
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_02.xls",
+      "rows": 10626,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 11337793
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_03.xls",
+      "rows": 10221,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 4,
+      "bytes": 10584085
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_04.xls",
+      "rows": 10142,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10411825
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_05.xls",
+      "rows": 10151,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 10382952
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_06.xls",
+      "rows": 10071,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 5,
+      "bytes": 10180842
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_07.xls",
+      "rows": 10067,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 16,
+      "bytes": 10101145
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_08.xls",
+      "rows": 10043,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 1,
+      "bytes": 10079535
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_09.xls",
+      "rows": 10062,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 5,
+      "bytes": 10006269
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_10.xls",
+      "rows": 10030,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 16,
+      "bytes": 9919115
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_11.xls",
+      "rows": 10037,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 137,
+      "bytes": 9867064
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_12.xls",
+      "rows": 10025,
+      "unique_project_ids": 10000,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 5,
+      "bytes": 9708088
+    },
+    {
+      "file": "govspending_chiangrai_2567_part_13.xls",
+      "rows": 1664,
+      "unique_project_ids": 1663,
+      "missing_project_id": 0,
+      "overlap_with_previous_files": 0,
+      "bytes": 1644382
+    }
+  ],
+  "columns": [
+    "project_id",
+    "project_name",
+    "project_type_name",
+    "dept_name",
+    "dept_sub_name",
+    "purchase_method_name",
+    "purchase_method_group_name",
+    "announce_date",
+    "project_money",
+    "price_build",
+    "sum_price_agree",
+    "budget_year",
+    "transaction_date",
+    "province",
+    "district",
+    "subdistrict",
+    "project_status",
+    "project_location",
+    "winner_tin",
+    "winner_name",
+    "contract_no",
+    "contract_date",
+    "contract_finish_date",
+    "contract_price_agree",
+    "contract_status"
+  ]
+}
