@@ -1,0 +1,116 @@
+{
+  "province": "เชียงราย",
+  "year": 2568,
+  "contract_dateend": "",
+  "expected_projects": 112419,
+  "parts": [
+    {
+      "part": 1,
+      "offset": 0,
+      "rows": 11153,
+      "unique_project_ids": 10000,
+      "bytes": 12947558,
+      "file": "govspending_chiangrai_2568_part_01.xls",
+      "sha256": "42e60d7e6f5413f30e7783c1ed7e3a87bad81909faa02e3de66b98dc40a4e617"
+    },
+    {
+      "part": 2,
+      "offset": 10000,
+      "rows": 10684,
+      "unique_project_ids": 10000,
+      "bytes": 11380191,
+      "file": "govspending_chiangrai_2568_part_02.xls",
+      "sha256": "507ff411f0318f1b1100874d0cedf6bb870195f3ba98ab7154a625894344995f"
+    },
+    {
+      "part": 3,
+      "offset": 20000,
+      "rows": 10430,
+      "unique_project_ids": 10000,
+      "bytes": 10736147,
+      "file": "govspending_chiangrai_2568_part_03.xls",
+      "sha256": "37b238f3804ba360449a67366c9349a8d6644d9215a0022d547e5fab0e3d902f"
+    },
+    {
+      "part": 4,
+      "offset": 30000,
+      "rows": 10201,
+      "unique_project_ids": 10000,
+      "bytes": 10370103,
+      "file": "govspending_chiangrai_2568_part_04.xls",
+      "sha256": "3cfb169908bb8f69ababca9181cdfc02c3d92d97b14389884457422601484d68"
+    },
+    {
+      "part": 5,
+      "offset": 40000,
+      "rows": 10085,
+      "unique_project_ids": 10000,
+      "bytes": 10276080,
+      "file": "govspending_chiangrai_2568_part_05.xls",
+      "sha256": "803ece310c86a37660a9a344b45a2e46a1985f46348d0b202c0427582f6b3c66"
+    },
+    {
+      "part": 6,
+      "offset": 50000,
+      "rows": 10097,
+      "unique_project_ids": 10000,
+      "bytes": 10205945,
+      "file": "govspending_chiangrai_2568_part_06.xls",
+      "sha256": "fd5ad04b942cc2e2d6bff7145d7c798cdbdfde9d6a0821a87b6813279b91110b"
+    },
+    {
+      "part": 7,
+      "offset": 60000,
+      "rows": 10106,
+      "unique_project_ids": 10000,
+      "bytes": 10253567,
+      "file": "govspending_chiangrai_2568_part_07.xls",
+      "sha256": "20f6d223127afa143611c954ce6ba688264c9c265d5dd466d19c5fdd0b118435"
+    },
+    {
+      "part": 8,
+      "offset": 70000,
+      "rows": 10045,
+      "unique_project_ids": 10000,
+      "bytes": 10110981,
+      "file": "govspending_chiangrai_2568_part_08.xls",
+      "sha256": "8a9fbff4541a7d376152dcb2a6368a18d7fcd4aa5b80028078d7cd37a159f032"
+    },
+    {
+      "part": 9,
+      "offset": 80000,
+      "rows": 10057,
+      "unique_project_ids": 10000,
+      "bytes": 9979180,
+      "file": "govspending_chiangrai_2568_part_09.xls",
+      "sha256": "0de6be3c4989b02875f79c36e88040011308ef793cae29992d228d85fba2eb21"
+    },
+    {
+      "part": 10,
+      "offset": 90000,
+      "rows": 10039,
+      "unique_project_ids": 10000,
+      "bytes": 9926650,
+      "file": "govspending_chiangrai_2568_part_10.xls",
+      "sha256": "36fa7c5990c8659be215568e2d126949adb7c93775d27884463349a7d0f9bb68"
+    },
+    {
+      "part": 11,
+      "offset": 100000,
+      "rows": 10033,
+      "unique_project_ids": 10000,
+      "bytes": 9787843,
+      "file": "govspending_chiangrai_2568_part_11.xls",
+      "sha256": "f7e59ad8282f3395e76639abea0cace5d5117f25302d501072ba04b2965f9137"
+    },
+    {
+      "part": 12,
+      "offset": 110000,
+      "rows": 2425,
+      "unique_project_ids": 2419,
+      "bytes": 2421643,
+      "file": "govspending_chiangrai_2568_part_12.xls",
+      "sha256": "2b3f8bcd68f2080b8eae3971986a5a7f351593467b968d35d66db3015bb23563"
+    }
+  ]
+}
