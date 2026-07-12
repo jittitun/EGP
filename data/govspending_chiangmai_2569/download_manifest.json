@@ -1,0 +1,74 @@
+[
+  {
+    "part": 2,
+    "offset": 10000,
+    "rows": 10157,
+    "bytes": 11196158,
+    "file": "govspending_chiangmai_2569_part_02.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712092528_export_egp.xls"
+  },
+  {
+    "part": 3,
+    "offset": 20000,
+    "rows": 10048,
+    "bytes": 10455239,
+    "file": "govspending_chiangmai_2569_part_03.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712092610_export_egp.xls"
+  },
+  {
+    "part": 4,
+    "offset": 30000,
+    "rows": 10022,
+    "bytes": 10320627,
+    "file": "govspending_chiangmai_2569_part_04.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712092651_export_egp.xls"
+  },
+  {
+    "part": 5,
+    "offset": 40000,
+    "rows": 10029,
+    "bytes": 10195493,
+    "file": "govspending_chiangmai_2569_part_05.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712092730_export_egp.xls"
+  },
+  {
+    "part": 6,
+    "offset": 50000,
+    "rows": 10038,
+    "bytes": 10121618,
+    "file": "govspending_chiangmai_2569_part_06.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712092813_export_egp.xls"
+  },
+  {
+    "part": 7,
+    "offset": 60000,
+    "rows": 10048,
+    "bytes": 10163735,
+    "file": "govspending_chiangmai_2569_part_07.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712092851_export_egp.xls"
+  },
+  {
+    "part": 8,
+    "offset": 70000,
+    "rows": 10044,
+    "bytes": 10035117,
+    "file": "govspending_chiangmai_2569_part_08.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712092929_export_egp.xls"
+  },
+  {
+    "part": 9,
+    "offset": 80000,
+    "rows": 10024,
+    "bytes": 9923126,
+    "file": "govspending_chiangmai_2569_part_09.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712093007_export_egp.xls"
+  },
+  {
+    "part": 10,
+    "offset": 90000,
+    "rows": 9202,
+    "bytes": 9449429,
+    "file": "govspending_chiangmai_2569_part_10.xls",
+    "source_url": "https://api-govspending.data.go.th/api/sites/default/files/export/csv/egp/2569/20260712093045_export_egp.xls"
+  }
+]
