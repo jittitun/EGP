@@ -50,7 +50,6 @@ body{font-family:'Sarabun',sans-serif;font-size:15px;color:var(--ink);background
 .kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 13px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}
 .kpi.alert::before{background:var(--red)}.kpi.ok::before{background:var(--green)}
-.kpi.warn::before{background:var(--amber)}.kpi.dqblue::before{background:var(--blue2)}
 .kpi .l{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:5px}
 .kpi .v{font-size:19px;font-weight:800;line-height:1}
 .kpi .u{font-size:11px;color:var(--muted2);margin-top:3px}
@@ -71,8 +70,6 @@ body{font-family:'Sarabun',sans-serif;font-size:15px;color:var(--ink);background
 table{width:100%;border-collapse:collapse;font-size:12.5px}
 th{text-align:left;font-weight:700;color:var(--muted);font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;padding:8px 9px;border-bottom:2px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:2;cursor:pointer;user-select:none}
 th:hover{color:var(--blue)}
-th[data-sort-dir="asc"]::after{content:" ▲"}
-th[data-sort-dir="desc"]::after{content:" ▼"}
 td{padding:7px 9px;border-bottom:1px solid var(--line2);vertical-align:top}
 tr:hover td{background:#F8FAFD}
 .num{text-align:right;font-family:'IBM Plex Mono',monospace;white-space:nowrap}
@@ -80,7 +77,6 @@ tr:hover td{background:#F8FAFD}
 .scroll::-webkit-scrollbar{width:9px;height:9px}.scroll::-webkit-scrollbar-thumb{background:#c3ccda;border-radius:6px}
 .tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:5px;background:var(--redSoft);color:var(--red);margin:1px 2px 1px 0;font-weight:700;white-space:nowrap}
 .tag.b{background:var(--blueSoft);color:var(--blue)}
-.tag.dq{background:var(--amberSoft);color:#8A5C00}.tag.dqinfo{background:var(--blueSoft);color:var(--blue)}
 .limit{background:var(--amberSoft);border:1px solid #EAD9A8;border-radius:11px;padding:12px 15px;font-size:12.5px;line-height:1.65;color:#7a5a00;margin-top:15px}
 .limit b{color:#5f4600}
 input[type=text],input[type=number],input[type=search]{font-family:inherit;font-size:13px;padding:8px 12px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--ink)}
@@ -106,9 +102,6 @@ details.pbox summary{font-size:13.5px;font-weight:700;cursor:pointer;color:var(-
 .info .tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0E1B33}
 .info.r .tip{left:auto;right:-4px;transform:translate(0,4px)}
 .info.r .tip::after{left:auto;right:8px;transform:none}
-.info.down .tip{top:145%;bottom:auto;transform:translate(-50%,-4px)}
-.info.down:hover .tip,.info.down:focus .tip{transform:translate(-50%,0)}
-.info.down .tip::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#0E1B33}
 .plabel{display:flex;align-items:center}
 .collapsed .collapsible{display:none}
 .srchead{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer}
@@ -337,7 +330,6 @@ input[type=checkbox]{accent-color:var(--blue);width:15px;height:15px;cursor:poin
     <button class="vtab" data-view="split">📑 แบ่งซื้อแบ่งจ้าง</button>
     <button class="vtab" data-view="specific">🎯 วิธีเฉพาะเจาะจง</button>
     <button class="vtab" data-view="pricing">💰 ราคาและส่วนลด</button>
-    <button class="vtab" data-view="quality">🧾 รายการข้อมูลที่ไม่สมบูรณ์</button>
   </div>
 
   <!-- ================= VIEW: เครือข่าย ================= -->
@@ -385,18 +377,6 @@ input[type=checkbox]{accent-color:var(--blue);width:15px;height:15px;cursor:poin
 
   </div><!-- /view_net -->
 
-  <!-- ================= VIEW: ความสอดคล้องของข้อมูลมูลค่า ================= -->
-  <div id="view_quality" class="hidden">
-    <div class="kpis mt" id="dq_kpis"></div>
-    <div class="card mt">
-      <h3>รายการโครงการที่ควรตรวจสอบคุณภาพข้อมูลเพิ่มเติม</h3>
-      <p class="cap">สถานะในมุมมองนี้เป็นสัญญาณคุณภาพข้อมูล ไม่ใช่ข้อสรุปความเสี่ยงหรือการทุจริต · คลิกหัวคอลัมน์เพื่อเรียงลำดับ</p>
-      <div class="scroll" style="max-height:520px"><table><thead><tr>
-        <th>โครงการ</th><th>หน่วยงาน</th><th class="num">วงเงินงบประมาณ</th><th class="num">ราคากลาง</th><th class="num">มูลค่าจัดหารวม</th><th class="num">มูลค่าตามสัญญารวม</th><th class="num">จำนวนสัญญา</th><th>สถานะ</th>
-      </tr></thead><tbody id="dq_body"></tbody></table></div>
-    </div>
-  </div>
-
   <!-- ================= VIEW: แบ่งซื้อแบ่งจ้าง ================= -->
   <div id="view_split" class="hidden">
     <div class="kpis mt" id="sp_kpis"></div>
@@ -408,7 +388,7 @@ input[type=checkbox]{accent-color:var(--blue);width:15px;height:15px;cursor:poin
           <button class="btn sec sm" id="sp_export">⬇ Export CSV</button>
         </div>
         <div class="scroll" style="max-height:520px"><table><thead><tr>
-          <th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th>วันที่สัญญา</th><th class="num">จำนวนฉบับ</th><th class="num">มูลค่าตามสัญญารวม</th><th class="num">เฉลี่ย/ฉบับ</th><th></th>
+          <th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th>วันที่สัญญา</th><th class="num">จำนวนฉบับ</th><th class="num">มูลค่ารวม</th><th class="num">เฉลี่ย/ฉบับ</th><th></th>
         </tr></thead><tbody id="sp_body"></tbody></table></div>
       </div>
       <div class="side">
@@ -430,7 +410,7 @@ input[type=checkbox]{accent-color:var(--blue);width:15px;height:15px;cursor:poin
             <button class="btn sec sm" id="sx_export">⬇ Export CSV</button>
           </div>
           <div class="scroll" style="max-height:430px"><table><thead><tr>
-            <th>โครงการ</th><th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th class="num">วงเงินงบประมาณ</th><th>ปีงบ</th>
+            <th>โครงการ</th><th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th class="num">มูลค่า (บาท)</th><th>ปีงบ</th>
           </tr></thead><tbody id="sx_body"></tbody></table></div>
         </div>
         <div class="card mt">
@@ -448,7 +428,7 @@ input[type=checkbox]{accent-color:var(--blue);width:15px;height:15px;cursor:poin
             <button class="btn sec sm" id="sxa_export">⬇ Export CSV</button>
           </div>
           <div class="scroll" style="max-height:380px"><table><thead><tr>
-            <th>หน่วยงาน</th><th class="num">โครงการ</th><th class="num">เฉพาะเจาะจง</th><th class="num">%</th><th class="num">มูลค่าจัดหารวมเฉพาะเจาะจง</th>
+            <th>หน่วยงาน</th><th class="num">สัญญา</th><th class="num">เฉพาะเจาะจง</th><th class="num">%</th><th class="num">มูลค่าเฉพาะเจาะจง</th>
           </tr></thead><tbody id="sxa_body"></tbody></table></div>
         </div>
       </div>
@@ -477,11 +457,11 @@ input[type=checkbox]{accent-color:var(--blue);width:15px;height:15px;cursor:poin
         <div class="card mt">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
             <div><h3>e-bidding ที่ส่วนลด ≈ 0%</h3>
-            <p class="cap" style="margin:2px 0 10px">ประกวดราคาแต่ได้ราคาเท่าราคากลางพอดี — เป็นสัญญาณคัดกรองที่ควรตรวจสอบจำนวนผู้เสนอราคาและเงื่อนไขการแข่งขันเพิ่มเติม · คลิกหัวคอลัมน์เพื่อเรียงลำดับ</p></div>
+            <p class="cap" style="margin:2px 0 10px">ประกวดราคาแต่ได้ราคาเท่าราคากลางพอดี — สงสัยผู้เสนอราคารายเดียวหรือฮั้วประมูล ควรตรวจจำนวนผู้ยื่นซอง · คลิกหัวคอลัมน์เพื่อเรียงลำดับ</p></div>
             <button class="btn sec sm" id="pre_export">⬇ Export CSV</button>
           </div>
           <div class="scroll" style="max-height:340px"><table><thead><tr>
-            <th>โครงการ</th><th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th class="num">มูลค่าจัดหารวม</th><th>ปีงบ</th>
+            <th>โครงการ</th><th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th class="num">มูลค่า (บาท)</th><th>ปีงบ</th>
           </tr></thead><tbody id="pre_body"></tbody></table></div>
         </div>
       </div>
@@ -547,103 +527,6 @@ const WORK_RULES=[
 function classifyWork(name){ const s=name||''; for(const [c,re] of WORK_RULES){ if(re.test(s)) return c; } return 'อื่นๆ'; }
 function parseMoney(s){ if(s==null) return 0; const t=String(s).replace(/,/g,'').trim(); if(t==='') return 0; const v=parseFloat(t); return isFinite(v)?v:0; }
 
-/* ---------- corrected financial model: pure helpers ---------- */
-function canonicalPositiveMoney(values){
-  const counts=new Map();
-  for(const raw of values||[]){ const v=Number(raw); if(!(v>0)) continue; counts.set(v,(counts.get(v)||0)+1); }
-  if(!counts.size) return {value:0,variantCount:0,tied:false};
-  const ranked=[...counts.entries()].sort((a,b)=>b[1]-a[1]||b[0]-a[0]);
-  return {value:ranked[0][0],variantCount:counts.size,tied:ranked.length>1&&ranked[0][1]===ranked[1][1]};
-}
-function projectEntityKey(r,rowIndex){
-  const pid=String(r.pid??r.projectId??'').trim();
-  return pid||('__missing_project__'+String(rowIndex));
-}
-function contractEntityKey(r,rowIndex){
-  const pid=String(r.pid??r.projectId??'').trim()||('__missing_project__'+String(rowIndex));
-  const no=String(r.contractNo??r.contract_no??'').trim();
-  const tin=String(r.winnerTin??r.tin??'').trim();
-  const vendor=String(r.vendor??'').trim();
-  if(!no&&!tin&&!vendor) return pid+'\x01__row__'+String(rowIndex);
-  return [pid,no,tin,vendor].join('\x01');
-}
-function effectiveContractValue(contract,projectContractCount,projectProcurementValue){
-  const raw=Number(contract.contractValueRaw)||0;
-  if(raw>0) return {value:raw,source:'contract_price_agree',status:'complete'};
-  if(projectContractCount===1 && projectProcurementValue>0)
-    return {value:projectProcurementValue,source:'sum_price_agree_single_contract_fallback',status:'fallback_single_contract'};
-  return {value:0,source:'missing',status:projectContractCount>1?'missing_multi_contract':'missing_contract_value'};
-}
-function reconcileProject(project,contracts){
-  const contractValueSum=contracts.reduce((s,r)=>s+(Number(r.contractValueEffective)||0),0);
-  const incomplete=contracts.some(r=>r.contractValueStatus==='missing_multi_contract'||r.contractValueStatus==='missing_contract_value');
-  const procurement=Number(project.procurementValue)||0;
-  const tolerance=Math.max(1,procurement*.001);
-  let status;
-  if(!procurement && !contractValueSum) status='missing_both';
-  else if(!procurement) status='missing_procurement_value';
-  else if(incomplete) status='incomplete_contract_values';
-  else status=Math.abs(contractValueSum-procurement)<=tolerance?'matched':'mismatch';
-  return {contractValueSum,reconciliationDifference:contractValueSum-procurement,reconciliationTolerance:tolerance,reconciliationStatus:status};
-}
-function summarizeDataQuality(projects,contracts){
-  const byNo=new Map();
-  for(const c of contracts){
-    const no=String(c.contractNo||'').trim(); if(!no) continue;
-    const k=c.projectKey+'\x01'+no; let x=byNo.get(k);
-    if(!x){ x={entities:0,vendors:new Set()};byNo.set(k,x); }
-    x.entities++; if(c.vendor) x.vendors.add(c.vendor+'\x01'+(c.winnerTin||''));
-  }
-  return {
-    matchedProjects:projects.filter(p=>p.reconciliationStatus==='matched').length,
-    mismatchProjects:projects.filter(p=>p.reconciliationStatus==='mismatch').length,
-    incompleteProjects:projects.filter(p=>p.reconciliationStatus==='incomplete_contract_values').length,
-    multipleProjectLevelValues:projects.filter(p=>p.multipleProjectLevelValues).length,
-    duplicateContractNumber:[...byNo.values()].filter(x=>x.entities>1).length,
-    sameContractMultipleVendors:[...byNo.values()].filter(x=>x.vendors.size>1).length
-  };
-}
-function buildFinancialModels(rows){
-  const projects=new Map(),contracts=new Map();
-  rows.forEach((r,i)=>{
-    const pk=projectEntityKey(r,i);
-    let p=projects.get(pk);
-    if(!p){ p={projectId:r.pid||'',projectKey:pk,projectName:r.name,province:r.province,year:r.year,dept:r.dept,agency:r.agency,method:r.method,workCategory:r.cat,
-      _budget:[],_reference:[],_procurement:[],_contractKeys:new Set(),_vendors:new Set()}; projects.set(pk,p); }
-    p._budget.push(r.projectBudget); p._reference.push(r.referencePrice); p._procurement.push(r.procurementValue);
-    const ck=contractEntityKey(r,i); let ct=contracts.get(ck);
-    if(!ct){ ct={contractKey:ck,projectKey:pk,projectId:r.pid||'',projectName:r.name,province:r.province,year:r.year,dept:r.dept,agency:r.agency,
-      method:r.method,workCategory:r.cat,spec:r.spec,vendor:r.vendor,winnerTin:r.tin,contractNo:r.contract_no,contractDate:r.contract_date,
-      finish:r.finish,status:r.status,contractValueRaw:r.contractValueRaw,_rawRows:0}; contracts.set(ck,ct); }
-    ct._rawRows++; if((Number(r.contractValueRaw)||0)>(Number(ct.contractValueRaw)||0)) ct.contractValueRaw=r.contractValueRaw;
-    p._contractKeys.add(ck); if(r.vendor) p._vendors.add(r.vendor);
-  });
-  for(const p of projects.values()){
-    const b=canonicalPositiveMoney(p._budget),rp=canonicalPositiveMoney(p._reference),pv=canonicalPositiveMoney(p._procurement);
-    p.projectBudget=b.value;p.referencePrice=rp.value;p.procurementValue=pv.value;
-    p.projectBudgetVariantCount=b.variantCount;p.referencePriceVariantCount=rp.variantCount;p.procurementValueVariantCount=pv.variantCount;
-    p.multipleProjectLevelValues=b.variantCount>1||rp.variantCount>1||pv.variantCount>1;
-    p.projectValueTie=b.tied||rp.tied||pv.tied;p.contractCount=p._contractKeys.size;p.vendorCount=p._vendors.size;
-    p.vendor=[...p._vendors].join(' | ');p.spec=p.method==='เฉพาะเจาะจง';
-    p.pid=p.projectId;p.name=p.projectName;p.cat=p.workCategory;p.v=p.procurementValue;p.budget=p.referencePrice;
-    p.disc=p.referencePrice>0?(p.referencePrice-p.procurementValue)/p.referencePrice*100:null;
-  }
-  for(const ct of contracts.values()){
-    const p=projects.get(ct.projectKey),ev=effectiveContractValue(ct,p.contractCount,p.procurementValue);
-    ct.contractValueEffective=ev.value;ct.contractValueSource=ev.source;ct.contractValueStatus=ev.status;
-    ct.projectBudget=p.projectBudget;ct.referencePrice=p.referencePrice;ct.procurementValue=p.procurementValue;
-    // Stable compatibility names for existing contract-level renderers.
-    ct.pid=ct.projectId;ct.name=ct.projectName;ct.cat=ct.workCategory;ct.tin=ct.winnerTin;
-    ct.contract_no=ct.contractNo;ct.contract_date=ct.contractDate;ct.v=ct.contractValueEffective;ct.budget=ct.projectBudget;
-  }
-  for(const p of projects.values()){
-    const pcs=[...p._contractKeys].map(k=>contracts.get(k)); Object.assign(p,reconcileProject(p,pcs));
-    pcs.forEach(c=>{ c.reconciliationStatus=p.reconciliationStatus;c.contractCount=p.contractCount; });
-    delete p._budget;delete p._reference;delete p._procurement;delete p._contractKeys;delete p._vendors;
-  }
-  return {projectMap:projects,projectRows:[...projects.values()],contractRows:[...contracts.values()]};
-}
-
 const DEFAULTS={topN:40,edgeMin:500000,capMin:3000000,lockMin:5000000,crossTypes:5,crossVal:3000000,spreadMin:30,ssdShare:70,ssdVal:10000000,poolN:30,poolRatio:0.12,splitMin:5,specLow:300000,specHigh:500000,suspectRatio:1.5};
 let params={...DEFAULTS};
 
@@ -659,7 +542,6 @@ function humanSize(n){ if(n==null) return ''; if(n<1024) return n+' B'; if(n<104
    INDEXEDDB (cache raw file text keyed by name+sha/size)
    ============================================================ */
 const DB_NAME='egp_net',STORE='files',SSTORE='session';
-const SESSION_MODEL_VERSION='corrected-financial-model-v1';
 function idb(){ return new Promise((res,rej)=>{ const r=indexedDB.open(DB_NAME,2);
   r.onupgradeneeded=(e)=>{ const db=r.result;
     if(!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE,{keyPath:'name'});
@@ -939,10 +821,8 @@ function setProg(pct,txt){
 }
 function hideProg(){ $('prog').classList.remove('on'); $('progFill').style.width='0%'; }
 function normalizeRow(r){
-  const projectBudget=parseMoney(r.project_money);
-  const referencePrice=parseMoney(r.price_build);
-  const procurementValue=parseMoney(r.sum_price_agree);
-  const contractValueRaw=parseMoney(r.contract_price_agree);
+  const v=parseMoney(r.sum_price_agree);
+  const budget=parseMoney(r.project_money);
   return {
     pid:String(r.project_id??''), name:String(r.project_name??''),
     dept:String(r.dept_name??'')||'(ไม่ระบุ)',
@@ -950,10 +830,8 @@ function normalizeRow(r){
     method:String(r.purchase_method_name??''),
     vendor:String(r.winner_name??'').trim(),
     tin:String(r.winner_tin??''),
-    projectBudget,referencePrice,procurementValue,contractValueRaw,
-    // Compatibility aliases stay until the project/contract renderers are migrated.
-    v:procurementValue,budget:projectBudget,
-    disc:referencePrice>0 ? (referencePrice-procurementValue)/referencePrice*100 : null,
+    v, budget,
+    disc: budget>0 ? (budget-v)/budget*100 : null,
     cat:classifyWork(String(r.project_name??'')),
     province:(String(r.province??'').trim())||'(ไม่ระบุ)',
     year:(String(r.budget_year??'').trim())||'(ไม่ระบุ)',
@@ -967,13 +845,7 @@ function validateColumns(headers){
   const missing=REQUIRED_COLS.filter(c=>!headers.includes(c));
   return missing;
 }
-let MASTER=[]; // normalized rows after full-row dedup with STD_COLS
-let PROJECT_MAP=new Map(),PROJECT_ROWS=[],CONTRACT_ROWS=[];
-function rebuildFinancialModels(){
-  const model=buildFinancialModels(MASTER);
-  PROJECT_MAP=model.projectMap;PROJECT_ROWS=model.projectRows;CONTRACT_ROWS=model.contractRows;
-  return model;
-}
+let MASTER=[]; // normalized rows
 /* โหลดทีละไฟล์ + ตัดซ้ำ + normalize เป็นก้อน (ไม่ค้างหน้าเว็บ) */
 async function buildFromSources(sources){
   MASTER=[];
@@ -1003,11 +875,8 @@ async function buildFromSources(sources){
     await new Promise(r=>setTimeout(r,0));
   }
   seen.clear();
-  setProg(96,'กำลังสร้างโมเดลโครงการและสัญญา…');
-  await new Promise(r=>setTimeout(r,0));
-  rebuildFinancialModels();
   setProg(100,'เสร็จสิ้น');
-  log('รวม '+fmt(totalRaw)+' แถว → ตัดซ้ำเหลือ '+fmt(MASTER.length)+' แถว → '+fmt(PROJECT_ROWS.length)+' โครงการ / '+fmt(CONTRACT_ROWS.length)+' สัญญา');
+  log('รวม '+fmt(totalRaw)+' แถว → ตัดซ้ำเหลือ '+fmt(MASTER.length)+' แถว');
 }
 
 /* ---------- บันทึก/กู้คืนข้อมูลที่โหลดไว้ (คงอยู่เมื่อรีเฟรชหน้า) ---------- */
@@ -1015,7 +884,7 @@ const SESSION_MAX=400000;
 async function saveSession(labels){
   try{
     if(MASTER.length>SESSION_MAX){ log('ℹ ข้อมูลใหญ่เกิน '+fmt(SESSION_MAX)+' แถว จึงไม่บันทึกไว้กู้คืน'); return; }
-    const ok=await sesPut({id:'last',modelVersion:SESSION_MODEL_VERSION,ts:Date.now(),rows:MASTER,labels:labels||[],keys:[...selDS]});
+    const ok=await sesPut({id:'last',ts:Date.now(),rows:MASTER,labels:labels||[],keys:[...selDS]});
     if(ok) log('💾 บันทึกข้อมูลไว้แล้ว — รีเฟรชหน้าแล้วข้อมูลจะยังอยู่');
   }catch(e){ log('⚠ บันทึกข้อมูลไม่สำเร็จ: '+e.message); }
 }
@@ -1023,13 +892,7 @@ async function restoreSession(){
   let s=null;
   try{ s=await sesGet('last'); }catch(e){}
   if(!s||!s.rows||!s.rows.length) return false;
-  if(s.modelVersion!==SESSION_MODEL_VERSION){
-    await sesDel('last');
-    log('ℹ ล้าง session รุ่นเดิมเพื่อสร้างโมเดลมูลค่าระดับโครงการ/สัญญาใหม่ — file cache ยังอยู่และสามารถโหลดข้อมูลเดิมได้');
-    return false;
-  }
   MASTER=s.rows;
-  rebuildFinancialModels();
   buildFilters();
   $('results').classList.remove('hidden');
   recalc();
@@ -1050,11 +913,10 @@ function computeMetrics(rows){
   // vendor metrics
   const vmap=new Map();
   for(const r of withV){
-    const value=Number(r.contractValueEffective)||0;
     let m=vmap.get(r.vendor);
     if(!m){ m={vendor:r.vendor,n:0,value:0,ag:new Map(),types:new Set(),nspec:0,agencies:new Set()}; vmap.set(r.vendor,m); }
-    m.n++; m.value+=value; m.types.add(r.workCategory||r.cat); m.agencies.add(r.agency);
-    m.ag.set(r.agency,(m.ag.get(r.agency)||0)+value);
+    m.n++; m.value+=r.v; m.types.add(r.cat); m.agencies.add(r.agency);
+    m.ag.set(r.agency,(m.ag.get(r.agency)||0)+r.v);
     if(r.spec) m.nspec++;
   }
   const vendors=[];
@@ -1074,11 +936,10 @@ function computeMetrics(rows){
   // agency metrics
   const amap=new Map();
   for(const r of withV){
-    const value=Number(r.contractValueEffective)||0;
     let m=amap.get(r.agency);
     if(!m){ m={agency:r.agency,n:0,value:0,vend:new Map(),nspec:0,vendors:new Set()}; amap.set(r.agency,m); }
-    m.n++; m.value+=value; m.vendors.add(r.vendor); if(r.spec) m.nspec++;
-    m.vend.set(r.vendor,(m.vend.get(r.vendor)||0)+value);
+    m.n++; m.value+=r.v; m.vendors.add(r.vendor); if(r.spec) m.nspec++;
+    m.vend.set(r.vendor,(m.vend.get(r.vendor)||0)+r.v);
   }
   const agencies=[];
   for(const m of amap.values()){
@@ -1097,7 +958,7 @@ function computeMetrics(rows){
     const k=r.agency+'\x01'+r.vendor;
     let e=emap.get(k);
     if(!e){ e={agency:r.agency,vendor:r.vendor,n:0,value:0}; emap.set(k,e); }
-    e.n++; e.value+=Number(r.contractValueEffective)||0;
+    e.n++; e.value+=r.v;
   }
   const edges=[...emap.values()];
   // concentration
@@ -1114,22 +975,15 @@ let CUR=null; // current metrics
 function activeRows(){
   return MASTER.filter(r=>(selProv.size===0||selProv.has(r.province)) && (selYear==='ALL'||r.year===selYear));
 }
-function activeContractRows(){
-  return CONTRACT_ROWS.filter(r=>(selProv.size===0||selProv.has(r.province)) && (selYear==='ALL'||r.year===selYear));
-}
-function activeProjectRows(){
-  return PROJECT_ROWS.filter(r=>(selProv.size===0||selProv.has(r.province)) && (selYear==='ALL'||r.year===selYear));
-}
 let curView='net';
 function recalc(){
   const rows=activeRows();
-  CUR=computeMetrics(activeContractRows());
+  CUR=computeMetrics(rows);
   renderKPIs(rows);
   renderActiveView();
 }
 function renderActiveView(){
   if(curView==='net'){ renderFlagCards(); renderConc(); renderVendorTable(); renderGraph(); renderTrend(); }
-  else if(curView==='quality') renderDataQuality();
   else if(curView==='split') renderSplit();
   else if(curView==='specific') renderSpecific();
   else if(curView==='pricing') renderPricing();
@@ -1137,34 +991,9 @@ function renderActiveView(){
 function switchView(v){
   curView=v;
   document.querySelectorAll('#viewTabs .vtab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));
-  ['net','quality','split','specific','pricing'].forEach(k=>$('view_'+k).classList.toggle('hidden',k!==v));
+  ['net','split','specific','pricing'].forEach(k=>$('view_'+k).classList.toggle('hidden',k!==v));
   $('vpCard').classList.add('hidden');
   renderActiveView();
-}
-
-/* ============================================================
-   VIEW: FINANCIAL RECONCILIATION / DATA QUALITY
-   ============================================================ */
-function renderDataQuality(){
-  const projects=activeProjectRows(),projectKeys=new Set(projects.map(p=>p.projectKey));
-  const contracts=CONTRACT_ROWS.filter(c=>projectKeys.has(c.projectKey));
-  const q=summarizeDataQuality(projects,contracts);
-  $('dq_kpis').innerHTML=[
-    {l:'Matched projects',v:fmt(q.matchedProjects),u:'ผลรวมสัญญาสอดคล้องกับมูลค่าจัดหา',cls:'dqblue'},
-    {l:'Mismatch projects',v:fmt(q.mismatchProjects),u:'ควรตรวจสอบส่วนต่างเพิ่มเติม',cls:'warn'},
-    {l:'Incomplete contract values',v:fmt(q.incompleteProjects),u:'โครงการที่มูลค่าสัญญาไม่ครบ',cls:'warn'},
-    {l:'Multiple project-level values',v:fmt(q.multipleProjectLevelValues),u:'พบค่าระดับโครงการหลายค่า',cls:'warn'},
-    {l:'Duplicate contract number',v:fmt(q.duplicateContractNumber),u:'เลขที่สัญญาซ้ำภายในโครงการ',cls:'dqblue'},
-    {l:'Same contract multiple vendors',v:fmt(q.sameContractMultipleVendors),u:'เลขที่สัญญาเดียวพบหลายผู้รับจ้าง',cls:'warn'}
-  ].map(k=>`<div class="kpi ${k.cls}"><div class="l">${k.l}</div><div class="v mono">${k.v}</div><div class="u">${k.u}</div></div>`).join('');
-  const rows=projects.filter(p=>p.reconciliationStatus!=='matched'||p.multipleProjectLevelValues)
-    .sort((a,b)=>Math.abs(b.reconciliationDifference)-Math.abs(a.reconciliationDifference));
-  $('dq_body').innerHTML=rows.slice(0,300).map(p=>{
-    const labels=[];
-    if(p.reconciliationStatus!=='matched') labels.push(`<span class="tag dq">${p.reconciliationStatus}</span>`);
-    if(p.multipleProjectLevelValues) labels.push('<span class="tag dqinfo">multiple project values</span>');
-    return `<tr><td>${projLink(p)}</td><td>${p.agency}</td><td class="num">${fmt(p.projectBudget)}</td><td class="num">${fmt(p.referencePrice)}</td><td class="num">${fmt(p.procurementValue)}</td><td class="num">${fmt(p.contractValueSum)}</td><td class="num">${fmt(p.contractCount)}</td><td>${labels.join(' ')}</td></tr>`;
-  }).join('')||'<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการที่ต้องตรวจสอบเพิ่มเติม</td></tr>';
 }
 
 /* ---------- HTML bar helper ---------- */
@@ -1177,13 +1006,13 @@ function hbars(items,cls){ // items: [{l, v(display), w(0-100)}]
    ============================================================ */
 let _splitGroups=[];
 function computeSplitGroups(){
-  const rows=activeContractRows().filter(r=>r.spec && r.vendor!=='' && (r.contractDate||'').trim()!=='');
+  const rows=activeRows().filter(r=>r.spec && r.vendor!=='' && (r.contract_date||'').trim()!=='');
   const m=new Map();
   for(const r of rows){
-    const d=(r.contractDate||'').trim();
-    const k=r.agency+'\x01'+r.vendor+'\x01'+d+'\x01'+r.method;
-    let g=m.get(k); if(!g){ g={agency:r.agency,vendor:r.vendor,date:d,method:r.method,n:0,value:0,contracts:[]}; m.set(k,g); }
-    g.n++; g.value+=Number(r.contractValueEffective)||0; g.contracts.push(r);
+    const d=(r.contract_date||'').trim();
+    const k=r.agency+'\x01'+r.vendor+'\x01'+d;
+    let g=m.get(k); if(!g){ g={agency:r.agency,vendor:r.vendor,date:d,n:0,value:0}; m.set(k,g); }
+    g.n++; g.value+=r.v;
   }
   return [...m.values()].filter(g=>g.n>=params.splitMin).sort((a,b)=>b.n-a.n||b.value-a.value);
 }
@@ -1198,7 +1027,7 @@ function renderSplit(){
     {l:'มูลค่ารวมกลุ่มเสี่ยง',v:M(totVal),u:'ล้านบาท'},
     {l:'หน่วยงานที่พบ',v:fmt(agSet.size),u:'หน่วยงานย่อย'},
   ].map(k=>`<div class="kpi ${k.cls||''}"><div class="l">${k.l}</div><div class="v mono">${k.v}</div><div class="u">${k.u}</div></div>`).join('');
-  $('sp_cap').innerHTML=`หน่วยงาน + ผู้รับจ้างเดียวกัน ทำสัญญา<b>วิธีเฉพาะเจาะจง</b>ตั้งแต่ <b>${params.splitMin} ฉบับขึ้นไปในวันเดียวกัน</b> — เป็นสัญญาณคัดกรองที่ควรตรวจสอบรูปแบบการรวม/แยกรายการเพิ่มเติม · คลิกหัวคอลัมน์เพื่อเรียงลำดับ · แสดง ${Math.min(groups.length,150)} กลุ่มแรก`;
+  $('sp_cap').innerHTML=`หน่วยงาน + ผู้รับจ้างเดียวกัน ทำสัญญา<b>วิธีเฉพาะเจาะจง</b>ตั้งแต่ <b>${params.splitMin} ฉบับขึ้นไปในวันเดียวกัน</b> — เข้าข่ายเลี่ยงวงเงิน/วิธีจัดหา · คลิกหัวคอลัมน์เพื่อเรียงลำดับ · แสดง ${Math.min(groups.length,150)} กลุ่มแรก`;
   $('sp_note').innerHTML=`กลุ่ม = หน่วยงานย่อย + ผู้รับจ้าง + วันที่สัญญาเดียวกัน<br>นับเฉพาะวิธีเฉพาะเจาะจง<br>เกณฑ์ขั้นต่ำ <b>${params.splitMin} ฉบับ/วัน</b> ปรับได้ที่แผงพารามิเตอร์ ("แบ่งซื้อ: จำนวนฉบับ/วันขั้นต่ำ")<br><br>ข้อควรระวัง: งานจ้างรายบุคคลจำนวนมาก (เช่น จ้างเหมาบริการรายเดือน) อาจทำสัญญาวันเดียวกันโดยชอบ — ธงนี้เป็นจุดตั้งต้นตรวจ ไม่ใช่ข้อสรุป`;
   const agCount=new Map();
   groups.forEach(g=>agCount.set(g.agency,(agCount.get(g.agency)||0)+1));
@@ -1221,37 +1050,37 @@ function exportSplit(){
    ============================================================ */
 let _sxOver=[],_sxAg=[],_sxSmall={years:[],list:[]};
 function renderSpecific(){
-  const rows=activeProjectRows();
-  const n=rows.length, v=rows.reduce((a,r)=>a+r.procurementValue,0);
+  const rows=activeRows();
+  const n=rows.length, v=rows.reduce((a,r)=>a+r.v,0);
   const sp=rows.filter(r=>r.spec);
-  const nS=sp.length, vS=sp.reduce((a,r)=>a+r.procurementValue,0);
-  const over=sp.filter(r=>r.projectBudget>500000).sort((a,b)=>b.projectBudget-a.projectBudget); _sxOver=over;
+  const nS=sp.length, vS=sp.reduce((a,r)=>a+r.v,0);
+  const over=sp.filter(r=>r.v>500000).sort((a,b)=>b.v-a.v); _sxOver=over;
   const spLo=Math.min(params.specLow,params.specHigh), spHi=Math.max(params.specLow,params.specHigh);
-  const le=sp.filter(r=>r.projectBudget>=spLo&&r.projectBudget<=spHi);
-  const near=sp.filter(r=>r.projectBudget>=450000&&r.projectBudget<=500000);
+  const le=sp.filter(r=>r.v>=spLo&&r.v<=spHi);
+  const near=sp.filter(r=>r.v>=450000&&r.v<=500000);
   $('sx_kpis').innerHTML=[
     {l:'เฉพาะเจาะจง (จำนวน)',v:(n?nS/n*100:0).toFixed(1)+'%',u:fmt(nS)+' จาก '+fmt(n)+' รายการ',cls:'alert'},
     {l:'เฉพาะเจาะจง (มูลค่า)',v:(v?vS/v*100:0).toFixed(1)+'%',u:M(vS)+' จาก '+M(v)+' ลบ.'},
     {l:'เกณฑ์ 1: เกิน 500,000',v:fmt(over.length),u:'รายการ (เกินเพดานทั่วไป)',cls:'alert'},
     {l:'เกณฑ์ 2: ช่วง '+fmt(spLo)+'–'+fmt(spHi),v:fmt(le.length),u:'รายการ (ปรับช่วงได้ในพารามิเตอร์)'},
-    {l:'ชิดเพดาน 450,000–500,000',v:fmt(near.length),u:'โครงการ (กระจุกใกล้เกณฑ์ ควรตรวจสอบเพิ่มเติม)',cls:'warn'},
+    {l:'ชิดเพดาน 450,000–500,000',v:fmt(near.length),u:'รายการ (สัญญาณตั้งวงเงินเลี่ยงเกณฑ์)',cls:'warn'},
   ].map(k=>`<div class="kpi ${k.cls||''}"><div class="l">${k.l}</div><div class="v mono">${k.v}</div><div class="u">${k.u}</div></div>`).join('');
   // method mix bars
   const mN=new Map(),mV=new Map();
-  rows.forEach(r=>{ const k=r.method||'(ไม่ระบุ)'; mN.set(k,(mN.get(k)||0)+1); mV.set(k,(mV.get(k)||0)+r.procurementValue); });
+  rows.forEach(r=>{ const k=r.method||'(ไม่ระบุ)'; mN.set(k,(mN.get(k)||0)+1); mV.set(k,(mV.get(k)||0)+r.v); });
   const topN=[...mN.entries()].sort((a,b)=>b[1]-a[1]).slice(0,6);
   const topV=[...mV.entries()].sort((a,b)=>b[1]-a[1]).slice(0,6);
   $('sx_bars_n').innerHTML=hbars(topN.map(([k,c])=>({l:k,v:(n?c/n*100:0).toFixed(1)+'%',w:n?c/n*100:0})));
   $('sx_bars_v').innerHTML=hbars(topV.map(([k,val])=>({l:k,v:(v?val/v*100:0).toFixed(1)+'%',w:v?val/v*100:0})));
   // table A: over 500k
-  $('sx_body').innerHTML=over.slice(0,150).map(r=>`<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.projectBudget)}</td><td>${r.year}</td></tr>`).join('')
+  $('sx_body').innerHTML=over.slice(0,150).map(r=>`<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.v)}</td><td>${r.year}</td></tr>`).join('')
     ||`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการ</td></tr>`;
   // table A2 (เกณฑ์ที่ 2): specLow–specHigh pivot agency x year
   $('sxs_title').textContent=`เกณฑ์ที่ 2: เฉพาะเจาะจงช่วง ${fmt(spLo)}–${fmt(spHi)} บาท (รายหน่วยงาน × รายปีงบประมาณ)`;
-  $('sxs_cap').innerHTML=`จำนวนโครงการเฉพาะเจาะจงที่มีวงเงินงบประมาณช่วง <b>${fmt(spLo)}–${fmt(spHi)} บาท</b> ของแต่ละหน่วยงานในแต่ละปี — ปริมาณที่กระจุกใกล้เพดานเป็นสัญญาณคัดกรองที่ควรตรวจสอบเพิ่มเติม · ปรับช่วงได้ในพารามิเตอร์ (กลุ่ม "วิธีเฉพาะเจาะจง") · คลิกแถวเพื่อดูรายการของหน่วยงานนั้น · คลิกหัวคอลัมน์เพื่อเรียงลำดับ`;
+  $('sxs_cap').innerHTML=`จำนวนสัญญาเฉพาะเจาะจงวงเงินช่วง <b>${fmt(spLo)}–${fmt(spHi)} บาท</b> ของแต่ละหน่วยงานในแต่ละปี — ปริมาณสูงผิดปกติอาจสะท้อนการซอยสัญญาใกล้เพดาน · ปรับช่วงได้ในพารามิเตอร์ (กลุ่ม "วิธีเฉพาะเจาะจง") · คลิกแถวเพื่อดูรายการของหน่วยงานนั้น · คลิกหัวคอลัมน์เพื่อเรียงลำดับ`;
   const yrs=[...new Set(le.map(r=>r.year))].sort();
   const pm=new Map();
-  le.forEach(r=>{ let a=pm.get(r.agency); if(!a){ a={agency:r.agency,byYear:new Map(),n:0,v:0}; pm.set(r.agency,a); } a.byYear.set(r.year,(a.byYear.get(r.year)||0)+1); a.n++; a.v+=r.procurementValue; });
+  le.forEach(r=>{ let a=pm.get(r.agency); if(!a){ a={agency:r.agency,byYear:new Map(),n:0,v:0}; pm.set(r.agency,a); } a.byYear.set(r.year,(a.byYear.get(r.year)||0)+1); a.n++; a.v+=r.v; });
   const pList=[...pm.values()].sort((a,b)=>b.n-a.n); _sxSmall={years:yrs,list:pList};
   $('sxs_head').innerHTML='<tr><th>หน่วยงาน</th>'+yrs.map(y=>`<th class="num">ปี ${y}</th>`).join('')+'<th class="num">รวม (ฉบับ)</th><th class="num">มูลค่ารวม (บาท)</th></tr>';
   $('sxs_body').innerHTML=pList.slice(0,120).map(a=>{
@@ -1260,7 +1089,7 @@ function renderSpecific(){
   }).join('')||`<tr><td colspan="${yrs.length+3}" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการ</td></tr>`;
   // table B: agencies by %specific
   const ag=new Map();
-  rows.forEach(r=>{ let a=ag.get(r.agency); if(!a){ a={agency:r.agency,n:0,ns:0,vs:0}; ag.set(r.agency,a); } a.n++; if(r.spec){ a.ns++; a.vs+=r.procurementValue; } });
+  rows.forEach(r=>{ let a=ag.get(r.agency); if(!a){ a={agency:r.agency,n:0,ns:0,vs:0}; ag.set(r.agency,a); } a.n++; if(r.spec){ a.ns++; a.vs+=r.v; } });
   const agList=[...ag.values()].filter(a=>a.n>=20).map(a=>({...a,pct:a.ns/a.n*100})).sort((a,b)=>b.pct-a.pct||b.ns-a.ns); _sxAg=agList;
   $('sxa_body').innerHTML=agList.slice(0,80).map(a=>{
     const eA=encodeURIComponent(a.agency);
@@ -1268,9 +1097,7 @@ function renderSpecific(){
   }).join('')||`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">ไม่มีหน่วยงานที่มีสัญญา ≥ 20 ฉบับ</td></tr>`;
 }
 function exportSpecOver(){
-  download('specific_over500k.csv',arrToCSV(_sxOver.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,
-    วงเงินงบประมาณ:r.projectBudget,ราคากลาง:r.referencePrice,มูลค่าจัดหารวม:r.procurementValue,จำนวนสัญญา:r.contractCount,
-    มูลค่าตามสัญญารวม:r.contractValueSum,reconciliation_status:r.reconciliationStatus,ปีงบ:r.year,รหัสโครงการ:r.pid}))));
+  download('specific_over500k.csv',arrToCSV(_sxOver.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,มูลค่าบาท:r.v,ปีงบ:r.year,รหัสโครงการ:r.pid}))));
 }
 function exportSpecAgencies(){
   download('specific_agencies.csv',arrToCSV(_sxAg.map(a=>({หน่วยงาน:a.agency,สัญญา:a.n,เฉพาะเจาะจง:a.ns,'เปอร์เซ็นต์':a.pct.toFixed(1),มูลค่าเฉพาะเจาะจงบาท:a.vs}))));
@@ -1278,8 +1105,8 @@ function exportSpecAgencies(){
 function openAgencySpecSmall(enc){
   const agency=decodeURIComponent(enc);
   const spLo=Math.min(params.specLow,params.specHigh), spHi=Math.max(params.specLow,params.specHigh);
-  const rows=activeProjectRows().filter(r=>r.agency===agency&&r.spec&&r.projectBudget>=spLo&&r.projectBudget<=spHi).sort((a,b)=>b.projectBudget-a.projectBudget);
-  const totV=rows.reduce((a,r)=>a+r.procurementValue,0);
+  const rows=activeRows().filter(r=>r.agency===agency&&r.spec&&r.v>=spLo&&r.v<=spHi).sort((a,b)=>b.v-a.v);
+  const totV=rows.reduce((a,r)=>a+r.v,0);
   const scope=[]; if(selYear!=='ALL') scope.push('ปี '+selYear); else scope.push('รวมทุกปี'); if(selProv.size) scope.push([...selProv].join(', '));
   openProjectsTable('agency',`เฉพาะเจาะจงช่วง ${fmt(spLo)}–${fmt(spHi)} บาท: `+agency,
     `ทั้งหมด <b>${fmt(rows.length)}</b> ฉบับ · มูลค่ารวม <b>${fmt(Math.round(totV))}</b> บาท · ขอบเขต: ${scope.join(' / ')}`,
@@ -1300,13 +1127,13 @@ function exportSpecSmall(){
    ============================================================ */
 let _prOver=[],_prEbid=[];
 function renderPricing(){
-  const rows=activeProjectRows();
-  const withB=rows.filter(r=>r.referencePrice>0);
+  const rows=activeRows();
+  const withB=rows.filter(r=>r.budget>0);
   const zero=withB.filter(r=>Math.abs(r.disc)<0.005);
-  const over=withB.filter(r=>r.disc<-0.005).sort((a,b)=>(b.procurementValue-b.referencePrice)-(a.procurementValue-a.referencePrice)); _prOver=over;
-  const rnd=rows.filter(r=>r.procurementValue>=1000&&r.procurementValue%1000===0);
+  const over=withB.filter(r=>r.disc<-0.005).sort((a,b)=>(b.v-b.budget)-(a.v-a.budget)); _prOver=over;
+  const rnd=rows.filter(r=>r.v>=1000&&r.v%1000===0);
   const ebidAll=rows.filter(r=>(r.method||'').includes('e-bidding'));
-  const ebid=ebidAll.filter(r=>r.referencePrice>0&&Math.abs(r.disc)<0.005).sort((a,b)=>b.procurementValue-a.procurementValue); _prEbid=ebid;
+  const ebid=ebidAll.filter(r=>r.budget>0&&Math.abs(r.disc)<0.005).sort((a,b)=>b.v-a.v); _prEbid=ebid;
   $('pr_kpis').innerHTML=[
     {l:'ส่วนลด 0% (ราคากลางเต็ม)',v:(withB.length?zero.length/withB.length*100:0).toFixed(1)+'%',u:fmt(zero.length)+' รายการ',cls:'warn'},
     {l:'เกินราคากลาง',v:fmt(over.length),u:'รายการ (ส่วนลดติดลบ)',cls:'alert'},
@@ -1314,14 +1141,14 @@ function renderPricing(){
     {l:'e-bidding ส่วนลด ≈ 0%',v:fmt(ebid.length),u:'จาก e-bidding ทั้งหมด '+fmt(ebidAll.length)+' รายการ',cls:'alert'},
   ].map(k=>`<div class="kpi ${k.cls||''}"><div class="l">${k.l}</div><div class="v mono">${k.v}</div><div class="u">${k.u}</div></div>`).join('');
   const sr=Math.max(1.05,params.suspectRatio||1.5);
-  $('pr_cap').innerHTML=`มูลค่าจัดหารวม &gt; ราคากลาง (ส่วนลดติดลบ) — เป็นสัญญาณคัดกรองที่ควรตรวจสอบเหตุผลอนุมัติและข้อมูลต้นทางเพิ่มเติม · <b>รายการที่สูงเกิน ≥ ${sr} เท่า ควรตรวจสอบในระบบ e-GP ก่อนใช้อ้างอิง</b> (ปรับเกณฑ์ได้ในพารามิเตอร์) · คลิกชื่อโครงการเพื่อเปิด e-GP · คลิกหัวคอลัมน์เพื่อเรียงลำดับ`;
+  $('pr_cap').innerHTML=`ราคาตกลง &gt; ราคากลาง/งบประมาณ (ส่วนลดติดลบ) — ผิดปกติทางบัญชี ต้องมีเหตุผลอนุมัติ · <b>รายการที่สูงเกิน ≥ ${sr} เท่า มีโอกาสสูงว่าข้อมูลต้นทางคลาดเคลื่อน ควรตรวจสอบในระบบ e-GP ก่อนใช้อ้างอิง</b> (ปรับเกณฑ์ได้ในพารามิเตอร์) · คลิกชื่อโครงการเพื่อเปิด e-GP · คลิกหัวคอลัมน์เพื่อเรียงลำดับ`;
   $('pr_body').innerHTML=over.slice(0,120).map(r=>{
-    const diff=r.procurementValue-r.referencePrice;
-    const suspect=r.procurementValue>=r.referencePrice*sr;
+    const diff=r.v-r.budget;
+    const suspect=r.v>=r.budget*sr;
     const note=suspect?'<span class="tag">⚠ ข้อมูลอาจคลาดเคลื่อน — ตรวจสอบใน e-GP</span>':'<span style="color:var(--muted2)">-</span>';
-    return `<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.referencePrice)}</td><td class="num">${fmt(r.procurementValue)}</td><td class="num" style="color:var(--red);font-weight:700">+${fmt(diff)}</td><td>${note}</td></tr>`;
+    return `<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.budget)}</td><td class="num">${fmt(r.v)}</td><td class="num" style="color:var(--red);font-weight:700">+${fmt(diff)}</td><td>${note}</td></tr>`;
   }).join('')||`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการเกินราคากลางในขอบเขตที่เลือก</td></tr>`;
-  $('pre_body').innerHTML=ebid.slice(0,120).map(r=>`<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.procurementValue)}</td><td>${r.year}</td></tr>`).join('')
+  $('pre_body').innerHTML=ebid.slice(0,120).map(r=>`<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.v)}</td><td>${r.year}</td></tr>`).join('')
     ||`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการ</td></tr>`;
   const agC=new Map(); over.forEach(r=>agC.set(r.agency,(agC.get(r.agency)||0)+1));
   const topAg=[...agC.entries()].sort((a,b)=>b[1]-a[1]).slice(0,8);
@@ -1330,15 +1157,10 @@ function renderPricing(){
 }
 function exportPricingOver(){
   const sr=Math.max(1.05,params.suspectRatio||1.5);
-  download('over_reference_price.csv',arrToCSV(_prOver.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,
-    วงเงินงบประมาณ:r.projectBudget,ราคากลาง:r.referencePrice,มูลค่าจัดหารวม:r.procurementValue,
-    เกินราคากลางบาท:Math.round(r.procurementValue-r.referencePrice),จำนวนสัญญา:r.contractCount,มูลค่าตามสัญญารวม:r.contractValueSum,
-    reconciliation_status:r.reconciliationStatus,หมายเหตุ:(r.procurementValue>=r.referencePrice*sr?'ควรตรวจสอบข้อมูลต้นทางใน e-GP เพิ่มเติม':''),ปีงบ:r.year,รหัสโครงการ:r.pid}))));
+  download('over_budget.csv',arrToCSV(_prOver.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,ราคากลางบาท:r.budget,ตกลงบาท:r.v,เกินบาท:Math.round(r.v-r.budget),หมายเหตุ:(r.v>=r.budget*sr?'ข้อมูลอาจคลาดเคลื่อน ตรวจสอบใน e-GP':''),ปีงบ:r.year,รหัสโครงการ:r.pid}))));
 }
 function exportPricingEbid(){
-  download('ebidding_zero_discount.csv',arrToCSV(_prEbid.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,
-    วงเงินงบประมาณ:r.projectBudget,ราคากลาง:r.referencePrice,มูลค่าจัดหารวม:r.procurementValue,จำนวนสัญญา:r.contractCount,
-    มูลค่าตามสัญญารวม:r.contractValueSum,reconciliation_status:r.reconciliationStatus,ปีงบ:r.year,รหัสโครงการ:r.pid}))));
+  download('ebidding_zero_discount.csv',arrToCSV(_prEbid.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,มูลค่าบาท:r.v,ปีงบ:r.year,รหัสโครงการ:r.pid}))));
 }
 
 /* ============================================================
@@ -1359,10 +1181,10 @@ function renderKPIs(rows){
 const PATTERNS=[
   {key:'flag_capture',name:'Capture',desc:'ผูกหน่วยงานเดียว มูลค่าสูง',tip:'ผู้รับจ้างที่รับงานจากหน่วยงานเดียวเท่านั้น และมูลค่ารวมเกินเกณฑ์ Capture — สัญญาณผูกติดหน่วยงานเดียว ควรตรวจว่าเป็นความสัมพันธ์พิเศษหรือไม่'},
   {key:'flag_method_lock',name:'Method-lock',desc:'เฉพาะเจาะจง 100%',tip:'ผู้รับจ้างมูลค่าสูงที่ได้งานผ่านวิธีเฉพาะเจาะจงทุกสัญญา (ไม่เคยผ่านการแข่งขันราคาเลย) — รัฐอาจเสียโอกาสได้ราคาที่ดีกว่าจากการแข่งขัน'},
-  {key:'flag_cross_type',name:'Cross-type',desc:'ทำงานข้ามหลายประเภท',tip:'ผู้รับจ้างที่ทำงานหลากหลายประเภทถึงเกณฑ์จำนวนประเภทและมูลค่า เช่น ถนน ป่า อาคาร หรือยา — เป็นสัญญาณคัดกรองให้ตรวจสอบขอบเขตความเชี่ยวชาญเพิ่มเติม'},
+  {key:'flag_cross_type',name:'Cross-type',desc:'ทำงานข้ามหลายประเภท',tip:'ผู้รับจ้างที่ทำงานหลากหลายประเภทเกินปกติ (ถึงเกณฑ์จำนวนประเภท+มูลค่า) เช่นทำทั้งถนน ป่า อาคาร ยา — ผิดธรรมชาติของความเชี่ยวชาญเฉพาะทาง'},
   {key:'flag_high_spread',name:'High-spread',desc:'เชื่อมหน่วยงานจำนวนมาก',tip:'ผู้รับจ้างที่เชื่อมโยงกับหน่วยงานจำนวนมาก (ถึงเกณฑ์) เป็นศูนย์กลางเครือข่าย — อาจเป็นผู้เล่นรายใหญ่ที่มีอิทธิพลกว้าง'},
   {key:'flag_single_source_dep',name:'Single-source (หน่วยงาน)',desc:'หน่วยงานทุ่มงบรายเดียว',agency:true,tip:'หน่วยงานที่ทุ่มงบส่วนใหญ่ (เกินเกณฑ์ %) ให้ผู้รับจ้างรายเดียว และมีงบรวมสูง — พึ่งพารายเดียวมากเกินไป เสี่ยงต่อการผูกขาด'},
-  {key:'flag_small_vendor_pool',name:'Vendor pool (หน่วยงาน)',desc:'สัญญาเยอะ ผู้รับจ้างวนน้อยราย',agency:true,tip:'หน่วยงานที่มีสัญญาจำนวนมากแต่วนเวียนอยู่กับผู้รับจ้างไม่กี่ราย (อัตราส่วนต่ำ) — เป็นสัญญาณคัดกรองให้ตรวจสอบการเปิดโอกาสแก่ผู้ค้าเพิ่มเติม'}
+  {key:'flag_small_vendor_pool',name:'Vendor pool (หน่วยงาน)',desc:'สัญญาเยอะ ผู้รับจ้างวนน้อยราย',agency:true,tip:'หน่วยงานที่มีสัญญาจำนวนมากแต่วนเวียนอยู่กับผู้รับจ้างไม่กี่ราย (อัตราส่วนต่ำ) — ตลาดปิด ผู้เล่นหน้าเดิม'}
 ];
 let selFlag=null;
 function renderFlagCards(){
@@ -1445,7 +1267,7 @@ function showVendorDetail(vendor){
   const v=CUR.vendors.find(x=>x.vendor===vendor);
   if(!v){ $('detailBox').innerHTML='<span style="color:var(--muted)">ไม่พบผู้รับจ้างในขอบเขตที่เลือก</span>'; return; }
   // top agencies + per-year for this vendor
-  const rows=activeContractRows().filter(r=>r.vendor===vendor);
+  const rows=activeRows().filter(r=>r.vendor===vendor);
   const agM=new Map(),yrM=new Map();
   rows.forEach(r=>{ agM.set(r.agency,(agM.get(r.agency)||0)+r.v); yrM.set(r.year,(yrM.get(r.year)||0)+r.v); });
   const topAg=[...agM.entries()].sort((a,b)=>b[1]-a[1]).slice(0,4);
@@ -1465,7 +1287,7 @@ function showVendorDetail(vendor){
 }
 function showAgencyDetail(agency,val){
   const a=CUR.agencies.find(x=>x.agency===agency);
-  const rows=activeContractRows().filter(r=>r.agency===agency&&r.vendor!=='');
+  const rows=activeRows().filter(r=>r.agency===agency&&r.vendor!=='');
   const vM=new Map(); rows.forEach(r=>vM.set(r.vendor,(vM.get(r.vendor)||0)+r.v));
   const topV=[...vM.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5);
   let tags=''; if(a){ if(a.flag_single_source_dep)tags+='<span class="tag">Single-source</span>'; if(a.flag_small_vendor_pool)tags+='<span class="tag">Vendor pool</span>'; }
@@ -1499,27 +1321,17 @@ function openProjectsTable(mode,title,capHTML,rows,backLabel,returnSel){
   $('vpCap').innerHTML=capHTML;
   $('vpBack').textContent=backLabel||'↑ กลับ';
   const secondCol = mode==='vendor' ? 'หน่วยงาน' : 'ผู้รับจ้าง';
-  const contractMode=rows.some(r=>r.contractKey);
-  const projectTip='วงเงินงบประมาณ ราคากลาง และมูลค่าจัดหารวมเป็นค่าระดับโครงการที่แสดงซ้ำเพื่อประกอบการอ่าน ห้ามนำมารวมตามจำนวนแถว';
-  if(contractMode){
-    $('vpHead').innerHTML=`<tr><th>โครงการ</th><th>${secondCol}</th><th>เลขที่สัญญา</th><th class="num">วงเงินงบประมาณ <span class="info down" tabindex="0">i<span class="tip">${projectTip}</span></span></th><th class="num">ราคากลาง</th><th class="num">มูลค่าจัดหารวม</th><th class="num">มูลค่าตามสัญญา</th><th>แหล่งมูลค่าสัญญา</th><th>ปีงบ</th><th>Reconciliation</th></tr>`;
-    $('vpBody').innerHTML=rows.map(r=>{
-      const second=mode==='vendor'?r.agency:(r.vendor||'-');
-      return `<tr><td>${projLink(r)}</td><td>${second}</td><td>${r.contractNo||'-'}</td><td class="num">${fmt(r.projectBudget)}</td><td class="num">${fmt(r.referencePrice)}</td><td class="num">${fmt(r.procurementValue)}</td><td class="num">${fmt(r.contractValueEffective)}</td><td><span class="tag b">${r.contractValueSource}</span></td><td>${r.year}</td><td><span class="tag dqinfo">${r.reconciliationStatus||'-'}</span></td></tr>`;
-    }).join('')||'<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:20px">ไม่มีสัญญาในขอบเขตที่เลือก</td></tr>';
-  }else{
-    $('vpHead').innerHTML=`<tr><th>โครงการ</th><th>${secondCol}</th><th class="num">วงเงินงบประมาณ</th><th class="num">ราคากลาง</th><th class="num">มูลค่าจัดหารวม</th><th class="num">จำนวนสัญญา</th><th class="num">มูลค่าตามสัญญารวม</th><th>Reconciliation</th><th>ปีงบ</th></tr>`;
-    $('vpBody').innerHTML=rows.map(r=>{
-      const second=mode==='vendor'?r.agency:(r.vendor||'-');
-      return `<tr><td>${projLink(r)}</td><td>${second}</td><td class="num">${fmt(r.projectBudget)}</td><td class="num">${fmt(r.referencePrice)}</td><td class="num">${fmt(r.procurementValue)}</td><td class="num">${fmt(r.contractCount)}</td><td class="num">${fmt(r.contractValueSum)}</td><td><span class="tag dqinfo">${r.reconciliationStatus||'-'}</span></td><td>${r.year}</td></tr>`;
-    }).join('')||'<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:20px">ไม่มีโครงการในขอบเขตที่เลือก</td></tr>';
-  }
+  $('vpHead').innerHTML=`<tr><th>โครงการ</th><th>${secondCol}</th><th>ลักษณะงาน</th><th>วิธีจัดหา</th><th class="num">มูลค่า (บาท)</th><th>ปีงบ</th><th>รหัสโครงการ</th></tr>`;
+  $('vpBody').innerHTML=rows.map(r=>{
+    const second = mode==='vendor' ? r.agency : (r.vendor||'-');
+    return `<tr><td>${projLink(r)}</td><td>${second}</td><td>${r.cat}</td><td>${r.method||'-'}</td><td class="num">${fmt(r.v)}</td><td>${r.year}</td><td class="mono" style="font-size:11px">${(r.pid||'').trim()||'-'}</td></tr>`;
+  }).join('')||`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px">ไม่มีโครงการในขอบเขตที่เลือก</td></tr>`;
   $('vpCard').classList.remove('hidden');
   $('vpCard').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function openVendorProjects(enc){
   const vendor=decodeURIComponent(enc);
-  const rows=activeContractRows().filter(r=>r.vendor===vendor).sort((a,b)=>b.v-a.v);
+  const rows=activeRows().filter(r=>r.vendor===vendor).sort((a,b)=>b.v-a.v);
   const totV=rows.reduce((a,r)=>a+r.v,0);
   const scope=[]; if(selYear!=='ALL') scope.push('ปี '+selYear); else scope.push('รวมทุกปี'); if(selProv.size) scope.push([...selProv].join(', '));
   openProjectsTable('vendor','รายละเอียดการเป็นคู่สัญญา: '+vendor,
@@ -1528,7 +1340,7 @@ function openVendorProjects(enc){
 }
 function openAgencyProjects(enc,retSel,backLabel){
   const agency=decodeURIComponent(enc);
-  const rows=activeContractRows().filter(r=>r.agency===agency).sort((a,b)=>b.v-a.v);
+  const rows=activeRows().filter(r=>r.agency===agency).sort((a,b)=>b.v-a.v);
   const totV=rows.reduce((a,r)=>a+r.v,0);
   const scope=[]; if(selYear!=='ALL') scope.push('ปี '+selYear); else scope.push('รวมทุกปี'); if(selProv.size) scope.push([...selProv].join(', '));
   openProjectsTable('agency','โครงการทั้งหมดของหน่วยงาน: '+agency,
@@ -1537,7 +1349,7 @@ function openAgencyProjects(enc,retSel,backLabel){
 }
 function openGroupProjects(encA,encV,encD){
   const agency=decodeURIComponent(encA),vendor=decodeURIComponent(encV),date=decodeURIComponent(encD);
-  const rows=activeContractRows().filter(r=>r.agency===agency&&r.vendor===vendor&&r.spec&&(r.contractDate||'').trim()===date).sort((a,b)=>b.v-a.v);
+  const rows=activeRows().filter(r=>r.agency===agency&&r.vendor===vendor&&r.spec&&(r.contract_date||'').trim()===date).sort((a,b)=>b.v-a.v);
   const totV=rows.reduce((a,r)=>a+r.v,0);
   openProjectsTable('group',`กลุ่มแบ่งซื้อ: ${vendor} × ${agency}`,
     `วันที่สัญญา <b>${date}</b> · <b>${fmt(rows.length)}</b> ฉบับ (วิธีเฉพาะเจาะจง) · มูลค่ารวม <b>${fmt(totV)}</b> บาท`,
@@ -1550,10 +1362,7 @@ function closeVendorProjects(){
 }
 function exportVendorProjects(){
   if(!_vpRows.length) return;
-  const rows=_vpRows.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,เลขที่สัญญา:r.contractNo||'',ลักษณะงาน:r.cat,วิธีจัดหา:r.method,
-    วงเงินงบประมาณ:r.projectBudget,ราคากลาง:r.referencePrice,มูลค่าจัดหารวม:r.procurementValue,
-    มูลค่าตามสัญญา:r.contractValueEffective??'',แหล่งมูลค่าสัญญา:r.contractValueSource||'',จำนวนสัญญา:r.contractCount||'',
-    มูลค่าตามสัญญารวม:r.contractValueSum??'',reconciliation_status:r.reconciliationStatus||'',ปีงบ:r.year,รหัสโครงการ:r.pid,จังหวัด:r.province}));
+  const rows=_vpRows.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,ลักษณะงาน:r.cat,วิธีจัดหา:r.method,มูลค่าบาท:r.v,ปีงบ:r.year,รหัสโครงการ:r.pid,จังหวัด:r.province}));
   download('projects_'+_vpTitle.slice(0,24).replace(/[^\wก-๙]/g,'_')+'.csv',arrToCSV(rows));
 }
 
@@ -1561,7 +1370,7 @@ function exportVendorProjects(){
    TREND (multi-year)
    ============================================================ */
 function renderTrend(){
-  const provRows=CONTRACT_ROWS.filter(r=>(selProv.size===0||selProv.has(r.province)));
+  const provRows=MASTER.filter(r=>(selProv.size===0||selProv.has(r.province)));
   const years=[...new Set(provRows.map(r=>r.year))].filter(y=>y!=='(ไม่ระบุ)').sort();
   const tc=$('trendCard');
   if(years.length<2){ tc.classList.add('hidden'); return; }
@@ -1631,7 +1440,7 @@ function renderTrend(){
   const tf=[
     {n:fPersist,name:'ชนะประจำทุกปี',desc:'คู่หน่วยงาน–ผู้รับจ้างพบครบทุกปี'},
     {n:fSpike,name:'หน้าใหม่พุ่งแรง',desc:'โผล่ปีล่าสุด มูลค่า ≥ 1 ลบ.'},
-    {n:fGrow,name:'มูลค่าเพิ่มผ่านวิธีเฉพาะเจาะจง',desc:'มูลค่าเพิ่มต่อเนื่อง เฉพาะเจาะจง 100% — ควรตรวจสอบเพิ่มเติม'},
+    {n:fGrow,name:'โตไร้การแข่งขัน',desc:'มูลค่าโตต่อเนื่อง เฉพาะเจาะจง 100%'},
     {n:fHHI,name:'HHI แย่ลงต่อเนื่อง',desc:'หน่วยงานกระจุกตัวเพิ่มทุกปี'},
     {n:provCount>=2?fCross:'—',name:'ข้ามจังหวัด',desc:provCount>=2?'ผู้รับจ้างทำงาน ≥ 2 จังหวัด':'ต้องเลือกหลายจังหวัด'}
   ];
@@ -1756,8 +1565,8 @@ document.addEventListener('click',e=>{
     if(nd/sample.length>=0.7) type='date'; else if(nn/sample.length>=0.7) type='num';
   }
   const dir=th.dataset.sortDir==='asc'?'desc':'asc';
-  [...th.parentNode.children].forEach(x=>x.removeAttribute('data-sort-dir'));
-  th.dataset.sortDir=dir;
+  [...th.parentNode.children].forEach(x=>{ x.removeAttribute('data-sort-dir'); x.textContent=x.textContent.replace(/\s*[▲▼]$/,''); });
+  th.dataset.sortDir=dir; th.textContent=th.textContent+(dir==='asc'?' ▲':' ▼');
   const keyed=rows.map((r,i)=>{ const t=texts[i]; let k;
     if(type==='date'){ k=thaiDateVal(t); if(k==null) k=-Infinity; }
     else if(type==='num'){ k=cellNumVal(t); if(k==null) k=-Infinity; }
