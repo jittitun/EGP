@@ -68,7 +68,8 @@ body{font-family:'Sarabun',sans-serif;font-size:15px;color:var(--ink);background
 #netgraph{height:600px;border-radius:13px;border:1px solid var(--line);background:#fff}
 .side .card{margin-bottom:12px}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{text-align:left;font-weight:700;color:var(--muted);font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;padding:8px 9px;border-bottom:2px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:2}
+th{text-align:left;font-weight:700;color:var(--muted);font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;padding:8px 9px;border-bottom:2px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:2;cursor:pointer;user-select:none}
+th:hover{color:var(--blue)}
 td{padding:7px 9px;border-bottom:1px solid var(--line2);vertical-align:top}
 tr:hover td{background:#F8FAFD}
 .num{text-align:right;font-family:'IBM Plex Mono',monospace;white-space:nowrap}
@@ -84,12 +85,91 @@ input[type=number]{width:110px}
 .params label{font-size:11.5px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px}
 details.pbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow)}
 details.pbox summary{font-size:13.5px;font-weight:700;cursor:pointer;color:var(--blue)}
+.pgroup{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.pgroup:first-of-type{border-top:none;margin-top:8px;padding-top:0}
+.pgtitle{font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--ink);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.pgtitle .pgbadge{font-size:10px;font-weight:700;color:var(--blue);background:var(--blueSoft);padding:2px 8px;border-radius:12px}
 .kvrow{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
 .kvrow b{text-align:right}
 .filterbar{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 16px;box-shadow:var(--shadow)}
 .filterbar .fgrp{min-width:180px}
 .filterbar .flabel{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
 .hidden{display:none!important}
+/* tooltip (info) */
+.info{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--blueSoft);color:var(--blue);font-size:10px;font-weight:800;cursor:help;margin-left:5px;position:relative;vertical-align:middle;flex:none}
+.info:hover .tip,.info:focus .tip{opacity:1;visibility:visible;transform:translateY(0)}
+.info .tip{position:absolute;bottom:145%;left:50%;transform:translate(-50%,4px);width:230px;background:#0E1B33;color:#EAF1FB;font-size:11.5px;font-weight:400;line-height:1.55;padding:9px 11px;border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.28);opacity:0;visibility:hidden;transition:.16s;z-index:60;text-align:left;pointer-events:none;letter-spacing:0}
+.info .tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0E1B33}
+.info.r .tip{left:auto;right:-4px;transform:translate(0,4px)}
+.info.r .tip::after{left:auto;right:8px;transform:none}
+.plabel{display:flex;align-items:center}
+.collapsed .collapsible{display:none}
+.srchead{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer}
+/* view tabs (เมนูเลือกการวิเคราะห์) */
+.viewtabs{display:flex;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow);margin-top:15px}
+.vtab{font-family:inherit;font-size:13.5px;font-weight:700;padding:9px 16px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.vtab:hover{border-color:var(--blue2);color:var(--blue)}
+.vtab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* html bar chart */
+.hbar{margin:6px 0}
+.hbar .hb-top{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin-bottom:3px}
+.hbar .hb-top .hb-l{color:var(--ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbar .hb-top .hb-v{color:var(--muted);font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+.hbar .hb-track{height:9px;background:var(--line2);border-radius:6px;overflow:hidden}
+.hbar .hb-fill{height:100%;background:var(--blue2);border-radius:6px}
+.hbar.red .hb-fill{background:var(--red)}
+.hbar.amber .hb-fill{background:var(--amber)}
+/* dataset matrix (เลือกจังหวัด × ปีงบประมาณ) */
+.dsbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 10px}
+.dstable{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#fff}
+.dsrow{display:flex;align-items:center;gap:14px;padding:10px 13px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.dsrow:last-child{border-bottom:none}
+.dsrow:hover{background:#F8FAFD}
+.dsrow.head{background:var(--paper);font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.dsprov{min-width:210px;display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:700}
+.dsprov .en{font-size:11px;color:var(--muted2);font-weight:500}
+.dsyears{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+.dsyr{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted);border:1.5px solid var(--line);border-radius:9px;padding:5px 11px;cursor:pointer;background:#fff}
+.dsyr:hover{border-color:var(--blue2)}
+.dsyr.on{background:var(--blueSoft);border-color:var(--blue);color:var(--blue)}
+.dsyr .fc{font-size:10.5px;color:var(--muted2);font-weight:500}
+.dsyr.on .fc{color:var(--blue2)}
+.dsyr.cached::after{content:"●";color:var(--green);font-size:9px}
+input[type=checkbox]{accent-color:var(--blue);width:15px;height:15px;cursor:pointer}
+.dssum{font-size:12.5px;color:var(--muted);margin-top:10px}
+.prog{display:none;margin-top:11px}
+.prog.on{display:block}
+.prog .ptrack{height:8px;background:var(--line2);border-radius:6px;overflow:hidden}
+.prog .pfill{height:100%;width:0%;background:var(--blue2);border-radius:6px;transition:width .18s}
+.prog .ptxt{font-size:11.5px;color:var(--muted);margin-top:5px;font-family:'IBM Plex Mono',monospace}
+/* แถบปุ่มในหัวเรื่อง */
+.hactions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.hbtn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 15px;border-radius:10px;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.10);color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.hbtn:hover{background:rgba(255,255,255,.20);border-color:#fff}
+.hbtn.primary{background:#FFD98A;border-color:#FFD98A;color:#0E1B33}
+.hbtn.primary:hover{background:#FFE7B0;border-color:#FFE7B0}
+/* popup */
+.mask{position:fixed;inset:0;background:rgba(14,27,51,.6);z-index:4000;display:none;align-items:flex-start;justify-content:center;padding:28px 16px;overflow-y:auto}
+.mask.on{display:flex}
+.modal{background:#fff;border-radius:16px;max-width:900px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.32);overflow:hidden}
+.modal .mh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 22px 12px;border-bottom:1px solid var(--line)}
+.modal .mh h3{margin:0;font-size:17px;font-weight:800}
+.modal .mh p{margin:3px 0 0;font-size:12.5px;color:var(--muted)}
+.mx{border:none;background:var(--paper);width:30px;height:30px;border-radius:9px;cursor:pointer;font-size:15px;color:var(--muted);flex:none}
+.mb{padding:18px 22px 22px}
+.steps{display:grid;gap:12px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step .n{flex:none;width:27px;height:27px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.step .t{font-size:13.5px;line-height:1.6}
+.step .t b{font-weight:700}
+.step .t>b:first-child{display:block;font-size:14px;margin-bottom:2px}
+.step .t a{color:var(--blue);font-weight:700}
+.gimg{width:100%;border-radius:11px;border:1px solid var(--line);margin-top:14px;display:block}
+.srcnote{background:var(--blueSoft);border:1px solid #C3D6EC;border-radius:9px;padding:10px 13px;font-size:12.5px;line-height:1.65;color:#1B3A66;margin-top:11px}
+.srcnote a{color:var(--blue);font-weight:700}
+.dswarn{background:var(--amberSoft);border:1px solid #EAD9A8;border-radius:9px;padding:9px 12px;font-size:12px;color:#7a5a00;margin-top:10px}
+.rnote{background:var(--greenSoft);border:1px solid #BFE0D0;border-radius:9px;padding:9px 12px;font-size:12.5px;color:#12684A;margin-top:11px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.dssum b{color:var(--ink)}
 .footer{font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);margin-top:26px;padding-top:14px;line-height:1.7}
 @media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.flags{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr}.gside{grid-template-columns:1fr!important}.params{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.kpis{grid-template-columns:1fr 1fr}.flags{grid-template-columns:1fr 1fr}}
@@ -101,22 +181,91 @@ details.pbox summary{font-size:13.5px;font-weight:700;cursor:pointer;color:var(-
 <div class="tophead">
   <div class="k">Relationship Network Analyzer</div>
   <h1>เครื่องมือวิเคราะห์เครือข่ายความสัมพันธ์ หน่วยงาน ⇄ ผู้รับจ้าง</h1>
-  <div class="s">ประมวลผลจากไฟล์ CSV (govspending.data.go.th) ในโฟลเดอร์ <b>data/</b> ของ repository นี้โดยอัตโนมัติ · ข้อมูลประมวลผลในเบราว์เซอร์ของคุณเท่านั้น ไม่ถูกส่งไปที่ใด · เพิ่มข้อมูลปี/จังหวัดใหม่ = อัปโหลดไฟล์เข้าโฟลเดอร์ data/ แล้วเปิดหน้านี้ใหม่</div>
+  <div class="s">ประมวลผลจากไฟล์ CSV (govspending.data.go.th) ในโฟลเดอร์ <b>data/</b> ของ repository นี้ (ชื่อไฟล์ <b>govspending_[จังหวัด]_[ปีงบประมาณ]_….xls</b>) · ข้อมูลประมวลผลในเบราว์เซอร์ของคุณเท่านั้น ไม่ถูกส่งไปที่ใด · เพิ่มข้อมูลใหม่ = วางไฟล์ที่ตั้งชื่อตามรูปแบบนี้ในโฟลเดอร์ data/</div>
+  <div class="hactions">
+    <button class="hbtn primary" id="btnSaveHtml" title="ดาวน์โหลดไฟล์ HTML ไฟล์เดียวไปใช้บนเครื่องตัวเอง">⬇ ดาวน์โหลดเครื่องมือ (HTML)</button>
+    <button class="hbtn" id="btnHelpOffline">💻 วิธีใช้แบบออฟไลน์</button>
+    <button class="hbtn" id="btnHelpData">📥 วิธีดาวน์โหลดข้อมูล</button>
+  </div>
+</div>
+
+<!-- ===== POPUP: วิธีใช้แบบออฟไลน์ ===== -->
+<div class="mask" id="mOffline">
+  <div class="modal">
+    <div class="mh">
+      <div><h3>💻 วิธีใช้เครื่องมือแบบออฟไลน์ (บนเครื่องของคุณ)</h3>
+      <p>นำเครื่องมือไปเก็บไว้ใช้บนคอมพิวเตอร์ส่วนตัว ข้อมูลจะไม่ถูกส่งออกนอกเครื่อง</p></div>
+      <button class="mx" data-close="mOffline">✕</button>
+    </div>
+    <div class="mb">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div class="t"><b>บันทึกไฟล์เครื่องมือไว้ในเครื่อง</b>
+          กดปุ่ม <b>"⬇ ดาวน์โหลดเครื่องมือ (HTML)"</b> ด้านบน จะได้ไฟล์ <b>network.html</b> เก็บไว้ในโฟลเดอร์ที่ต้องการ</div></div>
+        <div class="step"><div class="n">2</div><div class="t"><b>ดับเบิลคลิกที่ไฟล์</b>
+          เปิดไฟล์ <b>network.html</b> ด้วยเบราว์เซอร์ (Chrome, Edge, Firefox) ได้ทันที ไม่ต้องติดตั้งโปรแกรมใด ๆ</div></div>
+        <div class="step"><div class="n">3</div><div class="t"><b>เตรียมไฟล์ข้อมูล</b>
+          ดาวน์โหลดข้อมูลจัดซื้อจัดจ้างจาก <a href="https://govspending.data.go.th/" target="_blank" rel="noopener">govspending.data.go.th</a>
+          เก็บไว้ในเครื่อง (ดูขั้นตอนที่ปุ่ม <b>"📥 วิธีดาวน์โหลดข้อมูล"</b>)</div></div>
+        <div class="step"><div class="n">4</div><div class="t"><b>อัปโหลดข้อมูลเข้าสู่ระบบ</b>
+          ในหน้าเครื่องมือ กดปุ่ม <b>"เลือกไฟล์จากเครื่องแทน…"</b> แล้วเลือกไฟล์ที่ดาวน์โหลดมา ระบบจะประมวลผลและแสดงผลวิเคราะห์ทันที</div></div>
+      </div>
+      <div class="limit" style="margin-top:16px">⚠️ เมื่อเปิดจากเครื่อง ยังต้องเชื่อมต่ออินเทอร์เน็ตเพื่อโหลดไลบรารีกราฟจาก CDN · ข้อมูลที่อัปโหลดจะถูกประมวลผลในเบราว์เซอร์ของคุณเท่านั้น ไม่ถูกส่งไปที่ใด</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== POPUP: วิธีดาวน์โหลดข้อมูล ===== -->
+<div class="mask" id="mData">
+  <div class="modal">
+    <div class="mh">
+      <div><h3>📥 วิธีโหลดข้อมูลจัดซื้อจัดจ้างภาครัฐเพื่อนำไปวิเคราะห์</h3>
+      <p>ดาวน์โหลดข้อมูลจาก govspending.data.go.th แล้วนำไปอัปโหลดเข้าเครื่องมือวิเคราะห์</p></div>
+      <button class="mx" data-close="mData">✕</button>
+    </div>
+    <div class="mb">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div class="t"><b>ค้นหาโครงการ</b>
+          เข้า <a href="https://govspending.data.go.th/search" target="_blank" rel="noopener">govspending.data.go.th/search</a> เพื่อค้นหาโครงการที่สนใจ</div></div>
+        <div class="step"><div class="n">2</div><div class="t"><b>เลือกเงื่อนไข</b>
+          กดปุ่ม <b>"ขั้นสูง"</b> เพื่อเลือกจังหวัด ปีงบประมาณ และเงื่อนไขของโครงการที่สนใจ</div></div>
+        <div class="step"><div class="n">3</div><div class="t"><b>ดาวน์โหลดข้อมูล</b>
+          กดปุ่มดาวน์โหลด (ปุ่มลูกศรสีเขียว ข้างปุ่ม "ขั้นสูง") แล้วเลือกรูปแบบไฟล์ เช่น Excel compatible เก็บไว้ในคอมพิวเตอร์</div></div>
+        <div class="step"><div class="n">4</div><div class="t"><b>อัปโหลดเข้าเครื่องมือวิเคราะห์</b>
+          นำไฟล์ที่ดาวน์โหลดมาอัปโหลดที่ปุ่ม <b>"เลือกไฟล์จากเครื่องแทน…"</b> ในกล่องแหล่งข้อมูล</div></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===== SOURCE SECTION ===== -->
 <div class="card" id="srcCard">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
+  <div class="srchead" id="srcHead">
     <div>
-      <h3>1) แหล่งข้อมูล — ไฟล์ในโฟลเดอร์ data/</h3>
-      <p class="cap" id="srcCap">กำลังค้นหาไฟล์…</p>
+      <h3 style="margin:0">แหล่งข้อมูล — เลือกจังหวัดและปีงบประมาณ</h3>
+      <p class="cap" id="srcCap" style="margin:2px 0 0">กำลังค้นหาชุดข้อมูล…</p>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn ghost sm" id="btnRefresh">⟳ ค้นหาไฟล์ใหม่</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center" id="srcBtns">
+      <button class="btn ghost sm" id="btnRefresh">⟳ ค้นหาชุดข้อมูลใหม่</button>
       <button class="btn ghost sm" id="btnClearCache">🗑 ล้างแคชข้อมูล</button>
+      <button class="btn ghost sm hidden" id="btnToggleSrc" title="ย่อ/ขยายกล่อง">▲ ย่อ</button>
     </div>
   </div>
-  <div class="filelist" id="fileList"><div class="filerow" style="color:var(--muted)">กำลังค้นหา…</div></div>
+  <div class="collapsible" id="srcBody">
+  <div class="dsbar">
+    <button class="btn sec sm" id="btnSelAll">☑ เลือกทุกจังหวัด ทุกปีงบประมาณ</button>
+    <button class="btn ghost sm" id="btnSelNone">☐ ล้างการเลือกทั้งหมด</button>
+    <span style="font-size:12px;color:var(--muted)">เลือกจังหวัดเพื่อรวมทุกปีงบประมาณ หรือเลือกเฉพาะปีที่ต้องการ · <span style="color:var(--green)">●</span> = มีข้อมูลในแคชแล้ว</span>
+  </div>
+  <div class="dstable" id="dsTable"><div class="dsrow" style="color:var(--muted)">กำลังค้นหาชุดข้อมูล…</div></div>
+  <div class="srcnote">
+    ℹ️ ข้อมูลนี้เป็น<b>โครงการที่มีมูลค่าตั้งแต่ 200,000 บาทขึ้นไป</b> นำมาจากเว็บไซต์
+    <a href="https://govspending.data.go.th/" target="_blank" rel="noopener">govspending.data.go.th</a>
+    ผู้ใช้ควรตรวจสอบความถูกต้องอีกครั้งจาก
+    <a href="https://www.gprocurement.go.th/" target="_blank" rel="noopener">www.gprocurement.go.th</a>
+  </div>
+  <div class="dssum" id="dsSum"></div>
+  <div class="prog" id="prog"><div class="ptrack"><div class="pfill" id="progFill"></div></div><div class="ptxt" id="progTxt"></div></div>
+  <div id="restoreNote"></div>
   <div style="display:flex;gap:10px;align-items:center;margin-top:13px;flex-wrap:wrap">
     <button class="btn" id="btnLoad" disabled>▶ โหลดและวิเคราะห์</button>
     <label class="btn sec" style="display:inline-block">
@@ -125,6 +274,7 @@ details.pbox summary{font-size:13.5px;font-weight:700;cursor:pointer;color:var(-
     <span style="font-size:12px;color:var(--muted)">รองรับ .csv .xls .txt (เนื้อไฟล์ต้องเป็น CSV จาก govspending)</span>
   </div>
   <div class="statusbox" id="statusBox"></div>
+  </div>
 </div>
 
 <!-- ===== RESULTS ===== -->
@@ -135,48 +285,75 @@ details.pbox summary{font-size:13.5px;font-weight:700;cursor:pointer;color:var(-
   <div class="filterbar">
     <div class="fgrp"><div class="flabel">จังหวัด (เลือกได้หลายจังหวัด)</div><div class="chips" id="provChips"></div></div>
     <div class="fgrp"><div class="flabel">ปีงบประมาณ</div><div class="chips" id="yearChips"></div></div>
-    <div class="fgrp" style="flex:1;min-width:230px"><div class="flabel">ค้นหาผู้รับจ้างในกราฟ</div>
-      <input type="search" id="netSearch" placeholder="พิมพ์ชื่อผู้รับจ้าง…" style="width:100%"></div>
   </div>
 
   <details class="pbox mt">
-    <summary>⚙ พารามิเตอร์เกณฑ์ธง (ปรับได้ · บันทึกอัตโนมัติในเครื่องนี้)</summary>
+    <summary>⚙ พารามิเตอร์เกณฑ์ (ปรับได้ · บันทึกอัตโนมัติในเครื่องนี้ · แบ่งกลุ่มตามเมนูวิเคราะห์)</summary>
+    <p class="cap" style="margin:8px 0 2px">วางตัวชี้เมาส์ที่เครื่องหมาย <span class="info">i</span> เพื่ออ่านคำอธิบายของแต่ละพารามิเตอร์ ค่าที่ปรับจะถูกบันทึกไว้ในเครื่องนี้และมีผลต่อการคำนวณทันที</p>
+
+    <div class="pgroup"><div class="pgtitle">🕸 เครือข่ายความสัมพันธ์ <span class="pgbadge">กราฟ + ธง 6 แบบ</span></div>
     <div class="params">
-      <div><label>แสดงผู้รับจ้าง Top N ในกราฟ</label><input type="number" id="p_topN" min="5" max="200"></div>
-      <div><label>เส้นเชื่อมขั้นต่ำ (บาท)</label><input type="number" id="p_edgeMin" min="0" step="100000"></div>
-      <div><label>Capture: มูลค่าขั้นต่ำ (บาท)</label><input type="number" id="p_capMin" min="0" step="500000"></div>
-      <div><label>Method-lock: มูลค่าขั้นต่ำ (บาท)</label><input type="number" id="p_lockMin" min="0" step="500000"></div>
-      <div><label>Cross-type: จำนวนประเภทขั้นต่ำ</label><input type="number" id="p_crossTypes" min="2" max="15"></div>
-      <div><label>Cross-type: มูลค่าขั้นต่ำ (บาท)</label><input type="number" id="p_crossVal" min="0" step="500000"></div>
-      <div><label>High-spread: หน่วยงานขั้นต่ำ</label><input type="number" id="p_spreadMin" min="5" max="200"></div>
-      <div><label>SSD: ส่วนแบ่งรายใหญ่ ≥ (%)</label><input type="number" id="p_ssdShare" min="30" max="100"></div>
-      <div><label>SSD: งบหน่วยงานขั้นต่ำ (บาท)</label><input type="number" id="p_ssdVal" min="0" step="1000000"></div>
-      <div><label>Vendor pool: สัญญาขั้นต่ำ</label><input type="number" id="p_poolN" min="5" max="500"></div>
-      <div><label>Vendor pool: อัตราส่วน ≤</label><input type="number" id="p_poolRatio" min="0.01" max="1" step="0.01"></div>
-      <div style="align-self:end"><button class="btn sm" id="btnDefaults">คืนค่าเริ่มต้น</button></div>
-    </div>
+      <div><label class="plabel">แสดงผู้รับจ้าง Top N ในกราฟ<span class="info" tabindex="0">i<span class="tip">จำนวนผู้รับจ้างที่มีมูลค่ารวมสูงสุดที่จะแสดงในแผนผัง หากกำหนดมากขึ้นจะเห็นภาพรวมกว้างขึ้น แต่แผนผังจะอ่านยากและแสดงผลช้าลง ค่านี้ไม่มีผลต่อการนับธงความเสี่ยง</span></span></label><input type="number" id="p_topN" min="5" max="200"></div>
+      <div><label class="plabel">เส้นเชื่อมขั้นต่ำ (บาท)<span class="info" tabindex="0">i<span class="tip">แสดงเส้นเชื่อมเฉพาะคู่หน่วยงานและผู้รับจ้างที่มีมูลค่ารวมสูงกว่าค่าที่กำหนด เพื่อให้แผนผังอ่านง่ายขึ้น</span></span></label><input type="number" id="p_edgeMin" min="0" step="100000"></div>
+      <div><label class="plabel">Capture: มูลค่าขั้นต่ำ (บาท)<span class="info" tabindex="0">i<span class="tip">ระบบจะแสดงธง Capture เมื่อผู้รับจ้างรับงานจากหน่วยงานเพียงแห่งเดียว และมีมูลค่ารวมสูงกว่าค่าที่กำหนด การกำหนดมูลค่าขั้นต่ำช่วยคัดผู้รับจ้างรายย่อยออกจากการพิจารณา</span></span></label><input type="number" id="p_capMin" min="0" step="500000"></div>
+      <div><label class="plabel">Method-lock: มูลค่าขั้นต่ำ (บาท)<span class="info" tabindex="0">i<span class="tip">ระบบจะแสดงธง Method-lock เมื่อผู้รับจ้างได้รับงานด้วยวิธีเฉพาะเจาะจงทุกสัญญา และมีมูลค่ารวมสูงกว่าค่าที่กำหนด</span></span></label><input type="number" id="p_lockMin" min="0" step="500000"></div>
+      <div><label class="plabel">Cross-type: จำนวนประเภทขั้นต่ำ<span class="info" tabindex="0">i<span class="tip">จำนวนประเภทงานขั้นต่ำที่ผู้รับจ้างรายเดียวรับดำเนินการ ใช้พิจารณาร่วมกับมูลค่าขั้นต่ำ หากเข้าเงื่อนไขทั้งสองข้อ ระบบจะแสดงธง Cross-type</span></span></label><input type="number" id="p_crossTypes" min="2" max="15"></div>
+      <div><label class="plabel">Cross-type: มูลค่าขั้นต่ำ (บาท)<span class="info" tabindex="0">i<span class="tip">มูลค่ารวมขั้นต่ำสำหรับธง Cross-type ใช้พิจารณาร่วมกับจำนวนประเภทงาน เพื่อคัดผู้ค้ารายย่อยที่จำหน่ายสินค้าหลายประเภทแต่มูลค่าน้อยออกจากการพิจารณา</span></span></label><input type="number" id="p_crossVal" min="0" step="500000"></div>
+      <div><label class="plabel">High-spread: หน่วยงานขั้นต่ำ<span class="info" tabindex="0">i<span class="tip">ระบบจะแสดงธง High-spread เมื่อผู้รับจ้างเป็นคู่สัญญากับหน่วยงานตั้งแต่จำนวนที่กำหนดขึ้นไป</span></span></label><input type="number" id="p_spreadMin" min="5" max="200"></div>
+      <div><label class="plabel">SSD: ส่วนแบ่งรายใหญ่ ≥ (%)<span class="info" tabindex="0">i<span class="tip">ระบบจะแสดงธง Single-source dependence เมื่อผู้รับจ้างรายใหญ่ที่สุดได้รับส่วนแบ่งมูลค่าจากหน่วยงานหนึ่งตั้งแต่ร้อยละที่กำหนดขึ้นไป ใช้พิจารณาร่วมกับมูลค่ารวมขั้นต่ำของหน่วยงาน</span></span></label><input type="number" id="p_ssdShare" min="30" max="100"></div>
+      <div><label class="plabel">SSD: งบหน่วยงานขั้นต่ำ (บาท)<span class="info" tabindex="0">i<span class="tip">มูลค่ารวมขั้นต่ำของหน่วยงานสำหรับธง Single-source dependence ใช้พิจารณาร่วมกับร้อยละส่วนแบ่ง เพื่อคัดหน่วยงานที่มีงบประมาณน้อยออกจากการพิจารณา</span></span></label><input type="number" id="p_ssdVal" min="0" step="1000000"></div>
+      <div><label class="plabel">Vendor pool: สัญญาขั้นต่ำ<span class="info" tabindex="0">i<span class="tip">จำนวนสัญญาขั้นต่ำของหน่วยงานที่จะนำมาพิจารณาธง Vendor pool ใช้พิจารณาร่วมกับค่าอัตราส่วน</span></span></label><input type="number" id="p_poolN" min="5" max="500"></div>
+      <div><label class="plabel">Vendor pool: อัตราส่วน ≤<span class="info" tabindex="0">i<span class="tip">อัตราส่วนจำนวนผู้รับจ้างต่อจำนวนสัญญา หากต่ำกว่าหรือเท่ากับค่าที่กำหนด แสดงว่าสัญญาจำนวนมากกระจุกอยู่กับผู้รับจ้างน้อยราย ตัวอย่างเช่น 0.12 หมายถึงสัญญา 100 ฉบับใช้ผู้รับจ้างเพียง 12 ราย</span></span></label><input type="number" id="p_poolRatio" min="0.01" max="1" step="0.01"></div>
+    </div></div>
+
+    <div class="pgroup"><div class="pgtitle">📑 แบ่งซื้อแบ่งจ้าง</div>
+    <div class="params">
+      <div><label class="plabel">จำนวนฉบับ/วันขั้นต่ำ<span class="info" tabindex="0">i<span class="tip">จำนวนสัญญาขั้นต่ำที่หน่วยงานและผู้รับจ้างคู่เดียวกันจัดทำด้วยวิธีเฉพาะเจาะจงภายในวันเดียวกัน จึงจะนับเป็นกลุ่มที่เข้าข่ายการแบ่งซื้อแบ่งจ้าง</span></span></label><input type="number" id="p_splitMin" min="2" max="50"></div>
+    </div></div>
+
+    <div class="pgroup"><div class="pgtitle">🎯 วิธีเฉพาะเจาะจง <span class="pgbadge">เกณฑ์ที่ 2</span></div>
+    <div class="params">
+      <div><label class="plabel">เกณฑ์ 2: วงเงินขั้นต่ำ (บาท)<span class="info" tabindex="0">i<span class="tip">วงเงินต่ำสุดของช่วงที่ใช้ในตารางเกณฑ์ที่ 2 (รายหน่วยงาน รายปีงบประมาณ) ค่าเริ่มต้น 300,000 บาท เพื่อมุ่งเน้นสัญญาวงเงินสูงที่ยังอยู่ในอำนาจการจัดซื้อจัดจ้างโดยวิธีเฉพาะเจาะจง</span></span></label><input type="number" id="p_specLow" min="0" step="50000"></div>
+      <div><label class="plabel">เกณฑ์ 2: วงเงินสูงสุด (บาท)<span class="info" tabindex="0">i<span class="tip">วงเงินสูงสุดของช่วงที่ใช้ในตารางเกณฑ์ที่ 2 ค่าเริ่มต้น 500,000 บาท ตามวงเงินสูงสุดของการจัดซื้อจัดจ้างโดยวิธีเฉพาะเจาะจงกรณีทั่วไป</span></span></label><input type="number" id="p_specHigh" min="0" step="50000"></div>
+    </div></div>
+
+    <div class="pgroup"><div class="pgtitle">💰 ราคาและส่วนลด</div>
+    <div class="params">
+      <div><label class="plabel">เกณฑ์ข้อมูลน่าสงสัย (เท่า)<span class="info" tabindex="0">i<span class="tip">หากราคาที่ตกลงสูงกว่าราคากลางตั้งแต่จำนวนเท่าที่กำหนดขึ้นไป เช่น 1.5 เท่า ระบบจะแสดงหมายเหตุว่าข้อมูลอาจคลาดเคลื่อน และควรตรวจสอบในระบบ e-GP อีกครั้ง</span></span></label><input type="number" id="p_suspectRatio" min="1.05" max="100" step="0.05"></div>
+      <div style="align-self:end"><button class="btn sm" id="btnDefaults">คืนค่าเริ่มต้นทั้งหมด</button></div>
+    </div></div>
   </details>
 
-  <div class="flags mt" id="flagCards"></div>
+  <!-- ===== เมนูเลือกการวิเคราะห์ ===== -->
+  <div class="viewtabs" id="viewTabs">
+    <button class="vtab on" data-view="net">🕸 เครือข่ายความสัมพันธ์</button>
+    <button class="vtab" data-view="split">📑 แบ่งซื้อแบ่งจ้าง</button>
+    <button class="vtab" data-view="specific">🎯 วิธีเฉพาะเจาะจง</button>
+    <button class="vtab" data-view="pricing">💰 ราคาและส่วนลด</button>
+  </div>
+
+  <!-- ================= VIEW: เครือข่าย ================= -->
+  <div id="view_net">
 
   <div class="grid gside mt" style="grid-template-columns:1fr 295px;align-items:start">
-    <div id="netgraph"></div>
+    <div>
+      <div style="margin-bottom:10px"><input type="search" id="netSearch" placeholder="🔍 ค้นหาผู้รับจ้างในกราฟ — พิมพ์ชื่อแล้วกราฟจะซูมไปที่จุดนั้น…" style="width:100%"></div>
+      <div id="netgraph"></div>
+    </div>
     <div class="side">
       <div class="card"><h3 style="font-size:13px">การกระจุกมูลค่า</h3><div id="concBox" style="margin-top:7px"></div></div>
       <div class="card"><h3 style="font-size:13px">รายละเอียด (คลิกจุด/แถว)</h3><div id="detailBox" style="margin-top:7px;font-size:12.5px;color:var(--muted)">คลิกจุดในกราฟ หรือแถวในตาราง</div></div>
-      <div class="card"><h3 style="font-size:13px">ส่งออกข้อมูล</h3>
-        <div style="display:flex;flex-direction:column;gap:7px;margin-top:9px">
-          <button class="btn sec sm" id="expVendor">⬇ ผู้รับจ้างทั้งหมด (CSV)</button>
-          <button class="btn sec sm" id="expAgency">⬇ หน่วยงานทั้งหมด (CSV)</button>
-          <button class="btn sec sm" id="expPairs">⬇ คู่ความสัมพันธ์ (CSV)</button>
-        </div>
-      </div>
     </div>
   </div>
 
+  <div class="flags mt" id="flagCards"></div>
+
   <div class="card mt">
-    <h3>ตารางผู้รับจ้าง (เรียงตามมูลค่าในขอบเขตที่เลือก)</h3>
-    <p class="cap">คลิกแถวเพื่อดูรายละเอียดและโฟกัสในกราฟ · แสดง 60 อันดับแรก — ครบทุกรายใช้ปุ่ม Export</p>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+      <div><h3>ตารางผู้รับจ้าง (เรียงตามมูลค่าในขอบเขตที่เลือก)</h3>
+      <p class="cap">คลิกแถวเพื่อดูรายละเอียด เลื่อนหน้าไปที่กราฟ และโฟกัสจุดนั้น · คลิกการ์ดธงด้านบนเพื่อกรอง · คลิกหัวคอลัมน์เพื่อเรียงลำดับ · แสดง 60 อันดับแรก — ครบทุกรายใช้ปุ่ม Export</p></div>
+      <button class="btn sec sm" id="expVendor">⬇ Export CSV</button>
+    </div>
     <div class="scroll" id="vtWrap"><table><thead><tr>
       <th>ผู้รับจ้าง</th><th class="num">สัญญา</th><th class="num">มูลค่า (บาท)</th><th class="num">หน่วยงาน</th><th class="num">ประเภทงาน</th><th class="num">%เฉพาะเจาะจง</th><th>ธง</th>
     </tr></thead><tbody id="vtBody"></tbody></table></div>
@@ -196,6 +373,126 @@ details.pbox summary{font-size:13.5px;font-weight:700;cursor:pointer;color:var(-
         <th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th class="num">จำนวนปี</th><th>ปีที่พบ</th><th class="num">สัญญารวม</th><th class="num">มูลค่ารวม</th><th>ธงหลายปี</th>
       </tr></thead><tbody id="persistBody"></tbody></table></div>
     </div>
+  </div>
+
+  </div><!-- /view_net -->
+
+  <!-- ================= VIEW: แบ่งซื้อแบ่งจ้าง ================= -->
+  <div id="view_split" class="hidden">
+    <div class="kpis mt" id="sp_kpis"></div>
+    <div class="grid gside mt" style="grid-template-columns:1fr 340px;align-items:start">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+          <div><h3>กลุ่มเสี่ยงแบ่งซื้อแบ่งจ้าง</h3>
+          <p class="cap" id="sp_cap" style="margin:2px 0 10px"></p></div>
+          <button class="btn sec sm" id="sp_export">⬇ Export CSV</button>
+        </div>
+        <div class="scroll" style="max-height:520px"><table><thead><tr>
+          <th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th>วันที่สัญญา</th><th class="num">จำนวนฉบับ</th><th class="num">มูลค่ารวม</th><th class="num">เฉลี่ย/ฉบับ</th><th></th>
+        </tr></thead><tbody id="sp_body"></tbody></table></div>
+      </div>
+      <div class="side">
+        <div class="card"><h3 style="font-size:13px">หน่วยงานที่พบกลุ่มมากที่สุด</h3><div id="sp_bars" style="margin-top:9px"></div></div>
+        <div class="card"><h3 style="font-size:13px;margin-bottom:6px">เกณฑ์ที่ใช้</h3><div style="font-size:12px;color:var(--muted);line-height:1.7" id="sp_note"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= VIEW: วิธีเฉพาะเจาะจง ================= -->
+  <div id="view_specific" class="hidden">
+    <div class="kpis mt" id="sx_kpis"></div>
+    <div class="grid gside mt" style="grid-template-columns:1fr 340px;align-items:start">
+      <div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+            <div><h3>เกณฑ์ที่ 1: เฉพาะเจาะจงเกิน 500,000 บาท</h3>
+            <p class="cap" style="margin:2px 0 10px">เกินเพดานทั่วไปตาม ม.56(2)(ข) ต้องมีเหตุยกเว้นเฉพาะ · คลิกชื่อโครงการเพื่อเปิด e-GP · คลิกหัวคอลัมน์เพื่อเรียงลำดับ</p></div>
+            <button class="btn sec sm" id="sx_export">⬇ Export CSV</button>
+          </div>
+          <div class="scroll" style="max-height:430px"><table><thead><tr>
+            <th>โครงการ</th><th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th class="num">มูลค่า (บาท)</th><th>ปีงบ</th>
+          </tr></thead><tbody id="sx_body"></tbody></table></div>
+        </div>
+        <div class="card mt">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+            <div><h3 id="sxs_title">เกณฑ์ที่ 2: เฉพาะเจาะจงช่วงวงเงินที่กำหนด (รายหน่วยงาน × รายปีงบประมาณ)</h3>
+            <p class="cap" id="sxs_cap" style="margin:2px 0 10px"></p></div>
+            <button class="btn sec sm" id="sxs_export">⬇ Export CSV</button>
+          </div>
+          <div class="scroll" style="max-height:430px"><table><thead id="sxs_head"></thead><tbody id="sxs_body"></tbody></table></div>
+        </div>
+        <div class="card mt">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+            <div><h3>หน่วยงานที่ใช้วิธีเฉพาะเจาะจงเข้มข้น</h3>
+            <p class="cap" style="margin:2px 0 10px">เรียงตาม %เฉพาะเจาะจง (เฉพาะหน่วยงานที่มีสัญญา ≥ 20 ฉบับ) · คลิกแถวเพื่อดูโครงการทั้งหมดของหน่วยงาน · คลิกหัวคอลัมน์เพื่อเรียงลำดับ</p></div>
+            <button class="btn sec sm" id="sxa_export">⬇ Export CSV</button>
+          </div>
+          <div class="scroll" style="max-height:380px"><table><thead><tr>
+            <th>หน่วยงาน</th><th class="num">สัญญา</th><th class="num">เฉพาะเจาะจง</th><th class="num">%</th><th class="num">มูลค่าเฉพาะเจาะจง</th>
+          </tr></thead><tbody id="sxa_body"></tbody></table></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card"><h3 style="font-size:13px">สัดส่วนวิธีจัดหา (ตามจำนวน)</h3><div id="sx_bars_n" style="margin-top:9px"></div></div>
+        <div class="card"><h3 style="font-size:13px">สัดส่วนวิธีจัดหา (ตามมูลค่า)</h3><div id="sx_bars_v" style="margin-top:9px"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= VIEW: ราคาและส่วนลด ================= -->
+  <div id="view_pricing" class="hidden">
+    <div class="kpis mt" id="pr_kpis"></div>
+    <div class="grid gside mt" style="grid-template-columns:1fr 340px;align-items:start">
+      <div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+            <div><h3>รายการทำสัญญาเกินราคากลาง</h3>
+            <p class="cap" id="pr_cap" style="margin:2px 0 10px"></p></div>
+            <button class="btn sec sm" id="pr_export">⬇ Export CSV</button>
+          </div>
+          <div class="scroll" style="max-height:400px"><table><thead><tr>
+            <th>โครงการ</th><th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th class="num">ราคากลาง</th><th class="num">ตกลง</th><th class="num">เกิน (บาท)</th><th>หมายเหตุ</th>
+          </tr></thead><tbody id="pr_body"></tbody></table></div>
+        </div>
+        <div class="card mt">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+            <div><h3>e-bidding ที่ส่วนลด ≈ 0%</h3>
+            <p class="cap" style="margin:2px 0 10px">ประกวดราคาแต่ได้ราคาเท่าราคากลางพอดี — สงสัยผู้เสนอราคารายเดียวหรือฮั้วประมูล ควรตรวจจำนวนผู้ยื่นซอง · คลิกหัวคอลัมน์เพื่อเรียงลำดับ</p></div>
+            <button class="btn sec sm" id="pre_export">⬇ Export CSV</button>
+          </div>
+          <div class="scroll" style="max-height:340px"><table><thead><tr>
+            <th>โครงการ</th><th>หน่วยงาน</th><th>ผู้รับจ้าง</th><th class="num">มูลค่า (บาท)</th><th>ปีงบ</th>
+          </tr></thead><tbody id="pre_body"></tbody></table></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card"><h3 style="font-size:13px">หน่วยงานที่พบเกินราคากลางบ่อย</h3><div id="pr_bars" style="margin-top:9px"></div></div>
+        <div class="card"><h3 style="font-size:13px;margin-bottom:6px">ตัวชี้วัดในมุมมองนี้</h3><div style="font-size:12px;color:var(--muted);line-height:1.7">
+          <b style="color:var(--ink)">ส่วนลด 0%</b> — ทำสัญญาที่ราคากลางเต็มจำนวนพอดี ราคาอาจไม่ได้มาจากการต่อรองจริง<br>
+          <b style="color:var(--ink)">เกินราคากลาง</b> — จ้างแพงกว่างบที่ตั้งไว้<br>
+          <b style="color:var(--ink)">มูลค่าลงท้ายกลม</b> — หาร 1,000 ลงตัว ราคาน่าจะประมาณเอา ไม่ใช่จากใบเสนอราคาจริง<br>
+          <b style="color:var(--ink)">e-bidding ส่วนลด 0%</b> — แข่งขันแต่ไร้ผลต่อราคา
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VENDOR PROJECTS DETAIL (opened via 'รายละเอียด' button) ===== -->
+  <div class="card mt hidden" id="vpCard">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+      <div>
+        <h3 style="margin:0" id="vpTitle">รายละเอียดการเป็นคู่สัญญา</h3>
+        <p class="cap" id="vpCap" style="margin:2px 0 0"></p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn sec sm" id="vpExport">⬇ Export CSV</button>
+        <button class="btn ghost sm" id="vpBack">↑ กลับไปแผนผังความสัมพันธ์</button>
+      </div>
+    </div>
+    <div class="scroll mt" style="max-height:460px"><table><thead id="vpHead"><tr>
+      <th>โครงการ</th><th>หน่วยงาน</th><th>ลักษณะงาน</th><th>วิธีจัดหา</th><th class="num">มูลค่า (บาท)</th><th>ปีงบ</th><th>รหัสโครงการ</th>
+    </tr></thead><tbody id="vpBody"></tbody></table></div>
+    <p class="cap" style="margin-top:9px">คลิกที่ชื่อโครงการเพื่อเปิดหน้าค้นหาข้อมูลโครงการนั้นในระบบ e-GP (เปิดแท็บใหม่) · คลิกหัวคอลัมน์เพื่อเรียงลำดับ</p>
   </div>
 
   <div class="limit">⚠️ <b>ข้อจำกัด:</b> ธงทั้งหมดเป็น<b>สัญญาณคัดกรอง</b> ไม่ใช่ข้อสรุปว่าทุจริต — ความสัมพันธ์กระจุก ≠ ทุจริตเสมอไป (ผูกขาดธรรมชาติ เช่น นม/น้ำมัน/ยา และผู้รับเหมาน้อยรายในพื้นที่ห่างไกลเป็นเรื่องปกติได้) · การจำแนกประเภทงาน (สำหรับ Cross-type) ใช้คำสำคัญในชื่อโครงการ ซึ่งปรับจูนกับข้อมูลแม่ฮ่องสอน หากใช้จังหวัดอื่นควรตรวจสัดส่วนหมวด "อื่นๆ" ว่าสูงผิดปกติหรือไม่ · ผลลัพธ์ขึ้นกับความครบถ้วนของไฟล์ที่นำเข้า</div>
@@ -230,7 +527,7 @@ const WORK_RULES=[
 function classifyWork(name){ const s=name||''; for(const [c,re] of WORK_RULES){ if(re.test(s)) return c; } return 'อื่นๆ'; }
 function parseMoney(s){ if(s==null) return 0; const t=String(s).replace(/,/g,'').trim(); if(t==='') return 0; const v=parseFloat(t); return isFinite(v)?v:0; }
 
-const DEFAULTS={topN:40,edgeMin:500000,capMin:3000000,lockMin:5000000,crossTypes:5,crossVal:3000000,spreadMin:30,ssdShare:70,ssdVal:10000000,poolN:30,poolRatio:0.12};
+const DEFAULTS={topN:40,edgeMin:500000,capMin:3000000,lockMin:5000000,crossTypes:5,crossVal:3000000,spreadMin:30,ssdShare:70,ssdVal:10000000,poolN:30,poolRatio:0.12,splitMin:5,specLow:300000,specHigh:500000,suspectRatio:1.5};
 let params={...DEFAULTS};
 
 /* ---------- tiny helpers ---------- */
@@ -244,8 +541,16 @@ function humanSize(n){ if(n==null) return ''; if(n<1024) return n+' B'; if(n<104
 /* ============================================================
    INDEXEDDB (cache raw file text keyed by name+sha/size)
    ============================================================ */
-const DB_NAME='egp_net',STORE='files';
-function idb(){ return new Promise((res,rej)=>{ const r=indexedDB.open(DB_NAME,1); r.onupgradeneeded=()=>{ r.result.createObjectStore(STORE,{keyPath:'name'}); }; r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+const DB_NAME='egp_net',STORE='files',SSTORE='session';
+function idb(){ return new Promise((res,rej)=>{ const r=indexedDB.open(DB_NAME,2);
+  r.onupgradeneeded=(e)=>{ const db=r.result;
+    if(!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE,{keyPath:'name'});
+    if(!db.objectStoreNames.contains(SSTORE)) db.createObjectStore(SSTORE,{keyPath:'id'});
+  };
+  r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+async function sesPut(rec){ try{ const db=await idb(); return await new Promise(res=>{ const t=db.transaction(SSTORE,'readwrite').objectStore(SSTORE).put(rec); t.onsuccess=()=>res(true); t.onerror=()=>res(false); }); }catch(e){ return false; } }
+async function sesGet(id){ try{ const db=await idb(); return await new Promise(res=>{ const t=db.transaction(SSTORE,'readonly').objectStore(SSTORE).get(id); t.onsuccess=()=>res(t.result||null); t.onerror=()=>res(null); }); }catch(e){ return null; } }
+async function sesDel(id){ try{ const db=await idb(); return await new Promise(res=>{ const t=db.transaction(SSTORE,'readwrite').objectStore(SSTORE).delete(id); t.onsuccess=()=>res(true); t.onerror=()=>res(false); }); }catch(e){ return false; } }
 async function idbGet(name){ try{ const db=await idb(); return await new Promise((res)=>{ const t=db.transaction(STORE,'readonly').objectStore(STORE).get(name); t.onsuccess=()=>res(t.result||null); t.onerror=()=>res(null); }); }catch(e){ return null; } }
 async function idbPut(rec){ try{ const db=await idb(); return await new Promise((res)=>{ const t=db.transaction(STORE,'readwrite').objectStore(STORE).put(rec); t.onsuccess=()=>res(true); t.onerror=()=>res(false); }); }catch(e){ return false; } }
 async function idbClear(){ try{ const db=await idb(); return await new Promise((res)=>{ const t=db.transaction(STORE,'readwrite').objectStore(STORE).clear(); t.onsuccess=()=>res(true); t.onerror=()=>res(false); }); }catch(e){ return false; } }
@@ -261,7 +566,6 @@ function uiToParams(){ for(const k in DEFAULTS){ const el=$('p_'+k); if(el){ con
 /* ============================================================
    FILE DISCOVERY (GitHub contents API → manifest → dir listing → picker)
    ============================================================ */
-let discovered=[]; // {name,size,sha,source}
 function repoInfo(){
   const host=location.hostname, path=location.pathname;
   const q=new URLSearchParams(location.search);
@@ -274,67 +578,211 @@ function repoInfo(){
   }
   return null;
 }
+/* ============================================================
+   DATASET DISCOVERY — data/govspending_[province]_[year]/
+   ============================================================ */
+const PROV_TH={
+ amnatcharoen:'อำนาจเจริญ',angthong:'อ่างทอง',ayutthaya:'พระนครศรีอยุธยา',phranakhonsiayutthaya:'พระนครศรีอยุธยา',
+ bangkok:'กรุงเทพมหานคร',buengkan:'บึงกาฬ',buriram:'บุรีรัมย์',chachoengsao:'ฉะเชิงเทรา',chainat:'ชัยนาท',
+ chaiyaphum:'ชัยภูมิ',chanthaburi:'จันทบุรี',chiangmai:'เชียงใหม่',chiangrai:'เชียงราย',chonburi:'ชลบุรี',
+ chumphon:'ชุมพร',kalasin:'กาฬสินธุ์',kamphaengphet:'กำแพงเพชร',kanchanaburi:'กาญจนบุรี',khonkaen:'ขอนแก่น',
+ krabi:'กระบี่',lampang:'ลำปาง',lamphun:'ลำพูน',loei:'เลย',lopburi:'ลพบุรี',maehongson:'แม่ฮ่องสอน',
+ mahasarakham:'มหาสารคาม',mukdahan:'มุกดาหาร',nakhonnayok:'นครนายก',nakhonpathom:'นครปฐม',
+ nakhonphanom:'นครพนม',nakhonratchasima:'นครราชสีมา',nakhonsawan:'นครสวรรค์',nakhonsithammarat:'นครศรีธรรมราช',
+ nan:'น่าน',narathiwat:'นราธิวาส',nongbualamphu:'หนองบัวลำภู',nongkhai:'หนองคาย',nonthaburi:'นนทบุรี',
+ pathumthani:'ปทุมธานี',pattani:'ปัตตานี',phangnga:'พังงา',phatthalung:'พัทลุง',phayao:'พะเยา',
+ phetchabun:'เพชรบูรณ์',phetchaburi:'เพชรบุรี',phichit:'พิจิตร',phitsanulok:'พิษณุโลก',phrae:'แพร่',
+ phuket:'ภูเก็ต',prachinburi:'ปราจีนบุรี',prachuapkhirikhan:'ประจวบคีรีขันธ์',ranong:'ระนอง',ratchaburi:'ราชบุรี',
+ rayong:'ระยอง',roiet:'ร้อยเอ็ด',sakaeo:'สระแก้ว',sakonnakhon:'สกลนคร',samutprakan:'สมุทรปราการ',
+ samutsakhon:'สมุทรสาคร',samutsongkhram:'สมุทรสงคราม',saraburi:'สระบุรี',satun:'สตูล',sichon:'สิงห์บุรี',
+ singburi:'สิงห์บุรี',sisaket:'ศรีสะเกษ',songkhla:'สงขลา',sukhothai:'สุโขทัย',suphanburi:'สุพรรณบุรี',
+ suratthani:'สุราษฎร์ธานี',surin:'สุรินทร์',tak:'ตาก',trang:'ตรัง',trat:'ตราด',ubonratchathani:'อุบลราชธานี',
+ udonthani:'อุดรธานี',uthaithani:'อุทัยธานี',uttaradit:'อุตรดิตถ์',yala:'ยะลา',yasothon:'ยโสธร'
+};
+const provTH=k=>PROV_TH[String(k).toLowerCase().replace(/[^a-z]/g,'')]||k;
+/* ชื่อไฟล์: govspending_[จังหวัด]_[ปีงบประมาณ]_min200000_exact.xls (ส่วนท้ายหลังปีจะมีหรือไม่มีก็ได้) */
+const FILE_RE=/^govspending_([A-Za-z]+)_(\d{4})(?:[_-].*)?\.(?:csv|xls|xlsx|txt)$/i;
+
+let DATASETS=[];              // [{key,prov,year,files:[{name,path,sha,size}]}]
+let selDS=new Set();          // ชุดข้อมูลที่เลือก
+
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function ghJSON(url,tries=3){
+  let lastErr;
+  for(let i=0;i<tries;i++){
+    try{
+      const r=await fetch(url,{headers:{'Accept':'application/vnd.github+json'}});
+      if(r.ok) return await r.json();
+      lastErr=new Error((r.status===403||r.status===429)?'GitHub API ถูกจำกัดจำนวนคำขอ (rate limit)':('HTTP '+r.status));
+    }catch(e){ lastErr=e; }
+    if(i<tries-1) await sleep(500*(i+1));
+  }
+  throw lastErr||new Error('fail');
+}
+/* จัดกลุ่มรายชื่อไฟล์เป็นชุดข้อมูล จังหวัด × ปีงบประมาณ */
+function groupFiles(list){
+  const m=new Map();
+  for(const f of list){
+    const mm=f.name.match(FILE_RE); if(!mm) continue;
+    const prov=mm[1].toLowerCase(), year=mm[2], key=prov+'_'+year;
+    if(!m.has(key)) m.set(key,{key,prov,year,files:[]});
+    m.get(key).files.push(f);
+  }
+  const out=[...m.values()];
+  out.forEach(d=>d.files.sort((a,b)=>a.name.localeCompare(b.name)));
+  out.sort((a,b)=>a.key.localeCompare(b.key));
+  return out;
+}
+
 async function discover(){
-  discovered=[]; $('fileList').innerHTML='<div class="filerow" style="color:var(--muted)">กำลังค้นหา…</div>';
+  DATASETS=[]; selDS=new Set(); const w=$('dsWarn'); if(w) w.remove();
+  $('dsTable').innerHTML='<div class="dsrow" style="color:var(--muted)">กำลังค้นหาชุดข้อมูล…</div>';
+  $('srcCap').textContent='กำลังค้นหาชุดข้อมูล…';
   const ri=repoInfo();
-  // 1) GitHub contents API (gets sha for reliable cache keys)
+  let via='';
+
+  // (ก) GitHub Contents API — รายชื่อไฟล์ในโฟลเดอร์ data/
   if(ri){
     try{
-      const url=`https://api.github.com/repos/${ri.owner}/${ri.repo}/contents/data`;
-      const r=await fetch(url,{headers:{'Accept':'application/vnd.github+json'}});
+      const arr=await ghJSON(`https://api.github.com/repos/${ri.owner}/${ri.repo}/contents/data`);
+      const files=arr.filter(x=>x.type==='file'&&FILE_RE.test(x.name))
+        .map(x=>({name:x.name,path:'data/'+x.name,sha:x.sha,size:x.size}));
+      DATASETS=groupFiles(files);
+      if(DATASETS.length) via='GitHub API';
+    }catch(e){ log('⚠ GitHub API: '+e.message); }
+  }
+  // (ข) manifest.json — {"files":["govspending_maehongson_2567_min200000_exact.xls", ...]}
+  if(!DATASETS.length){
+    try{
+      const r=await fetch('data/manifest.json',{cache:'no-store'});
       if(r.ok){
-        const arr=await r.json();
-        discovered=arr.filter(x=>x.type==='file'&&/\.(csv|xls|txt)$/i.test(x.name))
-          .map(x=>({name:x.name,size:x.size,sha:x.sha,source:'github'}));
-        if(discovered.length){ log('พบ '+discovered.length+' ไฟล์ผ่าน GitHub API'); return renderFileList(); }
+        const j=await r.json();
+        const raw=Array.isArray(j)?j:(j.files||[]);
+        const files=raw.map(f=>typeof f==='string'
+          ? {name:f,path:'data/'+f}
+          : {name:f.name,path:'data/'+f.name,sha:f.sha,size:f.size});
+        DATASETS=groupFiles(files);
+        if(DATASETS.length) via='manifest.json';
       }
     }catch(e){}
   }
-  // 2) manifest.json
-  try{
-    const r=await fetch('data/manifest.json',{cache:'no-store'});
-    if(r.ok){ const j=await r.json(); const files=j.files||j; if(Array.isArray(files)&&files.length){
-      discovered=files.map(f=>typeof f==='string'?{name:f,source:'manifest'}:{name:f.name,size:f.size,sha:f.sha,source:'manifest'});
-      log('พบ '+discovered.length+' ไฟล์ผ่าน manifest.json'); return renderFileList(); } }
-  }catch(e){}
-  // 3) directory listing HTML (works with local http.server / some hosts)
-  try{
-    const r=await fetch('data/',{cache:'no-store'});
-    if(r.ok){ const html=await r.text(); const re=/href="([^"?]+\.(?:csv|xls|txt))"/gi; let m; const set=new Set();
-      while((m=re.exec(html))){ let n=decodeURIComponent(m[1]).split('/').pop(); if(n) set.add(n); }
-      if(set.size){ discovered=[...set].map(n=>({name:n,source:'listing'})); log('พบ '+discovered.length+' ไฟล์ผ่าน directory listing'); return renderFileList(); } }
-  }catch(e){}
-  // 4) nothing → prompt picker
-  $('srcCap').textContent='ไม่พบไฟล์ในโฟลเดอร์ data/ อัตโนมัติ — ใช้ปุ่ม "เลือกไฟล์จากเครื่องแทน" ด้านล่าง';
-  $('fileList').innerHTML='<div class="filerow" style="color:var(--muted)">— ไม่พบไฟล์อัตโนมัติ —</div>';
-  $('btnLoad').disabled=true;
-}
-async function renderFileList(){
-  $('srcCap').textContent='พบ '+discovered.length+' ไฟล์ — ตรวจสถานะแคช…';
-  let html='';
-  for(const f of discovered){
-    const cached=await idbGet(f.name);
-    const fresh=cached && ((f.sha&&cached.sha===f.sha) || (!f.sha&&f.size&&cached.size===f.size) || (!f.sha&&!f.size));
-    f._cached=!!fresh;
-    const badge=fresh?'<span class="badge cache">แคชแล้ว</span>':'<span class="badge dl">ต้องดาวน์โหลด</span>';
-    const src={github:'GitHub',manifest:'manifest',listing:'listing',local:'เครื่อง'}[f.source]||f.source;
-    html+=`<div class="filerow"><span class="fname">${f.name}</span><span class="fsize">${f.size?humanSize(f.size):''}</span><span class="badge src">${src}</span>${badge}</div>`;
+  // (ค) directory listing
+  if(!DATASETS.length){
+    try{
+      const r=await fetch('data/',{cache:'no-store'});
+      if(r.ok){
+        const html=await r.text(); const set=new Set(); let m;
+        const re=/href="([^"?]+)"/gi;
+        while((m=re.exec(html))){ const n=decodeURIComponent(m[1]).split('/').pop(); if(n&&FILE_RE.test(n)) set.add(n); }
+        DATASETS=groupFiles([...set].map(n=>({name:n,path:'data/'+n})));
+        if(DATASETS.length) via='directory listing';
+      }
+    }catch(e){}
   }
-  $('fileList').innerHTML=html;
-  $('srcCap').textContent='พบ '+discovered.length+' ไฟล์ในโฟลเดอร์ data/ — กด "โหลดและวิเคราะห์"';
-  $('btnLoad').disabled=discovered.length===0;
+
+  // (ง) ถ้าค้นหาไม่ได้เลย → ใช้รายการที่แคชไว้
+  if(!DATASETS.length){
+    const cd=await sesGet('discovery');
+    if(cd&&cd.datasets&&cd.datasets.length){
+      DATASETS=cd.datasets;
+      log('ใช้รายการชุดข้อมูลจากแคช ('+DATASETS.length+' ชุด)');
+      await renderDsMatrix();
+      showDsWarn('ไม่สามารถค้นหาชุดข้อมูลใหม่ได้ในขณะนี้ (อาจถูกจำกัดจำนวนคำขอชั่วคราว) — กำลังแสดงรายการที่บันทึกไว้ครั้งก่อน กด "ค้นหาชุดข้อมูลใหม่" เพื่อลองอีกครั้ง');
+      return;
+    }
+    $('srcCap').innerHTML='ไม่พบชุดข้อมูลในโฟลเดอร์ <b>data/</b> — ตรวจว่าชื่อไฟล์อยู่ในรูปแบบ <b>govspending_[จังหวัด]_[ปีงบประมาณ]_….xls</b> หรือใช้ปุ่ม "เลือกไฟล์จากเครื่องแทน"';
+    $('dsTable').innerHTML='<div class="dsrow" style="color:var(--muted)">— ไม่พบชุดข้อมูลอัตโนมัติ —</div>';
+    $('dsSum').textContent=''; $('btnLoad').disabled=true;
+    return;
+  }
+
+  const nFiles=DATASETS.reduce((a,d)=>a+d.files.length,0);
+  log('พบ '+DATASETS.length+' ชุดข้อมูล ('+nFiles+' ไฟล์) ผ่าน '+via);
+  await cacheDiscovery();
+  await renderDsMatrix();
+}
+async function cacheDiscovery(){
+  try{ await sesPut({id:'discovery',ts:Date.now(),datasets:DATASETS.map(d=>({key:d.key,prov:d.prov,year:d.year,
+    files:d.files.map(f=>({name:f.name,path:f.path,sha:f.sha,size:f.size}))}))}); }catch(e){}
+}
+function showDsWarn(msg){
+  const el=document.createElement('div'); el.className='dswarn'; el.id='dsWarn'; el.innerHTML='⚠ '+msg;
+  $('dsTable').insertAdjacentElement('afterend',el);
 }
 
-/* fetch file text (prefer cache, else relative data/ path to avoid API rate limits) */
+async function renderDsMatrix(){
+  // cache status per dataset
+  for(const d of DATASETS){
+    let all=d.files.length>0;
+    for(const f of d.files){
+      const c=await idbGet(f.path);
+      const fresh=c && ((f.sha&&c.sha===f.sha) || (!f.sha&&f.size&&c.size===f.size) || (!f.sha&&!f.size));
+      f._cached=!!fresh; if(!fresh) all=false;
+    }
+    d._cached=all;
+  }
+  const provs=[...new Set(DATASETS.map(d=>d.prov))].sort((a,b)=>provTH(a).localeCompare(provTH(b),'th'));
+  const years=[...new Set(DATASETS.map(d=>d.year))].sort();
+  let html=`<div class="dsrow head"><div class="dsprov">จังหวัด</div><div class="dsyears">ปีงบประมาณ (จำนวนไฟล์)</div></div>`;
+  for(const p of provs){
+    const mine=DATASETS.filter(d=>d.prov===p);
+    const on=mine.filter(d=>selDS.has(d.key)).length;
+    const state=on===0?'':(on===mine.length?'checked':'data-ind="1"');
+    html+=`<div class="dsrow"><div class="dsprov"><input type="checkbox" class="dsp" data-p="${p}" ${on===mine.length?'checked':''}>
+      <span>จังหวัด${provTH(p)} <span class="en">${p}</span></span></div><div class="dsyears">`;
+    for(const y of years){
+      const d=mine.find(x=>x.year===y);
+      if(!d){ html+=`<span class="dsyr" style="opacity:.32;cursor:not-allowed">${y} <span class="fc">—</span></span>`; continue; }
+      html+=`<label class="dsyr ${selDS.has(d.key)?'on':''} ${d._cached?'cached':''}" data-k="${d.key}">
+        <input type="checkbox" class="dsy" data-k="${d.key}" ${selDS.has(d.key)?'checked':''}> ${y} <span class="fc">${d.files.length} ไฟล์</span></label>`;
+    }
+    html+=`</div></div>`;
+  }
+  $('dsTable').innerHTML=html;
+  // wire
+  document.querySelectorAll('.dsy').forEach(cb=>cb.onchange=()=>{
+    const k=cb.dataset.k; if(cb.checked) selDS.add(k); else selDS.delete(k); renderDsMatrix();
+  });
+  document.querySelectorAll('.dsp').forEach(cb=>cb.onchange=()=>{
+    const p=cb.dataset.p;
+    DATASETS.filter(d=>d.prov===p).forEach(d=>{ if(cb.checked) selDS.add(d.key); else selDS.delete(d.key); });
+    renderDsMatrix();
+  });
+  // indeterminate state for province boxes
+  document.querySelectorAll('.dsp').forEach(cb=>{
+    const mine=DATASETS.filter(d=>d.prov===cb.dataset.p);
+    const on=mine.filter(d=>selDS.has(d.key)).length;
+    cb.indeterminate = on>0 && on<mine.length;
+  });
+  updateDsSummary();
+  $('srcCap').innerHTML=`พบ <b>${DATASETS.length}</b> ชุดข้อมูล (${provs.length} จังหวัด · ${years.length} ปีงบประมาณ) — เลือกแล้วกด "โหลดและวิเคราะห์"`;
+}
+
+function selectedFiles(){
+  const out=[];
+  DATASETS.filter(d=>selDS.has(d.key)).forEach(d=>d.files.forEach(f=>out.push(f)));
+  return out;
+}
+function updateDsSummary(){
+  const files=selectedFiles();
+  const sets=[...selDS];
+  const bytes=files.reduce((a,f)=>a+(f.size||0),0);
+  const cachedN=files.filter(f=>f._cached).length;
+  $('dsSum').innerHTML = sets.length
+    ? `เลือกแล้ว <b>${sets.length}</b> ชุดข้อมูล · <b>${files.length}</b> ไฟล์${bytes?` · รวม ${humanSize(bytes)}`:''} · อยู่ในแคชแล้ว ${cachedN}/${files.length} ไฟล์`
+    : 'ยังไม่ได้เลือกชุดข้อมูล';
+  $('btnLoad').disabled = files.length===0;
+}
+
+/* fetch file text (prefer cache, else relative path — avoids API rate limits) */
 async function getFileText(f){
-  const cached=await idbGet(f.name);
-  if(f._cached && cached) { log('ใช้แคช: '+f.name); return cached.text; }
-  const url='data/'+encodeURIComponent(f.name);
-  log('ดาวน์โหลด: '+f.name);
-  const r=await fetch(url,{cache:'no-store'});
-  if(!r.ok) throw new Error('โหลดไม่ได้: '+f.name+' ('+r.status+')');
+  const cached=await idbGet(f.path);
+  if(f._cached && cached){ log('ใช้แคช: '+f.name); return cached.text; }
+  log('ดาวน์โหลด: '+f.path);
+  const r=await fetch(f.path.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+  if(!r.ok) throw new Error('โหลดไม่ได้: '+f.path+' ('+r.status+')');
   const text=await r.text();
-  await idbPut({name:f.name,sha:f.sha||null,size:f.size||text.length,text});
+  await idbPut({name:f.path,sha:f.sha||null,size:f.size||text.length,text});
   return text;
 }
 
@@ -345,50 +793,116 @@ function parseCSV(text){
   const out=Papa.parse(text,{header:true,skipEmptyLines:'greedy',dynamicTyping:false});
   return out.data;
 }
+/* แยกวิเคราะห์ CSV ใน Web Worker เพื่อไม่ให้หน้าเว็บค้าง (ถ้าใช้ worker ไม่ได้ จะถอยไปใช้แบบปกติ) */
+function parseCSVAsync(text){
+  return new Promise((resolve)=>{
+    let done=false;
+    try{
+      Papa.parse(text,{header:true,skipEmptyLines:'greedy',dynamicTyping:false,worker:true,
+        complete:r=>{ if(!done){ done=true; resolve(r.data); } },
+        error:()=>{ if(!done){ done=true; resolve(parseCSV(text)); } }
+      });
+    }catch(e){ if(!done){ done=true; resolve(parseCSV(text)); } }
+  });
+}
+/* ประมวลผลเป็นก้อน คืนการควบคุมให้เบราว์เซอร์ระหว่างก้อน */
+async function chunked(arr,fn,size,onProg){
+  for(let i=0;i<arr.length;i+=size){
+    const end=Math.min(i+size,arr.length);
+    for(let j=i;j<end;j++) fn(arr[j]);
+    if(onProg) onProg(end,arr.length);
+    await new Promise(r=>setTimeout(r,0));
+  }
+}
+function setProg(pct,txt){
+  $('prog').classList.add('on');
+  $('progFill').style.width=Math.max(0,Math.min(100,pct)).toFixed(1)+'%';
+  $('progTxt').textContent=txt||'';
+}
+function hideProg(){ $('prog').classList.remove('on'); $('progFill').style.width='0%'; }
+function normalizeRow(r){
+  const v=parseMoney(r.sum_price_agree);
+  const budget=parseMoney(r.project_money);
+  return {
+    pid:String(r.project_id??''), name:String(r.project_name??''),
+    dept:String(r.dept_name??'')||'(ไม่ระบุ)',
+    agency:(String(r.dept_sub_name??'').trim())||'(ไม่ระบุ)',
+    method:String(r.purchase_method_name??''),
+    vendor:String(r.winner_name??'').trim(),
+    tin:String(r.winner_tin??''),
+    v, budget,
+    disc: budget>0 ? (budget-v)/budget*100 : null,
+    cat:classifyWork(String(r.project_name??'')),
+    province:(String(r.province??'').trim())||'(ไม่ระบุ)',
+    year:(String(r.budget_year??'').trim())||'(ไม่ระบุ)',
+    district:String(r.district??''), subdistrict:String(r.subdistrict??''),
+    contract_no:String(r.contract_no??''), contract_date:String(r.contract_date??''),
+    finish:String(r.contract_finish_date??''), status:String(r.contract_status??''),
+    spec: String(r.purchase_method_name??'')==='เฉพาะเจาะจง'
+  };
+}
 function validateColumns(headers){
   const missing=REQUIRED_COLS.filter(c=>!headers.includes(c));
   return missing;
 }
 let MASTER=[]; // normalized rows
-async function loadAndBuild(fileTexts){
-  log('รวมและตัดข้อมูลซ้ำ…');
-  let all=[], headerChecked=false, headers=[];
-  for(const t of fileTexts){
-    const rows=parseCSV(t);
-    if(rows.length){ if(!headerChecked){ headers=Object.keys(rows[0]); headerChecked=true; } all=all.concat(rows); }
+/* โหลดทีละไฟล์ + ตัดซ้ำ + normalize เป็นก้อน (ไม่ค้างหน้าเว็บ) */
+async function buildFromSources(sources){
+  MASTER=[];
+  const seen=new Set();
+  let totalRaw=0, headerChecked=false;
+  for(let i=0;i<sources.length;i++){
+    const s=sources[i];
+    const base=i/sources.length*100, span=100/sources.length;
+    setProg(base,`(${i+1}/${sources.length}) กำลังอ่าน ${s.label}…`);
+    const text=await s.getText();
+    setProg(base+span*0.25,`(${i+1}/${sources.length}) กำลังแยกวิเคราะห์ ${s.label}…`);
+    const rows=await parseCSVAsync(text);
+    if(rows.length && !headerChecked){
+      const missing=validateColumns(Object.keys(rows[0]));
+      if(missing.length) throw new Error('ไฟล์ขาดคอลัมน์ที่จำเป็น: '+missing.join(', ')+'\nต้องมีคอลัมน์: '+REQUIRED_COLS.join(', '));
+      headerChecked=true;
+    }
+    totalRaw+=rows.length;
+    await chunked(rows,r=>{
+      const key=STD_COLS.map(c=>(r[c]??'')).join('\x01');
+      if(seen.has(key)) return;
+      seen.add(key); MASTER.push(normalizeRow(r));
+    },4000,(done,tot)=>setProg(base+span*(0.25+0.75*done/tot),
+      `(${i+1}/${sources.length}) ประมวลผล ${s.label} — ${fmt(done)}/${fmt(tot)} แถว`));
+    log('✓ '+s.label+': '+fmt(rows.length)+' แถว');
+    rows.length=0;
+    await new Promise(r=>setTimeout(r,0));
   }
-  const missing=validateColumns(headers);
-  if(missing.length){ throw new Error('ไฟล์ขาดคอลัมน์ที่จำเป็น: '+missing.join(', ')+'\nต้องมีคอลัมน์: '+REQUIRED_COLS.join(', ')); }
-  // full-row dedupe on standard columns
-  const seen=new Set(); const dedup=[];
-  for(const r of all){
-    const key=STD_COLS.map(c=>(r[c]??'')).join('\x01');
-    if(!seen.has(key)){ seen.add(key); dedup.push(r); }
-  }
-  log('รวม '+all.length+' แถว → ตัดซ้ำเหลือ '+dedup.length+' แถว');
-  // normalize
-  MASTER=dedup.map(r=>{
-    const v=parseMoney(r.sum_price_agree);
-    const budget=parseMoney(r.project_money);
-    return {
-      pid:String(r.project_id??''), name:String(r.project_name??''),
-      dept:String(r.dept_name??'')||'(ไม่ระบุ)',
-      agency:(String(r.dept_sub_name??'').trim())||'(ไม่ระบุ)',
-      method:String(r.purchase_method_name??''),
-      vendor:String(r.winner_name??'').trim(),
-      tin:String(r.winner_tin??''),
-      v, budget,
-      disc: budget>0 ? (budget-v)/budget*100 : null,
-      cat:classifyWork(String(r.project_name??'')),
-      province:(String(r.province??'').trim())||'(ไม่ระบุ)',
-      year:(String(r.budget_year??'').trim())||'(ไม่ระบุ)',
-      district:String(r.district??''), subdistrict:String(r.subdistrict??''),
-      contract_no:String(r.contract_no??''), contract_date:String(r.contract_date??''),
-      finish:String(r.contract_finish_date??''), status:String(r.contract_status??''),
-      spec: String(r.purchase_method_name??'')==='เฉพาะเจาะจง'
-    };
-  });
-  log('เตรียมข้อมูลเสร็จ: '+MASTER.length+' แถว');
+  seen.clear();
+  setProg(100,'เสร็จสิ้น');
+  log('รวม '+fmt(totalRaw)+' แถว → ตัดซ้ำเหลือ '+fmt(MASTER.length)+' แถว');
+}
+
+/* ---------- บันทึก/กู้คืนข้อมูลที่โหลดไว้ (คงอยู่เมื่อรีเฟรชหน้า) ---------- */
+const SESSION_MAX=400000;
+async function saveSession(labels){
+  try{
+    if(MASTER.length>SESSION_MAX){ log('ℹ ข้อมูลใหญ่เกิน '+fmt(SESSION_MAX)+' แถว จึงไม่บันทึกไว้กู้คืน'); return; }
+    const ok=await sesPut({id:'last',ts:Date.now(),rows:MASTER,labels:labels||[],keys:[...selDS]});
+    if(ok) log('💾 บันทึกข้อมูลไว้แล้ว — รีเฟรชหน้าแล้วข้อมูลจะยังอยู่');
+  }catch(e){ log('⚠ บันทึกข้อมูลไม่สำเร็จ: '+e.message); }
+}
+async function restoreSession(){
+  let s=null;
+  try{ s=await sesGet('last'); }catch(e){}
+  if(!s||!s.rows||!s.rows.length) return false;
+  MASTER=s.rows;
+  buildFilters();
+  $('results').classList.remove('hidden');
+  recalc();
+  $('btnToggleSrc').classList.remove('hidden');
+  setSrcCollapsed(true);
+  const when=new Date(s.ts).toLocaleString('th-TH');
+  $('restoreNote').innerHTML=`<div class="rnote"><span>♻ กู้คืนข้อมูลที่โหลดไว้ล่าสุด — <b>${fmt(MASTER.length)}</b> แถว${s.labels&&s.labels.length?' ('+s.labels.join(' · ')+')':''} · บันทึกเมื่อ ${when}</span>
+    <button class="btn ghost sm" id="btnDropSession">🗑 ล้างข้อมูลนี้</button></div>`;
+  $('btnDropSession').onclick=async()=>{ await sesDel('last'); MASTER=[]; $('results').classList.add('hidden'); $('restoreNote').innerHTML=''; setSrcCollapsed(false); log('ล้างข้อมูลที่บันทึกไว้แล้ว'); };
+  return true;
 }
 
 /* ============================================================
@@ -461,10 +975,192 @@ let CUR=null; // current metrics
 function activeRows(){
   return MASTER.filter(r=>(selProv.size===0||selProv.has(r.province)) && (selYear==='ALL'||r.year===selYear));
 }
+let curView='net';
 function recalc(){
   const rows=activeRows();
   CUR=computeMetrics(rows);
-  renderKPIs(rows); renderFlagCards(); renderConc(); renderVendorTable(); renderGraph(); renderTrend();
+  renderKPIs(rows);
+  renderActiveView();
+}
+function renderActiveView(){
+  if(curView==='net'){ renderFlagCards(); renderConc(); renderVendorTable(); renderGraph(); renderTrend(); }
+  else if(curView==='split') renderSplit();
+  else if(curView==='specific') renderSpecific();
+  else if(curView==='pricing') renderPricing();
+}
+function switchView(v){
+  curView=v;
+  document.querySelectorAll('#viewTabs .vtab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));
+  ['net','split','specific','pricing'].forEach(k=>$('view_'+k).classList.toggle('hidden',k!==v));
+  $('vpCard').classList.add('hidden');
+  renderActiveView();
+}
+
+/* ---------- HTML bar helper ---------- */
+function hbars(items,cls){ // items: [{l, v(display), w(0-100)}]
+  return items.map(it=>`<div class="hbar ${cls||''}"><div class="hb-top"><span class="hb-l" title="${it.l}">${it.l}</span><span class="hb-v">${it.v}</span></div><div class="hb-track"><div class="hb-fill" style="width:${Math.max(2,Math.min(100,it.w))}%"></div></div></div>`).join('')||'<span style="font-size:12px;color:var(--muted)">— ไม่มีข้อมูล —</span>';
+}
+
+/* ============================================================
+   VIEW: แบ่งซื้อแบ่งจ้าง
+   ============================================================ */
+let _splitGroups=[];
+function computeSplitGroups(){
+  const rows=activeRows().filter(r=>r.spec && r.vendor!=='' && (r.contract_date||'').trim()!=='');
+  const m=new Map();
+  for(const r of rows){
+    const d=(r.contract_date||'').trim();
+    const k=r.agency+'\x01'+r.vendor+'\x01'+d;
+    let g=m.get(k); if(!g){ g={agency:r.agency,vendor:r.vendor,date:d,n:0,value:0}; m.set(k,g); }
+    g.n++; g.value+=r.v;
+  }
+  return [...m.values()].filter(g=>g.n>=params.splitMin).sort((a,b)=>b.n-a.n||b.value-a.value);
+}
+function renderSplit(){
+  const groups=computeSplitGroups(); _splitGroups=groups;
+  const nContracts=groups.reduce((a,g)=>a+g.n,0);
+  const totVal=groups.reduce((a,g)=>a+g.value,0);
+  const agSet=new Set(groups.map(g=>g.agency));
+  $('sp_kpis').innerHTML=[
+    {l:'กลุ่มเข้าเกณฑ์',v:fmt(groups.length),u:`≥ ${params.splitMin} ฉบับ/วัน (ปรับได้ในพารามิเตอร์)`,cls:'alert'},
+    {l:'สัญญาในกลุ่มเสี่ยง',v:fmt(nContracts),u:'ฉบับ (วิธีเฉพาะเจาะจง)'},
+    {l:'มูลค่ารวมกลุ่มเสี่ยง',v:M(totVal),u:'ล้านบาท'},
+    {l:'หน่วยงานที่พบ',v:fmt(agSet.size),u:'หน่วยงานย่อย'},
+  ].map(k=>`<div class="kpi ${k.cls||''}"><div class="l">${k.l}</div><div class="v mono">${k.v}</div><div class="u">${k.u}</div></div>`).join('');
+  $('sp_cap').innerHTML=`หน่วยงาน + ผู้รับจ้างเดียวกัน ทำสัญญา<b>วิธีเฉพาะเจาะจง</b>ตั้งแต่ <b>${params.splitMin} ฉบับขึ้นไปในวันเดียวกัน</b> — เข้าข่ายเลี่ยงวงเงิน/วิธีจัดหา · คลิกหัวคอลัมน์เพื่อเรียงลำดับ · แสดง ${Math.min(groups.length,150)} กลุ่มแรก`;
+  $('sp_note').innerHTML=`กลุ่ม = หน่วยงานย่อย + ผู้รับจ้าง + วันที่สัญญาเดียวกัน<br>นับเฉพาะวิธีเฉพาะเจาะจง<br>เกณฑ์ขั้นต่ำ <b>${params.splitMin} ฉบับ/วัน</b> ปรับได้ที่แผงพารามิเตอร์ ("แบ่งซื้อ: จำนวนฉบับ/วันขั้นต่ำ")<br><br>ข้อควรระวัง: งานจ้างรายบุคคลจำนวนมาก (เช่น จ้างเหมาบริการรายเดือน) อาจทำสัญญาวันเดียวกันโดยชอบ — ธงนี้เป็นจุดตั้งต้นตรวจ ไม่ใช่ข้อสรุป`;
+  const agCount=new Map();
+  groups.forEach(g=>agCount.set(g.agency,(agCount.get(g.agency)||0)+1));
+  const topAg=[...agCount.entries()].sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const maxC=topAg.length?topAg[0][1]:1;
+  $('sp_bars').innerHTML=hbars(topAg.map(([a,c])=>({l:a,v:c+' กลุ่ม',w:c/maxC*100})),'amber');
+  $('sp_body').innerHTML=groups.slice(0,150).map(g=>{
+    const eA=encodeURIComponent(g.agency),eV=encodeURIComponent(g.vendor),eD=encodeURIComponent(g.date);
+    return `<tr><td>${g.agency}</td><td>${g.vendor}</td><td class="num">${g.date}</td>
+      <td class="num"><span class="tag">${g.n}</span></td><td class="num">${fmt(g.value)}</td><td class="num">${fmt(Math.round(g.value/g.n))}</td>
+      <td><button class="btn ghost" style="font-size:10.5px;padding:2px 7px;border-radius:6px" onclick="openGroupProjects('${eA}','${eV}','${eD}')">ดูรายการ</button></td></tr>`;
+  }).join('')||`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px">ไม่พบกลุ่มเข้าเกณฑ์ในขอบเขตที่เลือก</td></tr>`;
+}
+function exportSplit(){
+  download('split_groups.csv',arrToCSV(_splitGroups.map(g=>({หน่วยงาน:g.agency,ผู้รับจ้าง:g.vendor,วันที่สัญญา:g.date,จำนวนฉบับ:g.n,มูลค่ารวมบาท:g.value,เฉลี่ยต่อฉบับ:Math.round(g.value/g.n)}))));
+}
+
+/* ============================================================
+   VIEW: วิธีเฉพาะเจาะจง
+   ============================================================ */
+let _sxOver=[],_sxAg=[],_sxSmall={years:[],list:[]};
+function renderSpecific(){
+  const rows=activeRows();
+  const n=rows.length, v=rows.reduce((a,r)=>a+r.v,0);
+  const sp=rows.filter(r=>r.spec);
+  const nS=sp.length, vS=sp.reduce((a,r)=>a+r.v,0);
+  const over=sp.filter(r=>r.v>500000).sort((a,b)=>b.v-a.v); _sxOver=over;
+  const spLo=Math.min(params.specLow,params.specHigh), spHi=Math.max(params.specLow,params.specHigh);
+  const le=sp.filter(r=>r.v>=spLo&&r.v<=spHi);
+  const near=sp.filter(r=>r.v>=450000&&r.v<=500000);
+  $('sx_kpis').innerHTML=[
+    {l:'เฉพาะเจาะจง (จำนวน)',v:(n?nS/n*100:0).toFixed(1)+'%',u:fmt(nS)+' จาก '+fmt(n)+' รายการ',cls:'alert'},
+    {l:'เฉพาะเจาะจง (มูลค่า)',v:(v?vS/v*100:0).toFixed(1)+'%',u:M(vS)+' จาก '+M(v)+' ลบ.'},
+    {l:'เกณฑ์ 1: เกิน 500,000',v:fmt(over.length),u:'รายการ (เกินเพดานทั่วไป)',cls:'alert'},
+    {l:'เกณฑ์ 2: ช่วง '+fmt(spLo)+'–'+fmt(spHi),v:fmt(le.length),u:'รายการ (ปรับช่วงได้ในพารามิเตอร์)'},
+    {l:'ชิดเพดาน 450,000–500,000',v:fmt(near.length),u:'รายการ (สัญญาณตั้งวงเงินเลี่ยงเกณฑ์)',cls:'warn'},
+  ].map(k=>`<div class="kpi ${k.cls||''}"><div class="l">${k.l}</div><div class="v mono">${k.v}</div><div class="u">${k.u}</div></div>`).join('');
+  // method mix bars
+  const mN=new Map(),mV=new Map();
+  rows.forEach(r=>{ const k=r.method||'(ไม่ระบุ)'; mN.set(k,(mN.get(k)||0)+1); mV.set(k,(mV.get(k)||0)+r.v); });
+  const topN=[...mN.entries()].sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const topV=[...mV.entries()].sort((a,b)=>b[1]-a[1]).slice(0,6);
+  $('sx_bars_n').innerHTML=hbars(topN.map(([k,c])=>({l:k,v:(n?c/n*100:0).toFixed(1)+'%',w:n?c/n*100:0})));
+  $('sx_bars_v').innerHTML=hbars(topV.map(([k,val])=>({l:k,v:(v?val/v*100:0).toFixed(1)+'%',w:v?val/v*100:0})));
+  // table A: over 500k
+  $('sx_body').innerHTML=over.slice(0,150).map(r=>`<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.v)}</td><td>${r.year}</td></tr>`).join('')
+    ||`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการ</td></tr>`;
+  // table A2 (เกณฑ์ที่ 2): specLow–specHigh pivot agency x year
+  $('sxs_title').textContent=`เกณฑ์ที่ 2: เฉพาะเจาะจงช่วง ${fmt(spLo)}–${fmt(spHi)} บาท (รายหน่วยงาน × รายปีงบประมาณ)`;
+  $('sxs_cap').innerHTML=`จำนวนสัญญาเฉพาะเจาะจงวงเงินช่วง <b>${fmt(spLo)}–${fmt(spHi)} บาท</b> ของแต่ละหน่วยงานในแต่ละปี — ปริมาณสูงผิดปกติอาจสะท้อนการซอยสัญญาใกล้เพดาน · ปรับช่วงได้ในพารามิเตอร์ (กลุ่ม "วิธีเฉพาะเจาะจง") · คลิกแถวเพื่อดูรายการของหน่วยงานนั้น · คลิกหัวคอลัมน์เพื่อเรียงลำดับ`;
+  const yrs=[...new Set(le.map(r=>r.year))].sort();
+  const pm=new Map();
+  le.forEach(r=>{ let a=pm.get(r.agency); if(!a){ a={agency:r.agency,byYear:new Map(),n:0,v:0}; pm.set(r.agency,a); } a.byYear.set(r.year,(a.byYear.get(r.year)||0)+1); a.n++; a.v+=r.v; });
+  const pList=[...pm.values()].sort((a,b)=>b.n-a.n); _sxSmall={years:yrs,list:pList};
+  $('sxs_head').innerHTML='<tr><th>หน่วยงาน</th>'+yrs.map(y=>`<th class="num">ปี ${y}</th>`).join('')+'<th class="num">รวม (ฉบับ)</th><th class="num">มูลค่ารวม (บาท)</th></tr>';
+  $('sxs_body').innerHTML=pList.slice(0,120).map(a=>{
+    const eA=encodeURIComponent(a.agency);
+    return `<tr style="cursor:pointer" onclick="openAgencySpecSmall('${eA}')"><td>${a.agency}</td>`+yrs.map(y=>`<td class="num">${fmt(a.byYear.get(y)||0)}</td>`).join('')+`<td class="num"><b>${fmt(a.n)}</b></td><td class="num">${fmt(Math.round(a.v))}</td></tr>`;
+  }).join('')||`<tr><td colspan="${yrs.length+3}" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการ</td></tr>`;
+  // table B: agencies by %specific
+  const ag=new Map();
+  rows.forEach(r=>{ let a=ag.get(r.agency); if(!a){ a={agency:r.agency,n:0,ns:0,vs:0}; ag.set(r.agency,a); } a.n++; if(r.spec){ a.ns++; a.vs+=r.v; } });
+  const agList=[...ag.values()].filter(a=>a.n>=20).map(a=>({...a,pct:a.ns/a.n*100})).sort((a,b)=>b.pct-a.pct||b.ns-a.ns); _sxAg=agList;
+  $('sxa_body').innerHTML=agList.slice(0,80).map(a=>{
+    const eA=encodeURIComponent(a.agency);
+    return `<tr style="cursor:pointer" onclick="openAgencyProjects('${eA}')"><td>${a.agency}</td><td class="num">${fmt(a.n)}</td><td class="num">${fmt(a.ns)}</td><td class="num"><b>${a.pct.toFixed(1)}%</b></td><td class="num">${fmt(a.vs)}</td></tr>`;
+  }).join('')||`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">ไม่มีหน่วยงานที่มีสัญญา ≥ 20 ฉบับ</td></tr>`;
+}
+function exportSpecOver(){
+  download('specific_over500k.csv',arrToCSV(_sxOver.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,มูลค่าบาท:r.v,ปีงบ:r.year,รหัสโครงการ:r.pid}))));
+}
+function exportSpecAgencies(){
+  download('specific_agencies.csv',arrToCSV(_sxAg.map(a=>({หน่วยงาน:a.agency,สัญญา:a.n,เฉพาะเจาะจง:a.ns,'เปอร์เซ็นต์':a.pct.toFixed(1),มูลค่าเฉพาะเจาะจงบาท:a.vs}))));
+}
+function openAgencySpecSmall(enc){
+  const agency=decodeURIComponent(enc);
+  const spLo=Math.min(params.specLow,params.specHigh), spHi=Math.max(params.specLow,params.specHigh);
+  const rows=activeRows().filter(r=>r.agency===agency&&r.spec&&r.v>=spLo&&r.v<=spHi).sort((a,b)=>b.v-a.v);
+  const totV=rows.reduce((a,r)=>a+r.v,0);
+  const scope=[]; if(selYear!=='ALL') scope.push('ปี '+selYear); else scope.push('รวมทุกปี'); if(selProv.size) scope.push([...selProv].join(', '));
+  openProjectsTable('agency',`เฉพาะเจาะจงช่วง ${fmt(spLo)}–${fmt(spHi)} บาท: `+agency,
+    `ทั้งหมด <b>${fmt(rows.length)}</b> ฉบับ · มูลค่ารวม <b>${fmt(Math.round(totV))}</b> บาท · ขอบเขต: ${scope.join(' / ')}`,
+    rows,'↑ กลับไปหน้าวิเคราะห์เฉพาะเจาะจง','#view_specific');
+}
+function exportSpecSmall(){
+  const {years,list}=_sxSmall;
+  download('specific_le500k_by_agency_year.csv',arrToCSV(list.map(a=>{
+    const o={หน่วยงาน:a.agency};
+    years.forEach(y=>o['ปี'+y]=a.byYear.get(y)||0);
+    o['รวมฉบับ']=a.n; o['มูลค่ารวมบาท']=Math.round(a.v);
+    return o;
+  })));
+}
+
+/* ============================================================
+   VIEW: ราคาและส่วนลด
+   ============================================================ */
+let _prOver=[],_prEbid=[];
+function renderPricing(){
+  const rows=activeRows();
+  const withB=rows.filter(r=>r.budget>0);
+  const zero=withB.filter(r=>Math.abs(r.disc)<0.005);
+  const over=withB.filter(r=>r.disc<-0.005).sort((a,b)=>(b.v-b.budget)-(a.v-a.budget)); _prOver=over;
+  const rnd=rows.filter(r=>r.v>=1000&&r.v%1000===0);
+  const ebidAll=rows.filter(r=>(r.method||'').includes('e-bidding'));
+  const ebid=ebidAll.filter(r=>r.budget>0&&Math.abs(r.disc)<0.005).sort((a,b)=>b.v-a.v); _prEbid=ebid;
+  $('pr_kpis').innerHTML=[
+    {l:'ส่วนลด 0% (ราคากลางเต็ม)',v:(withB.length?zero.length/withB.length*100:0).toFixed(1)+'%',u:fmt(zero.length)+' รายการ',cls:'warn'},
+    {l:'เกินราคากลาง',v:fmt(over.length),u:'รายการ (ส่วนลดติดลบ)',cls:'alert'},
+    {l:'มูลค่าลงท้ายกลม (พัน)',v:(n=>n?fmt(rnd.length):'0')(rows.length),u:(rows.length?(rnd.length/rows.length*100).toFixed(1):0)+'% ของรายการ',cls:'warn'},
+    {l:'e-bidding ส่วนลด ≈ 0%',v:fmt(ebid.length),u:'จาก e-bidding ทั้งหมด '+fmt(ebidAll.length)+' รายการ',cls:'alert'},
+  ].map(k=>`<div class="kpi ${k.cls||''}"><div class="l">${k.l}</div><div class="v mono">${k.v}</div><div class="u">${k.u}</div></div>`).join('');
+  const sr=Math.max(1.05,params.suspectRatio||1.5);
+  $('pr_cap').innerHTML=`ราคาตกลง &gt; ราคากลาง/งบประมาณ (ส่วนลดติดลบ) — ผิดปกติทางบัญชี ต้องมีเหตุผลอนุมัติ · <b>รายการที่สูงเกิน ≥ ${sr} เท่า มีโอกาสสูงว่าข้อมูลต้นทางคลาดเคลื่อน ควรตรวจสอบในระบบ e-GP ก่อนใช้อ้างอิง</b> (ปรับเกณฑ์ได้ในพารามิเตอร์) · คลิกชื่อโครงการเพื่อเปิด e-GP · คลิกหัวคอลัมน์เพื่อเรียงลำดับ`;
+  $('pr_body').innerHTML=over.slice(0,120).map(r=>{
+    const diff=r.v-r.budget;
+    const suspect=r.v>=r.budget*sr;
+    const note=suspect?'<span class="tag">⚠ ข้อมูลอาจคลาดเคลื่อน — ตรวจสอบใน e-GP</span>':'<span style="color:var(--muted2)">-</span>';
+    return `<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.budget)}</td><td class="num">${fmt(r.v)}</td><td class="num" style="color:var(--red);font-weight:700">+${fmt(diff)}</td><td>${note}</td></tr>`;
+  }).join('')||`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการเกินราคากลางในขอบเขตที่เลือก</td></tr>`;
+  $('pre_body').innerHTML=ebid.slice(0,120).map(r=>`<tr><td>${projLink(r)}</td><td>${r.agency}</td><td>${r.vendor||'-'}</td><td class="num">${fmt(r.v)}</td><td>${r.year}</td></tr>`).join('')
+    ||`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">ไม่พบรายการ</td></tr>`;
+  const agC=new Map(); over.forEach(r=>agC.set(r.agency,(agC.get(r.agency)||0)+1));
+  const topAg=[...agC.entries()].sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const mx=topAg.length?topAg[0][1]:1;
+  $('pr_bars').innerHTML=hbars(topAg.map(([a,c])=>({l:a,v:c+' รายการ',w:c/mx*100})),'red');
+}
+function exportPricingOver(){
+  const sr=Math.max(1.05,params.suspectRatio||1.5);
+  download('over_budget.csv',arrToCSV(_prOver.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,ราคากลางบาท:r.budget,ตกลงบาท:r.v,เกินบาท:Math.round(r.v-r.budget),หมายเหตุ:(r.v>=r.budget*sr?'ข้อมูลอาจคลาดเคลื่อน ตรวจสอบใน e-GP':''),ปีงบ:r.year,รหัสโครงการ:r.pid}))));
+}
+function exportPricingEbid(){
+  download('ebidding_zero_discount.csv',arrToCSV(_prEbid.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,มูลค่าบาท:r.v,ปีงบ:r.year,รหัสโครงการ:r.pid}))));
 }
 
 /* ============================================================
@@ -483,12 +1179,12 @@ function renderKPIs(rows){
   $('kpiRow').innerHTML=items.map(k=>`<div class="kpi ${k.cls||''}"><div class="l">${k.l}</div><div class="v mono">${k.v}</div><div class="u">${k.u}</div></div>`).join('');
 }
 const PATTERNS=[
-  {key:'flag_capture',name:'Capture',desc:'ผูกหน่วยงานเดียว มูลค่าสูง'},
-  {key:'flag_method_lock',name:'Method-lock',desc:'เฉพาะเจาะจง 100%'},
-  {key:'flag_cross_type',name:'Cross-type',desc:'ทำงานข้ามหลายประเภท'},
-  {key:'flag_high_spread',name:'High-spread',desc:'เชื่อมหน่วยงานจำนวนมาก'},
-  {key:'flag_single_source_dep',name:'Single-source (หน่วยงาน)',desc:'หน่วยงานทุ่มงบรายเดียว',agency:true},
-  {key:'flag_small_vendor_pool',name:'Vendor pool (หน่วยงาน)',desc:'สัญญาเยอะ ผู้รับจ้างวนน้อยราย',agency:true}
+  {key:'flag_capture',name:'Capture',desc:'ผูกหน่วยงานเดียว มูลค่าสูง',tip:'ผู้รับจ้างที่รับงานจากหน่วยงานเดียวเท่านั้น และมูลค่ารวมเกินเกณฑ์ Capture — สัญญาณผูกติดหน่วยงานเดียว ควรตรวจว่าเป็นความสัมพันธ์พิเศษหรือไม่'},
+  {key:'flag_method_lock',name:'Method-lock',desc:'เฉพาะเจาะจง 100%',tip:'ผู้รับจ้างมูลค่าสูงที่ได้งานผ่านวิธีเฉพาะเจาะจงทุกสัญญา (ไม่เคยผ่านการแข่งขันราคาเลย) — รัฐอาจเสียโอกาสได้ราคาที่ดีกว่าจากการแข่งขัน'},
+  {key:'flag_cross_type',name:'Cross-type',desc:'ทำงานข้ามหลายประเภท',tip:'ผู้รับจ้างที่ทำงานหลากหลายประเภทเกินปกติ (ถึงเกณฑ์จำนวนประเภท+มูลค่า) เช่นทำทั้งถนน ป่า อาคาร ยา — ผิดธรรมชาติของความเชี่ยวชาญเฉพาะทาง'},
+  {key:'flag_high_spread',name:'High-spread',desc:'เชื่อมหน่วยงานจำนวนมาก',tip:'ผู้รับจ้างที่เชื่อมโยงกับหน่วยงานจำนวนมาก (ถึงเกณฑ์) เป็นศูนย์กลางเครือข่าย — อาจเป็นผู้เล่นรายใหญ่ที่มีอิทธิพลกว้าง'},
+  {key:'flag_single_source_dep',name:'Single-source (หน่วยงาน)',desc:'หน่วยงานทุ่มงบรายเดียว',agency:true,tip:'หน่วยงานที่ทุ่มงบส่วนใหญ่ (เกินเกณฑ์ %) ให้ผู้รับจ้างรายเดียว และมีงบรวมสูง — พึ่งพารายเดียวมากเกินไป เสี่ยงต่อการผูกขาด'},
+  {key:'flag_small_vendor_pool',name:'Vendor pool (หน่วยงาน)',desc:'สัญญาเยอะ ผู้รับจ้างวนน้อยราย',agency:true,tip:'หน่วยงานที่มีสัญญาจำนวนมากแต่วนเวียนอยู่กับผู้รับจ้างไม่กี่ราย (อัตราส่วนต่ำ) — ตลาดปิด ผู้เล่นหน้าเดิม'}
 ];
 let selFlag=null;
 function renderFlagCards(){
@@ -497,7 +1193,7 @@ function renderFlagCards(){
     const arr=p.agency?c.agencies:c.vendors;
     const n=arr.filter(x=>x[p.key]).length;
     const sel=selFlag===p.key?'sel':'';
-    return `<div class="flag ${n?'':'off'} ${sel}" data-k="${p.key}"><div class="fn">${fmt(n)}</div><div class="fl">${p.name}</div><div class="fd">${p.desc}</div></div>`;
+    return `<div class="flag ${n?'':'off'} ${sel}" data-k="${p.key}"><div class="fn">${fmt(n)}</div><div class="fl plabel">${p.name}<span class="info r" tabindex="0" onclick="event.stopPropagation()">i<span class="tip">${p.tip}</span></span></div><div class="fd">${p.desc}</div></div>`;
   }).join('');
   document.querySelectorAll('#flagCards .flag').forEach(el=>{
     el.onclick=()=>{ const k=el.dataset.k; selFlag=(selFlag===k)?null:k; renderFlagCards(); renderVendorTable(); };
@@ -522,13 +1218,16 @@ function renderVendorTable(){
   const rows=list.slice(0,60);
   $('vtBody').innerHTML=rows.map(v=>{
     const tags=vendorFlags(v).map(t=>`<span class="tag">${t}</span>`).join('');
-    return `<tr data-v="${encodeURIComponent(v.vendor)}" style="cursor:pointer">
-      <td>${v.vendor}</td><td class="num">${fmt(v.n)}</td><td class="num">${fmt(v.value)}</td>
+    const enc=encodeURIComponent(v.vendor);
+    return `<tr data-v="${enc}" style="cursor:pointer">
+      <td>${v.vendor} <button class="btn ghost" style="font-size:10.5px;padding:2px 7px;border-radius:6px;margin-left:2px" onclick="event.stopPropagation();openVendorProjects('${enc}')">รายละเอียด</button></td>
+      <td class="num">${fmt(v.n)}</td><td class="num">${fmt(v.value)}</td>
       <td class="num">${fmt(v.n_agency)}</td><td class="num">${fmt(v.n_type)}</td>
       <td class="num">${(v.pct_specific*100).toFixed(0)}%</td><td>${tags||'-'}</td></tr>`;
   }).join('')||`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px">ไม่มีข้อมูลในขอบเขตที่เลือก</td></tr>`;
   document.querySelectorAll('#vtBody tr[data-v]').forEach(tr=>{
-    tr.onclick=()=>{ const name=decodeURIComponent(tr.dataset.v); showVendorDetail(name); focusNode('V:'+name); };
+    tr.onclick=()=>{ const name=decodeURIComponent(tr.dataset.v); showVendorDetail(name); focusNode('V:'+name);
+      $('netgraph').scrollIntoView({behavior:'smooth',block:'center'}); };
   });
 }
 
@@ -577,10 +1276,11 @@ function showVendorDetail(vendor){
   $('detailBox').innerHTML=`<div style="font-weight:800;color:var(--ink);margin-bottom:6px">${v.vendor}</div>
     <div class="kvrow"><span>มูลค่ารวม</span><b>${M(v.value)} ลบ.</b></div>
     <div class="kvrow"><span>สัญญา</span><b>${fmt(v.n)}</b></div>
-    <div class="kvrow"><span>หน่วยงาน</span><b>${fmt(v.n_agency)}</b></div>
-    <div class="kvrow"><span>ประเภทงาน</span><b>${fmt(v.n_type)}</b></div>
-    <div class="kvrow"><span>%เฉพาะเจาะจง</span><b>${(v.pct_specific*100).toFixed(0)}%</b></div>
+    <div class="kvrow"><span class="plabel">หน่วยงาน<span class="info r" tabindex="0">i<span class="tip">จำนวนหน่วยงาน (dept_sub_name) ที่ผู้รับจ้างรายนี้เคยรับงานด้วย — น้อย = ผูกติดไม่กี่หน่วยงาน, มาก = กระจายหลายหน่วยงาน</span></span></span><b>${fmt(v.n_agency)}</b></div>
+    <div class="kvrow"><span class="plabel">ประเภทงาน<span class="info r" tabindex="0">i<span class="tip">จำนวนลักษณะงานที่ต่างกันที่ผู้รับจ้างรายนี้ทำ — ยิ่งมากยิ่งข้ามสายงาน (ใช้ตัดสินธง Cross-type)</span></span></span><b>${fmt(v.n_type)}</b></div>
+    <div class="kvrow"><span class="plabel">%เฉพาะเจาะจง<span class="info r" tabindex="0">i<span class="tip">สัดส่วนสัญญาที่ได้มาโดยวิธีเฉพาะเจาะจง (ไม่แข่งขัน) — 100% หมายถึงไม่เคยผ่านการแข่งราคาเลย (ใช้ตัดสินธง Method-lock)</span></span></span><b>${(v.pct_specific*100).toFixed(0)}%</b></div>
     <div style="margin:7px 0">${tags}</div>
+    <button class="btn sec sm" style="width:100%;margin:4px 0 2px" onclick="openVendorProjects('${encodeURIComponent(v.vendor)}')">📋 รายละเอียดการเป็นคู่สัญญา (ทุกโครงการ)</button>
     <div style="font-size:11px;font-weight:700;color:var(--muted);margin-top:8px">หน่วยงานหลัก</div>
     ${topAg.map(([a,val])=>`<div class="kvrow"><span style="font-size:11.5px">${a.length>26?a.slice(0,25)+'…':a}</span><b>${M(val)}ลบ.</b></div>`).join('')}
     ${yrs.length>1?`<div style="font-size:11px;font-weight:700;color:var(--muted);margin-top:8px">รายปี</div>`+yrs.map(([y,val])=>`<div class="kvrow"><span>${y}</span><b>${M(val)}ลบ.</b></div>`).join(''):''}`;
@@ -591,11 +1291,12 @@ function showAgencyDetail(agency,val){
   const vM=new Map(); rows.forEach(r=>vM.set(r.vendor,(vM.get(r.vendor)||0)+r.v));
   const topV=[...vM.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5);
   let tags=''; if(a){ if(a.flag_single_source_dep)tags+='<span class="tag">Single-source</span>'; if(a.flag_small_vendor_pool)tags+='<span class="tag">Vendor pool</span>'; }
-  $('detailBox').innerHTML=`<div style="font-weight:800;color:var(--ink);margin-bottom:6px">${agency}</div>
+  const encA=encodeURIComponent(agency);
+  $('detailBox').innerHTML=`<div style="font-weight:800;color:var(--ink);margin-bottom:6px">${agency} <button class="btn ghost" style="font-size:10.5px;padding:2px 7px;border-radius:6px;vertical-align:middle" onclick="openAgencyProjects('${encA}')">รายละเอียด</button></div>
     <div class="kvrow"><span>มูลค่ารวม (หน่วยงาน)</span><b>${M(val)} ลบ.</b></div>
     ${a?`<div class="kvrow"><span>ผู้รับจ้าง</span><b>${fmt(a.n_vendor)}</b></div>
-    <div class="kvrow"><span>HHI (กระจุกตัว)</span><b>${a.hhi.toFixed(2)}</b></div>
-    <div class="kvrow"><span>รายใหญ่สุดครอง</span><b>${(a.top_vendor_share*100).toFixed(0)}%</b></div>`:''}
+    <div class="kvrow"><span class="plabel">HHI (กระจุกตัว)<span class="info r" tabindex="0">i<span class="tip">ดัชนี Herfindahl–Hirschman: วัดว่างบของหน่วยงานกระจุกที่ผู้รับจ้างไม่กี่รายแค่ไหน = ผลรวมของ(ส่วนแบ่งมูลค่าแต่ละราย)² ค่า 0–1 · ยิ่งเข้าใกล้ 1 ยิ่งกระจุก (1.0 = จ้างรายเดียว 100%) เกิน 0.25 ถือว่ากระจุกสูง</span></span></span><b>${a.hhi.toFixed(2)}</b></div>
+    <div class="kvrow"><span class="plabel">รายใหญ่สุดครอง<span class="info r" tabindex="0">i<span class="tip">สัดส่วนมูลค่าที่ผู้รับจ้างรายใหญ่ที่สุดเพียงรายเดียวได้รับ จากงบทั้งหมดของหน่วยงานนี้ (ใช้ตัดสินธง Single-source dependence)</span></span></span><b>${(a.top_vendor_share*100).toFixed(0)}%</b></div>`:''}
     ${tags?`<div style="margin:7px 0">${tags}</div>`:''}
     <div style="font-size:11px;font-weight:700;color:var(--muted);margin-top:8px">ผู้รับจ้างหลัก</div>
     ${topV.map(([v,val])=>`<div class="kvrow"><span style="font-size:11.5px">${v.length>26?v.slice(0,25)+'…':v}</span><b>${M(val)}ลบ.</b></div>`).join('')}`;
@@ -605,6 +1306,64 @@ function netFind(q){
   const v=CUR.vendors.find(x=>x.vendor===q)||CUR.vendors.find(x=>x.vendor.includes(q));
   if(v){ if(window._nmap&&window._nmap['V:'+v.vendor]){ focusNode('V:'+v.vendor); } showVendorDetail(v.vendor); }
   else $('detailBox').innerHTML=`<span style="color:var(--muted)">ไม่พบ "${q}"</span>`;
+}
+
+/* ---------- generic projects detail table (vendor / agency / split-group) ---------- */
+const EGP_LINK='https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=';
+let _vpRows=[],_vpTitle='',_vpMode='vendor',_vpReturn='.gside';
+function projLink(r){
+  const pid=(r.pid||'').trim();
+  return pid?`<a href="${EGP_LINK}${encodeURIComponent(pid)}" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:underline dotted">${r.name||'(ไม่ระบุชื่อ)'}</a>`:(r.name||'(ไม่ระบุชื่อ)');
+}
+function openProjectsTable(mode,title,capHTML,rows,backLabel,returnSel){
+  _vpRows=rows; _vpTitle=title; _vpMode=mode; _vpReturn=returnSel||'#viewTabs';
+  $('vpTitle').textContent=title;
+  $('vpCap').innerHTML=capHTML;
+  $('vpBack').textContent=backLabel||'↑ กลับ';
+  const secondCol = mode==='vendor' ? 'หน่วยงาน' : 'ผู้รับจ้าง';
+  $('vpHead').innerHTML=`<tr><th>โครงการ</th><th>${secondCol}</th><th>ลักษณะงาน</th><th>วิธีจัดหา</th><th class="num">มูลค่า (บาท)</th><th>ปีงบ</th><th>รหัสโครงการ</th></tr>`;
+  $('vpBody').innerHTML=rows.map(r=>{
+    const second = mode==='vendor' ? r.agency : (r.vendor||'-');
+    return `<tr><td>${projLink(r)}</td><td>${second}</td><td>${r.cat}</td><td>${r.method||'-'}</td><td class="num">${fmt(r.v)}</td><td>${r.year}</td><td class="mono" style="font-size:11px">${(r.pid||'').trim()||'-'}</td></tr>`;
+  }).join('')||`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px">ไม่มีโครงการในขอบเขตที่เลือก</td></tr>`;
+  $('vpCard').classList.remove('hidden');
+  $('vpCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function openVendorProjects(enc){
+  const vendor=decodeURIComponent(enc);
+  const rows=activeRows().filter(r=>r.vendor===vendor).sort((a,b)=>b.v-a.v);
+  const totV=rows.reduce((a,r)=>a+r.v,0);
+  const scope=[]; if(selYear!=='ALL') scope.push('ปี '+selYear); else scope.push('รวมทุกปี'); if(selProv.size) scope.push([...selProv].join(', '));
+  openProjectsTable('vendor','รายละเอียดการเป็นคู่สัญญา: '+vendor,
+    `ทั้งหมด <b>${fmt(rows.length)}</b> โครงการ · มูลค่ารวม <b>${fmt(totV)}</b> บาท · ขอบเขต: ${scope.join(' / ')}`,
+    rows,'↑ กลับไปแผนผังความสัมพันธ์', curView==='net'?'.gside':'#viewTabs');
+}
+function openAgencyProjects(enc,retSel,backLabel){
+  const agency=decodeURIComponent(enc);
+  const rows=activeRows().filter(r=>r.agency===agency).sort((a,b)=>b.v-a.v);
+  const totV=rows.reduce((a,r)=>a+r.v,0);
+  const scope=[]; if(selYear!=='ALL') scope.push('ปี '+selYear); else scope.push('รวมทุกปี'); if(selProv.size) scope.push([...selProv].join(', '));
+  openProjectsTable('agency','โครงการทั้งหมดของหน่วยงาน: '+agency,
+    `ทั้งหมด <b>${fmt(rows.length)}</b> โครงการ · มูลค่ารวม <b>${fmt(totV)}</b> บาท · ขอบเขต: ${scope.join(' / ')}`,
+    rows, backLabel||'↑ กลับไปแผนผังความสัมพันธ์', retSel||(curView==='net'?'.gside':'#viewTabs'));
+}
+function openGroupProjects(encA,encV,encD){
+  const agency=decodeURIComponent(encA),vendor=decodeURIComponent(encV),date=decodeURIComponent(encD);
+  const rows=activeRows().filter(r=>r.agency===agency&&r.vendor===vendor&&r.spec&&(r.contract_date||'').trim()===date).sort((a,b)=>b.v-a.v);
+  const totV=rows.reduce((a,r)=>a+r.v,0);
+  openProjectsTable('group',`กลุ่มแบ่งซื้อ: ${vendor} × ${agency}`,
+    `วันที่สัญญา <b>${date}</b> · <b>${fmt(rows.length)}</b> ฉบับ (วิธีเฉพาะเจาะจง) · มูลค่ารวม <b>${fmt(totV)}</b> บาท`,
+    rows,'↑ กลับไปตารางแบ่งซื้อแบ่งจ้าง','#view_split');
+}
+function closeVendorProjects(){
+  $('vpCard').classList.add('hidden');
+  const el=document.querySelector(_vpReturn)||document.querySelector('#viewTabs');
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function exportVendorProjects(){
+  if(!_vpRows.length) return;
+  const rows=_vpRows.map(r=>({โครงการ:r.name,หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,ลักษณะงาน:r.cat,วิธีจัดหา:r.method,มูลค่าบาท:r.v,ปีงบ:r.year,รหัสโครงการ:r.pid,จังหวัด:r.province}));
+  download('projects_'+_vpTitle.slice(0,24).replace(/[^\wก-๙]/g,'_')+'.csv',arrToCSV(rows));
 }
 
 /* ============================================================
@@ -691,7 +1450,8 @@ function renderTrend(){
   window._persistRows=persistRows;
   $('persistBody').innerHTML=persistRows.slice(0,80).map(r=>{
     const tags=r.flags.map(f=>`<span class="tag">${f}</span>`).join('');
-    return `<tr><td>${r.agency}</td><td>${r.vendor}</td><td class="num"><b>${r.nY}</b></td><td>${r.years}</td><td class="num">${fmt(r.n)}</td><td class="num">${fmt(r.value)}</td><td>${tags||'-'}</td></tr>`;
+    const eA=encodeURIComponent(r.agency);
+    return `<tr><td>${r.agency} <button class="btn ghost" style="font-size:10.5px;padding:2px 7px;border-radius:6px;margin-left:2px" onclick="openAgencyProjects('${eA}','#trendCard','↑ กลับไปตารางความคงอยู่')">รายละเอียด</button></td><td>${r.vendor}</td><td class="num"><b>${r.nY}</b></td><td>${r.years}</td><td class="num">${fmt(r.n)}</td><td class="num">${fmt(r.value)}</td><td>${tags||'-'}</td></tr>`;
   }).join('')||`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:18px">ไม่มีคู่ที่พบหลายปี</td></tr>`;
 }
 
@@ -705,12 +1465,6 @@ function exportVendors(){ download('network_vendors.csv',arrToCSV(CUR.vendors.ma
   ผู้รับจ้าง:v.vendor,สัญญา:v.n,มูลค่าบาท:Math.round(v.value),หน่วยงาน:v.n_agency,ประเภทงาน:v.n_type,
   เปอร์เซ็นต์เฉพาะเจาะจง:(v.pct_specific*100).toFixed(1),หน่วยงานหลัก:v.main_agency,
   capture:v.flag_capture,method_lock:v.flag_method_lock,cross_type:v.flag_cross_type,high_spread:v.flag_high_spread})))); }
-function exportAgencies(){ download('network_agencies.csv',arrToCSV(CUR.agencies.map(a=>({
-  หน่วยงาน:a.agency,สัญญา:a.n,มูลค่าบาท:Math.round(a.value),ผู้รับจ้าง:a.n_vendor,HHI:a.hhi.toFixed(3),
-  รายใหญ่สุดครองเปอร์เซ็นต์:(a.top_vendor_share*100).toFixed(1),ผู้รับจ้างรายใหญ่:a.top_vendor,
-  single_source_dep:a.flag_single_source_dep,small_vendor_pool:a.flag_small_vendor_pool})))); }
-function exportPairs(){ download('network_pairs.csv',arrToCSV(CUR.edges.sort((a,b)=>b.value-a.value).map(e=>({
-  หน่วยงาน:e.agency,ผู้รับจ้าง:e.vendor,สัญญา:e.n,มูลค่าบาท:Math.round(e.value)})))); }
 function exportPersist(){ const rows=(window._persistRows||[]).map(r=>({
   หน่วยงาน:r.agency,ผู้รับจ้าง:r.vendor,จำนวนปี:r.nY,ปีที่พบ:r.years,สัญญารวม:r.n,มูลค่ารวมบาท:Math.round(r.value),ธงหลายปี:r.flags.join(' | ')}));
   download('trend_persistence.csv',arrToCSV(rows)); }
@@ -753,49 +1507,154 @@ function buildFilters(){
 /* ============================================================
    MAIN FLOW
    ============================================================ */
-async function runLoad(fileTexts){
+async function runLoad(sources,labels){
   try{
     $('statusBox').classList.add('on');
-    await loadAndBuild(fileTexts);
+    $('restoreNote').innerHTML='';
+    await buildFromSources(sources);
     buildFilters();
     $('results').classList.remove('hidden');
     recalc();
+    hideProg();
     log('✓ วิเคราะห์เสร็จสมบูรณ์');
+    await saveSession(labels);
+    $('btnToggleSrc').classList.remove('hidden');
+    setSrcCollapsed(true);
     $('results').scrollIntoView({behavior:'smooth',block:'start'});
-  }catch(e){ log('❌ '+e.message.replace(/\n/g,'<br>')); alert(e.message); }
+  }catch(e){ hideProg(); log('❌ '+e.message.replace(/\n/g,'<br>')); alert(e.message); }
 }
 async function loadFromDiscovered(){
+  const files=selectedFiles();
+  if(!files.length){ alert('กรุณาเลือกอย่างน้อย 1 ชุดข้อมูล'); return; }
   $('btnLoad').disabled=true; $('statusBox').innerHTML=''; $('statusBox').classList.add('on');
   try{
-    const texts=[];
-    for(const f of discovered){ texts.push(await getFileText(f)); }
-    await runLoad(texts);
-    renderFileList(); // refresh cache badges
-  }catch(e){ log('❌ '+e.message); alert(e.message); }
+    const labels=[...selDS].map(k=>{ const d=DATASETS.find(x=>x.key===k); return d?('จังหวัด'+provTH(d.prov)+' ปี '+d.year):k; });
+    log('ชุดข้อมูลที่เลือก: '+labels.join(' · '));
+    const sources=files.map(f=>({label:f.name,getText:()=>getFileText(f)}));
+    await runLoad(sources,labels);
+    renderDsMatrix();
+  }catch(e){ hideProg(); log('❌ '+e.message); alert(e.message); }
   $('btnLoad').disabled=false;
 }
+
+/* ---------- generic table sorting (คลิกหัวคอลัมน์เพื่อเรียง — ทุกตาราง) ---------- */
+const THAI_MON={'ม.ค.':1,'ก.พ.':2,'มี.ค.':3,'เม.ย.':4,'พ.ค.':5,'มิ.ย.':6,'ก.ค.':7,'ส.ค.':8,'ก.ย.':9,'ต.ค.':10,'พ.ย.':11,'ธ.ค.':12};
+function thaiDateVal(s){
+  const m=String(s).trim().match(/^(\d{1,2})\s+(ม\.ค\.|ก\.พ\.|มี\.ค\.|เม\.ย\.|พ\.ค\.|มิ\.ย\.|ก\.ค\.|ส\.ค\.|ก\.ย\.|ต\.ค\.|พ\.ย\.|ธ\.ค\.)\s+(\d{2,4})$/);
+  if(!m) return null; let y=+m[3]; if(y<100) y+=2500;
+  return y*10000+THAI_MON[m[2]]*100+(+m[1]);
+}
+function cellNumVal(s){
+  const t=String(s).replace(/[,%+฿\s]/g,'');
+  if(t===''||!/^-?[\d.]+$/.test(t)) return null;
+  const v=parseFloat(t); return isFinite(v)?v:null;
+}
+document.addEventListener('click',e=>{
+  const th=e.target.closest('th'); if(!th) return;
+  const table=th.closest('table'); if(!table) return;
+  const tbody=table.querySelector('tbody'); if(!tbody) return;
+  const idx=[...th.parentNode.children].indexOf(th);
+  const rows=[...tbody.querySelectorAll(':scope > tr')].filter(r=>r.children.length>idx && !r.querySelector('td[colspan]'));
+  if(rows.length<2) return;
+  const texts=rows.map(r=>(r.children[idx].textContent||'').trim());
+  const sample=texts.filter(t=>t!=='').slice(0,30);
+  let type='str';
+  if(sample.length){
+    const nd=sample.filter(t=>thaiDateVal(t)!=null).length;
+    const nn=sample.filter(t=>cellNumVal(t)!=null).length;
+    if(nd/sample.length>=0.7) type='date'; else if(nn/sample.length>=0.7) type='num';
+  }
+  const dir=th.dataset.sortDir==='asc'?'desc':'asc';
+  [...th.parentNode.children].forEach(x=>{ x.removeAttribute('data-sort-dir'); x.textContent=x.textContent.replace(/\s*[▲▼]$/,''); });
+  th.dataset.sortDir=dir; th.textContent=th.textContent+(dir==='asc'?' ▲':' ▼');
+  const keyed=rows.map((r,i)=>{ const t=texts[i]; let k;
+    if(type==='date'){ k=thaiDateVal(t); if(k==null) k=-Infinity; }
+    else if(type==='num'){ k=cellNumVal(t); if(k==null) k=-Infinity; }
+    else k=t;
+    return {r,k}; });
+  keyed.sort((a,b)=> type==='str' ? String(a.k).localeCompare(String(b.k),'th') : (a.k-b.k));
+  if(dir==='desc') keyed.reverse();
+  keyed.forEach(o=>tbody.appendChild(o.r));
+});
 
 /* ---------- wire up events ---------- */
 loadParams(); paramsToUI();
 $('btnRefresh').onclick=discover;
-$('btnClearCache').onclick=async()=>{ await idbClear(); log('ล้างแคชแล้ว'); discover(); };
+/* ---------- popup วิธีใช้ ---------- */
+function openModal(id){ $(id).classList.add('on'); document.body.style.overflow='hidden'; }
+function closeModal(id){ $(id).classList.remove('on'); document.body.style.overflow=''; }
+$('btnHelpOffline').onclick=()=>openModal('mOffline');
+$('btnHelpData').onclick=()=>openModal('mData');
+document.querySelectorAll('.mx[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
+document.querySelectorAll('.mask').forEach(m=>m.onclick=e=>{ if(e.target===m) closeModal(m.id); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.mask.on').forEach(m=>closeModal(m.id)); });
+/* ---------- ดาวน์โหลดเครื่องมือเป็นไฟล์ HTML ไฟล์เดียว ---------- */
+$('btnSaveHtml').onclick=async()=>{
+  const btn=$('btnSaveHtml'); const old=btn.textContent; btn.disabled=true; btn.textContent='กำลังเตรียมไฟล์…';
+  try{
+    let html=null;
+    try{
+      const r=await fetch(location.href.split('#')[0],{cache:'no-store'});
+      if(r.ok){ const t=await r.text(); if(/<html/i.test(t)) html=t; }
+    }catch(e){}
+    if(!html){ html='<!DOCTYPE html>\n'+document.documentElement.outerHTML; }
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='network.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    log('⬇ ดาวน์โหลดเครื่องมือแล้ว (network.html) — เปิดไฟล์บนเครื่องได้ทันที แล้วใช้ปุ่ม "เลือกไฟล์จากเครื่องแทน" เพื่อโหลดข้อมูล');
+    $('statusBox').classList.add('on');
+  }catch(e){ alert('ดาวน์โหลดไม่สำเร็จ: '+e.message); }
+  btn.disabled=false; btn.textContent=old;
+};
+$('btnSelAll').onclick=()=>{ DATASETS.forEach(d=>selDS.add(d.key)); renderDsMatrix(); };
+$('btnSelNone').onclick=()=>{ selDS.clear(); renderDsMatrix(); };
+$('btnClearCache').onclick=async()=>{ await idbClear(); await sesDel('last'); await sesDel('discovery');
+  MASTER=[]; $('results').classList.add('hidden'); $('restoreNote').innerHTML='';
+  log('ล้างแคชและข้อมูลที่บันทึกไว้แล้ว'); discover(); };
 $('btnLoad').onclick=loadFromDiscovered;
+/* ---------- ย่อ/ขยายกล่องแหล่งข้อมูล ---------- */
+function setSrcCollapsed(c){
+  const card=$('srcCard'); card.classList.toggle('collapsed',c);
+  const b=$('btnToggleSrc'); if(b) b.textContent=c?'▼ ขยาย':'▲ ย่อ';
+}
+$('btnToggleSrc').onclick=(e)=>{ e.stopPropagation(); setSrcCollapsed(!$('srcCard').classList.contains('collapsed')); };
+$('srcHead').onclick=(e)=>{
+  // คลิกที่หัวข้อเพื่อสลับย่อ/ขยาย แต่ไม่ให้ชนปุ่มอื่นในแถบ
+  if(e.target.closest('#srcBtns') && e.target.id!=='btnToggleSrc') return;
+  if($('btnToggleSrc').classList.contains('hidden')) return; // ยังไม่โหลด ไม่ต้อง toggle
+  if(e.target.id==='btnToggleSrc') return; // ปล่อยให้ handler ปุ่มจัดการ
+  setSrcCollapsed(!$('srcCard').classList.contains('collapsed'));
+};
 $('filePick').onchange=e=>{
   const files=[...e.target.files]; if(!files.length) return;
   $('statusBox').innerHTML=''; $('statusBox').classList.add('on'); log('อ่านไฟล์จากเครื่อง '+files.length+' ไฟล์…');
-  Promise.all(files.map(f=>f.text())).then(texts=>runLoad(texts));
+  const sources=files.map(f=>({label:f.name,getText:()=>f.text()}));
+  runLoad(sources,['ไฟล์จากเครื่อง ('+files.length+' ไฟล์)']);
 };
 $('netSearch').oninput=e=>{ if(e.target.value.length>1) netFind(e.target.value); };
 $('btnDefaults').onclick=()=>{ params={...DEFAULTS}; saveParams(); paramsToUI(); if(CUR) recalc(); };
 for(const k in DEFAULTS){ const el=$('p_'+k); if(el) el.onchange=()=>{ uiToParams(); if(CUR) recalc(); }; }
 $('expVendor').onclick=exportVendors;
-$('expAgency').onclick=exportAgencies;
-$('expPairs').onclick=exportPairs;
 $('expPersist').onclick=exportPersist;
+$('vpBack').onclick=closeVendorProjects;
+$('vpExport').onclick=exportVendorProjects;
+/* ---------- เมนูเลือกการวิเคราะห์ ---------- */
+document.querySelectorAll('#viewTabs .vtab').forEach(b=>b.onclick=()=>switchView(b.dataset.view));
+$('sp_export').onclick=exportSplit;
+$('sx_export').onclick=exportSpecOver;
+$('sxs_export').onclick=exportSpecSmall;
+$('sxa_export').onclick=exportSpecAgencies;
+$('pr_export').onclick=exportPricingOver;
+$('pre_export').onclick=exportPricingEbid;
 window.__STATE=()=>({MASTER,CUR,params,selProv:[...selProv],selYear});
 
-/* auto-discover on load */
-discover();
+/* auto-discover + กู้คืนข้อมูลที่โหลดไว้ล่าสุด */
+(async()=>{
+  await restoreSession();
+  await discover();
+})();
 
 </script>
 </body>
